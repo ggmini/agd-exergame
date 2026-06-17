@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b2mg2225ydxwy"]
+
+[ext_resource type="Script" uid="uid://c4ag0mmyswm7b" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bu6ry0256iy2" path="res://web_socket_client.gd" id="1_ig7tw"]
+
+[node name="Main" type="Node3D" unique_id=507771889 node_paths=PackedStringArray("web_socket_client")]
+script = ExtResource("1_0xm2m")
+web_socket_client = NodePath("WebSocketClient")
+
+[node name="WebSocketClient" type="Node" parent="." unique_id=1188439433 node_paths=PackedStringArray("text_edit")]
+script = ExtResource("1_ig7tw")
+text_edit = NodePath("../CanvasLayer/Control/HBoxContainer/TextEdit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1422886898]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1800040772]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=192951597]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11688369
+anchor_top = 0.1
+anchor_right = 0.88311636
+anchor_bottom = 0.23348767
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/HBoxContainer" unique_id=67960190]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Enter IP-Address"
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1362429369]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Connect"
+
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Button" to="WebSocketClient" method="_on_button_pressed"]
