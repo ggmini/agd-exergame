@@ -1,0 +1,78 @@
+using System;
+using UnityEngine;
+using WebSocketSharp;
+using WebSocketSharp.Server;
+using SimpleJSON;
+
+
+namespace Testing
+{
+    public class SafeGame : WebSocketBehavior
+    {
+        protected override void OnMessage(MessageEventArgs e)
+        {
+            //Debug.Log(e.Data);
+            WebSocketHub.OnMessageReceived?.Invoke(e.Data);
+        }
+
+        protected override void OnOpen()
+        {
+            base.OnOpen();
+            Debug.Log("Device connected");
+        }
+    }
+
+    public static class WebSocketHub
+    {
+        public static Action<string> OnMessageReceived;
+    }
+
+    public class SafeServer : MonoBehaviour
+    {
+
+        public GameObject cube;
+        public String ip;
+        public int port;
+
+        private float roll;
+
+        WebSocketServer wssv;
+
+        void Start()
+        {
+            Debug.Log("Starting Server");
+            String FullAddress = "ws://" + ip + ":" + Convert.ToInt32(port);
+            wssv = new WebSocketServer(FullAddress);
+            wssv.AddWebSocketService<SafeGame>("/safe");
+            WebSocketHub.OnMessageReceived += OnSafeGameMessage;
+
+            wssv.Start();
+            Console.ReadKey(true);
+        }
+
+        private void Update()
+        {
+            Vector3 rot = new Vector3(0f, 0f, roll * Mathf.Rad2Deg);
+            cube.transform.eulerAngles = rot;
+            //Debug.Log(cube.transform.eulerAngles);
+        }
+
+        void OnSafeGameMessage(string message)
+        {
+            Message msg = JsonUtility.FromJson<Message>(message);
+            roll = msg.roll;
+        }
+
+        private void OnApplicationQuit()
+        {
+            wssv.Stop();
+        }
+    }
+
+    [Serializable]
+    public class Message
+    {
+        public float roll;
+    }
+}
+
