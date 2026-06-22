@@ -32,10 +32,12 @@ namespace Testing
     {
 
         public GameObject cube;
-        public String ip;
-        public int port;
+        [SerializeField]
+        string ip;
+        [SerializeField]
+        int port;
 
-        private float roll;
+        float roll;
 
         WebSocketServer wssv;
         
@@ -50,8 +52,8 @@ namespace Testing
             }
 
             Debug.Log("Starting Server");
-            String FullAddress = "ws://" + ip + ":" + Convert.ToInt32(port);
-            wssv = new WebSocketServer(FullAddress);
+            string fullAddress = "ws://" + ip + ":" + Convert.ToInt32(port);
+            wssv = new WebSocketServer(fullAddress);
             wssv.AddWebSocketService<SafeGame>("/safe");
             WebSocketHub.OnMessageReceived += OnSafeGameMessage;
 

@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Testing.SafeServer
   cube: {fileID: 147120823}
-  ip: 192.168.0.12
+  ip: -1
   port: 9080
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
