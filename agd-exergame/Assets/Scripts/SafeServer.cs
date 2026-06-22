@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using UnityEngine;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -37,9 +38,17 @@ namespace Testing
         private float roll;
 
         WebSocketServer wssv;
-
+        
         void Start()
         {
+            if (ip == "-1") {
+                string strHostName = Dns.GetHostName();
+                IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
+                IPAddress[] addr = ipEntry.AddressList;
+
+                ip = addr[0].ToString();
+            }
+
             Debug.Log("Starting Server");
             String FullAddress = "ws://" + ip + ":" + Convert.ToInt32(port);
             wssv = new WebSocketServer(FullAddress);
