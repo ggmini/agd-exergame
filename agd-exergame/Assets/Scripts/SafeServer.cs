@@ -1,12 +1,12 @@
+using SimpleJSON;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using WebSocketSharp;
 using WebSocketSharp.Server;
-using SimpleJSON;
 
-public class SafeServer : MonoBehaviour
-{
+public class SafeServer : MonoBehaviour {
 
     public GameObject cube;
     [SerializeField]
@@ -18,13 +18,17 @@ public class SafeServer : MonoBehaviour
 
     WebSocketServer wssv;
         
-    void Start()
-    {
+    void Start() {
         if (ip == "-1") {
             string strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
-            IPAddress[] addr = ipEntry.AddressList;
+            List<IPAddress> addr = new();
+            IPAddress[] entries = ipEntry.AddressList;
 
+            foreach (IPAddress entry in ipEntry.AddressList) {
+                if (entry.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    addr.Add(entry);
+            }
             ip = addr[0].ToString();
         }
 
@@ -38,28 +42,24 @@ public class SafeServer : MonoBehaviour
         Console.ReadKey(true);
     }
 
-    private void Update()
-    {
+    private void Update() {
         Vector3 rot = new Vector3(0f, 0f, roll * Mathf.Rad2Deg);
         cube.transform.eulerAngles = rot;
         //Debug.Log(cube.transform.eulerAngles);
     }
 
-    void OnSafeGameMessage(string message)
-    {
+    void OnSafeGameMessage(string message) {
         Message msg = JsonUtility.FromJson<Message>(message);
         roll = msg.roll;
     }
 
-    private void OnApplicationQuit()
-    {
+    private void OnApplicationQuit() {
         wssv.Stop();
     }
 }
 
 [Serializable]
-public class Message
-{
+public class Message {
     public float roll;
 }
 
