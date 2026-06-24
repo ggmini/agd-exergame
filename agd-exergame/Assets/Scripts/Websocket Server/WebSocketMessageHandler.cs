@@ -2,7 +2,7 @@ using UnityEngine;
 using WebSocketSharp.Server;
 using WebSocketSharp;
 
-public class SafeGame : WebSocketBehavior
+public class WebSocketMessageHandler : WebSocketBehavior
 {
     protected override void OnMessage(MessageEventArgs e)
     {

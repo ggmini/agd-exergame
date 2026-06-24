@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
-using WebSocketSharp;
 using WebSocketSharp.Server;
 
 public class SafeServer : MonoBehaviour {
@@ -35,7 +34,7 @@ public class SafeServer : MonoBehaviour {
         Debug.Log("Starting Server");
         string fullAddress = "ws://" + ip + ":" + Convert.ToInt32(port);
         wssv = new WebSocketServer(fullAddress);
-        wssv.AddWebSocketService<SafeGame>("/safe");
+        wssv.AddWebSocketService<WebSocketMessageHandler>("/safe");
         WebSocketHub.OnMessageReceived += OnSafeGameMessage;
 
         wssv.Start();
