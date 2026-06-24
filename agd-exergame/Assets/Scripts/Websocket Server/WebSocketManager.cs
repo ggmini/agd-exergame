@@ -5,8 +5,7 @@ using UnityEditor.Search;
 using UnityEngine;
 using WebSocketSharp.Server;
 
-public class WebSocketManager : MonoBehaviour
-{
+public class WebSocketManager : MonoBehaviour {
 
     [SerializeField]
     string ip;
@@ -16,20 +15,16 @@ public class WebSocketManager : MonoBehaviour
     private static WebSocketManager instance;
 
     private WebSocketMessage msg;
-    public WebSocketMessage Msg { get { return msg; }}
-    
+    public WebSocketMessage Msg { get { return msg; } }
+
     WebSocketServer wssv;
 
-    public static WebSocketManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
+    public static WebSocketManager Instance {
+        get {
+            if (instance == null) {
                 instance = FindAnyObjectByType<WebSocketManager>();
 
-                if (instance == null)
-                {
+                if (instance == null) {
                     GameObject obj = new GameObject();
                     obj.name = typeof(WebSocketManager).Name;
                     instance = obj.AddComponent<WebSocketManager>();
@@ -40,32 +35,25 @@ public class WebSocketManager : MonoBehaviour
     }
 
 
-    void Awake()
-    {
-        if (instance != null && instance != this)
-        {
+    void Awake() {
+        if (instance != null && instance != this) {
             Destroy(gameObject);
-        }
-        else
-        {
+        } else {
             instance = this;
         }
     }
 
 
-    void Start()
-    {
+    void Start() {
         DontDestroyOnLoad(gameObject);
-        
-        if (ip == "-1")
-        {
+
+        if (ip == "-1") {
             string strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
             List<IPAddress> addr = new();
             IPAddress[] entries = ipEntry.AddressList;
 
-            foreach (IPAddress entry in ipEntry.AddressList)
-            {
+            foreach (IPAddress entry in ipEntry.AddressList) {
                 if (entry.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     addr.Add(entry);
             }
@@ -82,13 +70,11 @@ public class WebSocketManager : MonoBehaviour
         Console.ReadKey(true);
     }
 
-    public void OnMessage(string message)
-    {
+    public void OnMessage(string message) {
         msg = JsonUtility.FromJson<WebSocketMessage>(message);
     }
 
-    private void OnApplicationQuit()
-    {
+    private void OnApplicationQuit() {
         wssv.Stop();
     }
 }
