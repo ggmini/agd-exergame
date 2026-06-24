@@ -7,7 +7,7 @@ public class WebSocketMessageHandler : WebSocketBehavior
     protected override void OnMessage(MessageEventArgs e)
     {
         //Debug.Log(e.Data);
-        WebSocketHub.OnMessageReceived?.Invoke(e.Data);
+        WebSocketManager.Instance.OnMessage(e.Data);
     }
 
     protected override void OnOpen()

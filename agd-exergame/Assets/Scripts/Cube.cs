@@ -1,0 +1,18 @@
+using UnityEngine;
+
+public class Cube : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (WebSocketManager.Instance.Msg == null) return;
+        float roll = WebSocketManager.Instance.Msg.roll;
+        transform.eulerAngles = new Vector3(0, roll, 0);
+    }
+}
