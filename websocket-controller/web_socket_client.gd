@@ -20,7 +20,7 @@ func _ready():
 
 
 func attempt_connection():
-	var address: String = "ws://" + text_edit.text + ":9080"
+	var address: String = "ws://" + text_edit.text + ":9080/general"
 	# Initiate connection to the given URL.
 	var err = socket.connect_to_url(address)
 	if err == OK:
@@ -56,7 +56,8 @@ func _physics_process(delta: float) -> void:
 				#print("< Got binary data from server: %d bytes" % packet.size())
 		if !msg.is_empty():
 			socket.send_text(str(msg))
-		
+			print(msg)
+			
 	# `WebSocketPeer.STATE_CLOSING` means the socket is closing.
 	# It is important to keep polling for a clean close.
 	elif state == WebSocketPeer.STATE_CLOSING:

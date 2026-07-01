@@ -17,6 +17,7 @@ func _ready():
 	#print(magnet)
 	initial_yaw = atan2(-magnet.x, magnet.z) 
 
+#func _process(delta):
 func _physics_process(delta):
 	var magnet: Vector3 = Input.get_magnetometer().rotated(-Vector3.FORWARD, rotation.z).rotated(Vector3.RIGHT, rotation.x)
 	var gravity: Vector3 = Input.get_gravity()
@@ -38,9 +39,12 @@ func _physics_process(delta):
 	#print(roll)
 	
 	var msg: Dictionary = {
+		"roll": str(roll),
 		"pitch": str(pitch),
 		"yaw": str(yaw),
-		"roll": str(roll)
+		"accel_x": str(0.5),
+		"accel_y": str(0.5),
+		"accel_z": str(0.5),
 	}
 	web_socket_client.msg = msg
 	

@@ -15,6 +15,13 @@ run/main_scene="uid://b2mg2225ydxwy"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[input_devices]
+
+sensors/enable_accelerometer=true
+sensors/enable_gravity=true
+sensors/enable_gyroscope=true
+sensors/enable_magnetometer=true
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
