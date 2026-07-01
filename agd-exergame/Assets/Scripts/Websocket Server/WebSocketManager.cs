@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using UnityEditor.Search;
 using UnityEngine;
 using WebSocketSharp.Server;
 
 public class WebSocketManager : MonoBehaviour {
 
     [SerializeField]
-    string ip;
-    [SerializeField]
-    int port;
+    string ip = "-1";
+    int port = 9800;
 
     private static WebSocketManager instance;
 
@@ -18,6 +16,19 @@ public class WebSocketManager : MonoBehaviour {
     public WebSocketMessage Msg { get { return msg; } }
 
     WebSocketServer wssv;
+
+    public void Restart() {
+        if (wssv == null) {
+            StartServer();
+            return;
+        }
+
+
+        Debug.Log("Stopping Server");
+        wssv.Stop();
+        StartServer();
+
+    }
 
     public static WebSocketManager Instance {
         get {
@@ -43,10 +54,7 @@ public class WebSocketManager : MonoBehaviour {
         }
     }
 
-
-    void Start() {
-        DontDestroyOnLoad(gameObject);
-
+    void StartServer() {
         if (ip == "-1") {
             string strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
@@ -65,8 +73,16 @@ public class WebSocketManager : MonoBehaviour {
         wssv = new WebSocketServer(fullAddress);
         wssv.AddWebSocketService<WebSocketMessageHandler>("/general");
         //WebSocketHub.OnMessageReceived += OnSafeGameMessage;
+        Debug.Log($"Server started at {fullAddress}");
 
         wssv.Start();
+    }
+
+    void Start() {
+        DontDestroyOnLoad(gameObject);
+
+        StartServer();
+
         Console.ReadKey(true);
     }
 
