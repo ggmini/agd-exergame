@@ -7,11 +7,12 @@ public class Goal : MonoBehaviour {
         gm = FindAnyObjectByType<BallRollGameManager>();
     }
 
-    void OnTriggerEnter(Collider other) {
+    //TODO
+    /*void OnTriggerEnter(Collider other) {
         if (other.gameObject == null)
             return;
         if (other.gameObject.tag == "ball")
             gm.BallHitTarget(other.gameObject);
-    }
+    }*/
 
 }
