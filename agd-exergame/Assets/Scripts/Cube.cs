@@ -10,7 +10,9 @@ public class Cube : MonoBehaviour {
     void Update() {
         if (WebSocketManager.Instance.Msg == null)
             return;
+        
         float roll = WebSocketManager.Instance.Msg.roll;
-        transform.eulerAngles = new Vector3(0, roll, 0);
+        
+        transform.eulerAngles = new Vector3(0.0f, 0.0f, roll * Mathf.Rad2Deg);
     }
 }
