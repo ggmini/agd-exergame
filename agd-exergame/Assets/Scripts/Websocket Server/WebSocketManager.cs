@@ -8,7 +8,7 @@ public class WebSocketManager : MonoBehaviour {
 
     [SerializeField]
     string ip = "-1";
-    int port = 9800;
+    int port = 9080;
 
     private static WebSocketManager instance;
 
