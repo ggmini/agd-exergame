@@ -13,6 +13,6 @@ public class SafeGameWheel : MonoBehaviour
         if (WebSocketManager.Instance.Msg == null) return;
 
         Vector3 rot = new Vector3(0.0f, 0.0f, WebSocketManager.Instance.Msg.roll * Mathf.Rad2Deg);
-        transform.eulerAngles = new Vector3(0.0f, 0.0f, WebSocketManager.Instance.Msg.roll);
+        transform.eulerAngles = rot;
     }
 }
