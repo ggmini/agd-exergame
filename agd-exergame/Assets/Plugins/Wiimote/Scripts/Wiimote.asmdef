@@ -1,0 +1,30 @@
+{
+    "name": "Wiimote",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Android",
+        "iOS",
+        "Switch2",
+        "Switch",
+        "PS4",
+        "PS5",
+        "QNX",
+        "tvOS",
+        "VisionOS",
+        "WebGL",
+        "WindowsStandalone32Server",
+        "WindowsStandalone64Server",
+        "GameCoreXboxOne",
+        "XboxOne",
+        "GameCoreScarlett"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
