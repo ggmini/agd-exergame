@@ -49,13 +49,6 @@ public class ExtDataDemo : MonoBehaviour {
                 wiimote.SendPlayerLED(x == 0, x == 1, x == 2, x == 3);
         GUILayout.EndHorizontal();
 
-        if(wiimote != null && wiimote.Type == WiimoteType.PROCONTROLLER) {
-        	float[] ls = wiimote.WiiUPro.GetLeftStick01();
-        	float[] rs = wiimote.WiiUPro.GetRightStick01();
-        	GUILayout.Label("LS: "+ls[0]+","+ls[1]);
-        	GUILayout.Label("RS: "+rs[0]+","+rs[1]);
-        }
-
         GUILayout.EndVertical();
 
         if (wiimote != null)

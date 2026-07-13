@@ -89,13 +89,6 @@ public enum ExtensionController
     NONE, 
     /// A Nunchuck Controller
     NUNCHUCK, 
-    /// A Classic Controller
-    CLASSIC, 
-    /// A Classic Controller Pro.
-    CLASSIC_PRO,
-    /// A Wii U Pro Controller.  Although a Wii U Pro Controller is not technically an extension controller it is treated
-    /// like one when communicating to a bluetooth host.
-    WIIU_PRO, 
     /// An activated Wii Motion Plus with no extension controllers in passthrough mode.
     MOTIONPLUS,
     /// An activated Wii Motion Plus with a Nunchuck in passthrough mode.
@@ -104,8 +97,6 @@ public enum ExtensionController
     /// An activated Wii Motion Plus with a Classic Controller in passthrough mode. 
     /// \warning Classic Controller passthrough is currently not supported
     MOTIONPLUS_CLASSIC,
-	/// Guitar Hero controller
-	GUITAR
 }
 
 public enum AccelCalibrationStep {

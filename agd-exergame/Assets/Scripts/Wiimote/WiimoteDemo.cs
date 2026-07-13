@@ -190,29 +190,7 @@ public class WiimoteDemo : MonoBehaviour {
                 GUILayout.Label("Stick: " + data.stick[0] + ", " + data.stick[1]);
                 GUILayout.Label("C: " + data.c);
                 GUILayout.Label("Z: " + data.z);
-            } else if (wiimote.current_ext == ExtensionController.CLASSIC) {
-                GUILayout.Label("Classic Controller:", bold);
-                ClassicControllerData data = wiimote.ClassicController;
-                GUILayout.Label("Stick Left: " + data.lstick[0] + ", " + data.lstick[1]);
-                GUILayout.Label("Stick Right: " + data.rstick[0] + ", " + data.rstick[1]);
-                GUILayout.Label("Trigger Left: " + data.ltrigger_range);
-                GUILayout.Label("Trigger Right: " + data.rtrigger_range);
-                GUILayout.Label("Trigger Left Button: " + data.ltrigger_switch);
-                GUILayout.Label("Trigger Right Button: " + data.rtrigger_switch);
-                GUILayout.Label("A: " + data.a);
-                GUILayout.Label("B: " + data.b);
-                GUILayout.Label("X: " + data.x);
-                GUILayout.Label("Y: " + data.y);
-                GUILayout.Label("Plus: " + data.plus);
-                GUILayout.Label("Minus: " + data.minus);
-                GUILayout.Label("Home: " + data.home);
-                GUILayout.Label("ZL: " + data.zl);
-                GUILayout.Label("ZR: " + data.zr);
-                GUILayout.Label("D-Up: " + data.dpad_up);
-                GUILayout.Label("D-Down: " + data.dpad_down);
-                GUILayout.Label("D-Left: " + data.dpad_left);
-                GUILayout.Label("D-Right: " + data.dpad_right);
-            }
+            } 
             else if (wiimote.current_ext == ExtensionController.MOTIONPLUS)
             {
                 GUILayout.Label("Wii Motion Plus:", bold);
@@ -233,48 +211,6 @@ public class WiimoteDemo : MonoBehaviour {
                     wmpOffset = Vector3.zero;
                 GUILayout.Label("Offset: " + wmpOffset.ToString());
             }
-            else if (wiimote.current_ext == ExtensionController.WIIU_PRO)
-            {
-                GUILayout.Label("Wii U Pro Controller:", bold);
-                WiiUProData data = wiimote.WiiUPro;
-                GUILayout.Label("Stick Left: "+data.lstick[0]+", "+data.lstick[1]);
-                GUILayout.Label("Stick Right: "+data.rstick[0]+", "+data.rstick[1]);
-                GUILayout.Label("A: "+data.a);
-                GUILayout.Label("B: "+data.b);
-                GUILayout.Label("X: "+data.x);
-                GUILayout.Label("Y: "+data.y);
-
-                GUILayout.Label("D-Up: "   +data.dpad_up);
-                GUILayout.Label("D-Down: " +data.dpad_down);
-                GUILayout.Label("D-Left: " +data.dpad_left);
-                GUILayout.Label("D-Right: "+data.dpad_right);
-
-                GUILayout.Label("Plus: "+data.plus);
-                GUILayout.Label("Minus: "+data.minus);
-                GUILayout.Label("Home: "+data.home);
-
-                GUILayout.Label("L: "+data.l);
-                GUILayout.Label("R: "+data.r);
-                GUILayout.Label("ZL: "+data.zl);
-                GUILayout.Label("ZR: "+data.zr);
-            }
-			else if (wiimote.current_ext == ExtensionController.GUITAR) {
-				GUILayout.Label ("Guitar", bold);
-				GuitarData data = wiimote.Guitar;
-				float[] stick = data.GetStick01 ();
-				GUILayout.Label ("Stick: " + stick [0] + ", " + stick [1]);
-				GUILayout.Label ("Slider: " + (data.has_slider ? Convert.ToString (data.GetSlider01 ()) : "unsupported"));
-				GUILayout.Label ("Green: " + data.green);
-				GUILayout.Label ("Red: " + data.red);
-				GUILayout.Label ("Yellow: " + data.yellow);
-				GUILayout.Label ("Blue: " + data.blue);
-				GUILayout.Label ("Orange: " + data.orange);
-				GUILayout.Label ("Strum Up: " + data.strum_up);
-				GUILayout.Label ("Strum Down: " + data.strum_down);
-				GUILayout.Label ("Minus: " + data.minus);
-				GUILayout.Label ("Plus: " + data.plus);
-				GUILayout.Label ("Whammy: " + data.GetWhammy01());
-			}
             GUILayout.EndScrollView();
         } else {
             scrollPosition = Vector2.zero;

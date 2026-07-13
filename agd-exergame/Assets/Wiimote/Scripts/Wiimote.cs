@@ -31,19 +31,6 @@ public class Wiimote
         }
     }
 
-    /// If a Classic Controller is currently connected to the Wii Remote's extension port,
-    /// this contains all relevant Classic Controller data as it is reported by
-    /// the Wiimote.  If no Classic Controller is connected, this is \c null.
-    ///
-    /// \sa current_ext
-    public ClassicControllerData ClassicController {
-        get {
-            if(current_ext == ExtensionController.CLASSIC)
-                return (ClassicControllerData)_Extension;
-            return null;
-        }
-    }
-
     /// If a Wii Motion Plus is currently connected to the Wii Remote's extension port,
     /// and has been activated by ActivateWiiMotionPlus(), this contains all relevant 
     /// Wii Motion Plus controller data as it is reported by the Wiimote.  If no
@@ -57,32 +44,6 @@ public class Wiimote
             return null;
         }
     }
-
-    /// If this Wiimote is a Wii U Pro Controller,
-    /// this contains all relevant Pro Controller data as it is reported by
-    /// the Controller.  If this Wiimote is not a Wii U Pro Controller, this is \c null.
-    ///
-    /// \sa current_ext
-    public WiiUProData WiiUPro {
-        get {
-            if(current_ext == ExtensionController.WIIU_PRO)
-                return (WiiUProData)_Extension;
-            return null;
-        }
-    }
-
-	/// If this Wiimote is a Guitar Hero Guitar Controller,
-	/// this contains all relevant Guitar data as it is reported by
-	/// the Controller.  If this Wiimote is not a Guitar Controller, this is \c null.
-	///
-	/// \sa current_ext
-	public GuitarData Guitar {
-		get {
-			if(current_ext == ExtensionController.GUITAR)
-				return (GuitarData)_Extension;
-			return null;
-		}
-	}
 
     private WiimoteData _Extension;
 
@@ -220,36 +181,12 @@ public class Wiimote
             _current_ext = ExtensionController.MOTIONPLUS_CLASSIC;
             _Extension = null;
         }
-        else if (val == ID_ClassicPro)
-        {
-            _current_ext = ExtensionController.CLASSIC_PRO;
-            _Extension = null;
-        }
         else if (val == ID_Nunchuck || val == ID_Nunchuck2)
         {
             _current_ext = ExtensionController.NUNCHUCK;
             if (_Extension == null || _Extension.GetType() != typeof(NunchuckData))
                 _Extension = new NunchuckData(this);
         }
-        else if (val == ID_Classic)
-        {
-            _current_ext = ExtensionController.CLASSIC;
-            if (_Extension == null || _Extension.GetType() != typeof(ClassicControllerData))
-                _Extension = new ClassicControllerData(this);
-        }
-        else if (val == ID_WiiUPro)
-        {
-            _current_ext = ExtensionController.WIIU_PRO;
-            _Type = WiimoteType.PROCONTROLLER;
-            if (_Extension == null || _Extension.GetType() != typeof(WiiUProData))
-                _Extension = new WiiUProData(this);
-        }
-		else if (val == ID_Guitar)
-		{
-			_current_ext = ExtensionController.GUITAR;
-			if (_Extension == null || _Extension.GetType() != typeof(GuitarData))
-				_Extension = new GuitarData(this);
-		}
         else
         {
             _current_ext = ExtensionController.NONE;
