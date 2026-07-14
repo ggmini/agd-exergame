@@ -258,7 +258,8 @@ GameObject:
   - component: {fileID: 811318614}
   - component: {fileID: 811318613}
   - component: {fileID: 811318612}
-  - component: {fileID: 811318611}
+  - component: {fileID: 811318616}
+  - component: {fileID: 811318617}
   m_Layer: 0
   m_Name: Wiimote
   m_TagString: Untagged
@@ -266,18 +267,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &811318611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811318610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f16f7ec43f6a094d86e4f1abe1c3fbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wiimote_Input
 --- !u!65 &811318612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -371,6 +360,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &811318616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811318610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c32392b4c8b6b419c389ac36f76364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WiimoteTester
+  input: {fileID: 811318617}
+--- !u!114 &811318617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811318610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f16f7ec43f6a094d86e4f1abe1c3fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wiimote_Input
+  wiimote:
+    RumbleOn: 0
 --- !u!1 &1862018897
 GameObject:
   m_ObjectHideFlags: 0

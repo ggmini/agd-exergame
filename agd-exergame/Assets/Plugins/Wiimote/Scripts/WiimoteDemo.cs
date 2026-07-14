@@ -15,6 +15,7 @@ public class WiimoteDemo : MonoBehaviour {
     private Quaternion initial_rotation;
 
     private Wiimote wiimote;
+    public Wiimote Wiimote { get => wiimote; }
 
     private Vector2 scrollPosition;
 
