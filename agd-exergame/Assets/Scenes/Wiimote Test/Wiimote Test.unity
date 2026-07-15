@@ -356,7 +356,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2.2232}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -374,7 +374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WiimoteTester
   input: {fileID: 811318617}
-  readAccel: 0
 --- !u!114 &811318617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +388,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Wiimote_Input
   isPressedA: 0
   isPressedB: 0
+  gestureThreshold: 1.2
+  gestureCooldown: 0.3
+  OnSwingForward:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwingLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwingRight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwingUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &811318618
 Rigidbody:
   m_ObjectHideFlags: 0
