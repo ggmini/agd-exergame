@@ -12,12 +12,16 @@ public class FinalCuttingStation : SandwichAssemblyStation
     private Vector3 diagonal;
 
     private float t = 0;
+    private float t2 = 0;
+    private float runningCounter = 0;
+    private int CurrentExtreme = 0;
+    private int DepthCounter = 0;
 
     protected override void Start()
     {
         base.Start();
-        topLeft = Table.transform.position + new Vector3(-0.5f, 0.3f, 0.5f);
-        bottomRight = Table.transform.position + new Vector3(0.5f, 0.3f, -0.5f);
+        topLeft = Knife.transform.position + new Vector3(-0.2f, 0, 0.2f);
+        bottomRight = Knife.transform.position + new Vector3(0.2f, 0, -0.2f);
         diagonal = topLeft - bottomRight;
     }
 
@@ -32,6 +36,22 @@ public class FinalCuttingStation : SandwichAssemblyStation
         accumDelta = Vector2.zero;
         t += mouseDelta.x * Speed * Time.fixedDeltaTime;
         t = Mathf.Clamp(t, 0, 1);
+        runningCounter += (Mathf.Abs(t - t2));
+        t2 = t;
+        if ((t == 0 || t == 1) && (int)t != CurrentExtreme)
+        {
+            CurrentExtreme = (int)t;
+            DepthCounter++;
+            if (DepthCounter >= 7)
+            {
+                SplitSandwich();
+                return;
+            }
+            else if (t == 0)
+            {
+                SeparateLayer(0);
+            }
+        }
 
         Vector3 targetPos = GetNextPoint(t);
 
@@ -40,7 +60,22 @@ public class FinalCuttingStation : SandwichAssemblyStation
 
     Vector3 GetNextPoint(float t)
     {
-        return bottomRight + diagonal * t;
+        Debug.Log(DepthCounter + t);
+        return bottomRight + diagonal * t + new Vector3(0, -0.03f, 0) * runningCounter;
     }
+
+
+    private void SeparateLayer(int Layer)
+    {
+
+    }
+
+    private void SplitSandwich()
+    {
+
+
+        OnStationCleared?.Invoke(this);
+    }
+
 
 }

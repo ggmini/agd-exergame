@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class SandwichAssemblyStation : MonoBehaviour
 {
+    public static Action<SandwichAssemblyStation> OnStationCleared;
+
     public GameObject Table;
     public bool isActiveStation = false;
 

@@ -13,7 +13,7 @@ public class AssemblyStation : SandwichAssemblyStation
     private Vector3 HeldItemStartingPos;
 
     private int NextLayer = 0;
-    private float LayerHeight = 0.1f;
+    private float LayerHeight = 0.05f;
 
     private Vector2 accumDelta;
     private float t;
@@ -54,7 +54,8 @@ public class AssemblyStation : SandwichAssemblyStation
 
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (HeldItem == null)
         {
             Vector2 mouseDelta = accumDelta;
@@ -90,14 +91,18 @@ public class AssemblyStation : SandwichAssemblyStation
         HeldItem = null;
         HeldItemStartingPos = Vector3.zero;
         Pointer.GetComponent<MeshRenderer>().enabled = true;
-    }
 
+        if (NextLayer >= 5)
+        {
+            OnStationCleared?.Invoke(this);
+        }
+    }
 
     Vector3 GetNextTargetPosition()
     {
         Bounds b = Table.GetComponent<Renderer>().bounds;
         Vector3 target = new(b.center.x, b.max.y, b.center.z);
-        target.y += (0.05f + NextLayer * LayerHeight);
+        target.y += (0.01f + NextLayer * LayerHeight);
 
         return target;
     }

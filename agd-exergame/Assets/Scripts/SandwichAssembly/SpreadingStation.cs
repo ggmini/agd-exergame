@@ -5,6 +5,7 @@ public class SpreadingStation : SandwichAssemblyStation
 {
     public Rigidbody ButterKnife;
     public AnimationCurve pathCurve;
+    public GameObject[] ButterLayers;
     public float Speed = 5f;
 
     private Vector3 startPos;
@@ -56,12 +57,22 @@ public class SpreadingStation : SandwichAssemblyStation
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
-        
-        if (BoxEntered) NextLayer();
+        if (BoxEntered)
+        {
+            NextLayer();
+            BoxEntered = false;
+        }
     }
 
     private void NextLayer()
     {
+        if (Layers >= 3)
+        {
+            OnStationCleared?.Invoke(this);
+            return;
+        }
+
+        ButterLayers[Layers].SetActive(true);
         Layers++;
         BoxEntered = false;
     }

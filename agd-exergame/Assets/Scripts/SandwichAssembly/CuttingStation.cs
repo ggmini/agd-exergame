@@ -4,8 +4,6 @@ using UnityEngine.InputSystem;
 
 public class CuttingStation : SandwichAssemblyStation
 {
-    public event Action<SandwichAssemblyStation> OnStationCleared;
-
     public Rigidbody Knife;
     public float Speed = 10f;
     public float YOffsetCeiling = 2f;
