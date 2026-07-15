@@ -85,6 +85,11 @@ public class WiimoteInput : MonoBehaviour {
 		Debug.Log(accelCorrection);
 	}
 
+	public float GetAccelX() {
+		float accel = wiimote.Accel.GetCalibratedAccelData()[0];
+		return accel;
+	}
+
 	Vector3 GetAccelVector() {
 		float accel_x;
 		float accel_y;

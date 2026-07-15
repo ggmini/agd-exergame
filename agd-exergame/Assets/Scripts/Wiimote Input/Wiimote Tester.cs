@@ -18,8 +18,11 @@ public class WiimoteTester : MonoBehaviour {
     void Update() {
         if (!input.IsActive) return;
         transform.localRotation = input.Rotation;
-        if (readAccel)
-            rb.linearVelocity = input.Acceleration;
+        if (readAccel) {
+            Vector3 vel = rb.linearVelocity;
+            vel.x = input.GetAccelX();
+			rb.linearVelocity = vel;
+		}
     }
 
 }
