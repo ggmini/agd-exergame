@@ -1,14 +1,17 @@
+using System;
 using System.Text;
 using UnityEngine;
 using WiimoteApi;
 
-public class Wiimote_Input : MonoBehaviour {
+public class WiimoteInput : MonoBehaviour {
 
 	Quaternion initialRotation;
 
-	[SerializeField]
-	Wiimote wiimote;
+	Wiimote wiimote = null;
 	Vector3 wmpOffset = Vector3.zero;
+
+	Vector3 correction = Vector3.zero;
+	Vector3 accelCorrection = Vector3.zero;
 
 	Quaternion rotation;
 	Vector3 acceleration = Vector3.zero;
@@ -18,17 +21,21 @@ public class Wiimote_Input : MonoBehaviour {
 	bool isActive = false;
 	public bool IsActive { get => isActive; }
 
+	[SerializeField]
+	bool isPressedA = false;
+    public bool IsPressedA { get => isPressedA; }
+	[SerializeField]
+    bool isPressedB = false;
+	public bool IsPressedB { get => isPressedB; }
+
 	void Start() {
 		initialRotation = transform.localRotation;
 	}
 
-	void Update() {
+	void Update() {		
 		if (!isActive) {
-			tryGetWiimote();
 			return;
 		}
-
-		isActive = true;
 
 		int ret;
 
@@ -36,21 +43,19 @@ public class Wiimote_Input : MonoBehaviour {
 			ret = wiimote.ReadWiimoteData();
 
 			if (ret > 0 && wiimote.current_ext == ExtensionController.MOTIONPLUS) {
-				var offset = new Vector3(0 /*-wiimote.MotionPlus.YawSpeed*/, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95f; //Divide by 95Hz (average updates per second from wiimote)
+				var offset = new Vector3(-wiimote.MotionPlus.YawSpeed, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95f; //Divide by 95Hz (average updates per second from wiimote)
+				offset -= correction;
 				wmpOffset += offset;
 
 				rotate(offset);
-				Debug.Log(offset);
-				Debug.Log(wiimote.MotionPlus.YawSlow);
 
 			} //else Debug.Log("Software development is just being gaslit as your job");
 		} while (ret > 0);
 
-		if (wiimote.Button.a)
-			Debug.Log("A Pressed");
+		isPressedA = wiimote.Button.a;
+		isPressedB = wiimote.Button.b;
+
 		/*
-		model.a.enabled = wiimote.Button.a;
-		model.b.enabled = wiimote.Button.b;
 		model.one.enabled = wiimote.Button.one;
 		model.two.enabled = wiimote.Button.two;
 		model.d_up.enabled = wiimote.Button.d_up;
@@ -65,33 +70,19 @@ public class Wiimote_Input : MonoBehaviour {
 		if (wiimote.current_ext != ExtensionController.MOTIONPLUS)
 			rotation = initialRotation;
 
-		//IR Stuff?
+        //IR Stuff?
+        acceleration = GetAccelVector() - accelCorrection;
+        Debug.Log(acceleration);
+    }
 
-		acceleration = GetAccelVector();
-	}
-
-	void tryGetWiimote() {
-		if (WiimoteManager.HasWiimote()) {
-			wiimote = WiimoteManager.Wiimotes[0];
-			isActive = true;
-		}
-	}
+	void activateAccelorometer() {
+        wiimote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL_EXT16);
+        CalibrateAccelerometer();
+    }
 
 	public void CalibrateAccelerometer() {
-		for (int x = 0; x < 3; x++) {
-			AccelCalibrationStep step = (AccelCalibrationStep)x;
-			if (GUILayout.Button(step.ToString(), GUILayout.Width(100)))
-				wiimote.Accel.CalibrateAccel(step);
-		}
-
-		StringBuilder str = new StringBuilder();
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				str.Append(wiimote.Accel.accel_calib[y, x]).Append(" ");
-			}
-			str.Append("\n");
-		}
-		Debug.Log(str.ToString());
+		accelCorrection = GetAccelVector();
+		Debug.Log(accelCorrection);
 	}
 
 	Vector3 GetAccelVector() {
@@ -107,21 +98,17 @@ public class Wiimote_Input : MonoBehaviour {
 		return new Vector3(accel_x, accel_y, accel_z).normalized;
 	}
 
-	void rotate(Vector3 offset) {
-		Quaternion rotationQ = Quaternion.Euler(offset);
-		rotation *= rotationQ;
-	}
+    void rotate(Vector3 offset) {
+        Quaternion rotationQ = Quaternion.Euler(offset);
+        rotation *= rotationQ;
+    }
 
-	void rotate(Vector3 eulers, Space relativeTo = Space.Self) {
-		Quaternion quaternion = Quaternion.Euler(eulers.x, eulers.y, eulers.z);
-		if (relativeTo == Space.Self) {
-			transform.localRotation *= quaternion;
-		} else {
-			transform.rotation *= Quaternion.Inverse(transform.rotation) * quaternion * transform.rotation;
-		}
-	}
+	public void CalibrateGyro() {
+		correction = new Vector3(-wiimote.MotionPlus.YawSpeed, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95;
+		rotation = initialRotation;
+    }
 
-	private void OnApplicationQuit() {
+    private void OnApplicationQuit() {
 		if (wiimote != null) {
 			WiimoteManager.Cleanup(wiimote);
 			wiimote = null;
@@ -133,8 +120,14 @@ public class Wiimote_Input : MonoBehaviour {
 
 		GUILayout.BeginVertical(GUILayout.Width(300));
 		GUILayout.Label("Wiimote Found: " + WiimoteManager.HasWiimote());
-		if (GUILayout.Button("Find Wiimote"))
+		if (GUILayout.Button("Find Wiimote")) {
 			WiimoteManager.FindWiimotes();
+			if (WiimoteManager.HasWiimote()) {
+				wiimote = WiimoteManager.Wiimotes[0];
+                wiimote.SendPlayerLED(true, false, false, false);
+				isActive = true;
+            }
+		}
 		if (wiimote != null) {
 			GUILayout.Label("WMP Attached: " + wiimote.wmp_attached);
 			if (GUILayout.Button("Request Identify WMP"))
@@ -146,7 +139,27 @@ public class Wiimote_Input : MonoBehaviour {
 			if ((wiimote.current_ext == ExtensionController.MOTIONPLUS || wiimote.current_ext == ExtensionController.MOTIONPLUS_CLASSIC ||
 					wiimote.current_ext == ExtensionController.MOTIONPLUS_NUNCHUCK) && GUILayout.Button("Deactivate WMP"))
 				wiimote.DeactivateWiiMotionPlus();
+			if ((wiimote.current_ext == ExtensionController.MOTIONPLUS || wiimote.current_ext == ExtensionController.MOTIONPLUS_CLASSIC ||
+					wiimote.current_ext == ExtensionController.MOTIONPLUS_NUNCHUCK) && GUILayout.Button("Calibrate WMP"))
+				CalibrateGyro();
 		}
-		GUILayout.EndVertical();
+
+		if (GUILayout.Button("B/A/Ext16", GUILayout.Width(300 / 4)))
+			activateAccelorometer();
+
+        GUILayout.Label("Calibrate Accelerometer");
+        GUILayout.BeginHorizontal();
+        for (int x = 0; x < 3; x++) {
+            AccelCalibrationStep step = (AccelCalibrationStep)x;
+            if (GUILayout.Button(step.ToString(), GUILayout.Width(100)))
+                wiimote.Accel.CalibrateAccel(step);
+        }
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Zero Accel"))
+			CalibrateAccelerometer();
+
+
+        GUILayout.EndVertical();
 	}
 }
