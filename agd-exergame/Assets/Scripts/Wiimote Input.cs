@@ -6,7 +6,6 @@ public class Wiimote_Input : MonoBehaviour {
 
 	Quaternion initialRotation;
 
-	[SerializeField]
 	Wiimote wiimote;
 	Vector3 wmpOffset = Vector3.zero;
 
@@ -17,6 +16,11 @@ public class Wiimote_Input : MonoBehaviour {
 
 	bool isActive = false;
 	public bool IsActive { get => isActive; }
+
+	bool isPressedA = false;
+    public bool IsPressedA { get => isPressedA; }
+    bool isPressedB = false;
+	public bool IsPressedB { get => isPressedB; }
 
 	void Start() {
 		initialRotation = transform.localRotation;
@@ -39,15 +43,17 @@ public class Wiimote_Input : MonoBehaviour {
 				var offset = new Vector3(0 /*-wiimote.MotionPlus.YawSpeed*/, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95f; //Divide by 95Hz (average updates per second from wiimote)
 				wmpOffset += offset;
 
-				rotate(offset);
-				Debug.Log(offset);
-				Debug.Log(wiimote.MotionPlus.YawSlow);
+				rotate(offset, Space.Self);
 
 			} //else Debug.Log("Software development is just being gaslit as your job");
 		} while (ret > 0);
 
 		if (wiimote.Button.a)
 			Debug.Log("A Pressed");
+
+		isPressedA = wiimote.Button.a;
+		isPressedB = wiimote.Button.b;
+
 		/*
 		model.a.enabled = wiimote.Button.a;
 		model.b.enabled = wiimote.Button.b;
@@ -105,11 +111,6 @@ public class Wiimote_Input : MonoBehaviour {
 		accel_z = -accel[1];
 
 		return new Vector3(accel_x, accel_y, accel_z).normalized;
-	}
-
-	void rotate(Vector3 offset) {
-		Quaternion rotationQ = Quaternion.Euler(offset);
-		rotation *= rotationQ;
 	}
 
 	void rotate(Vector3 eulers, Space relativeTo = Space.Self) {
