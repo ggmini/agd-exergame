@@ -1,13 +1,21 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CuttingStation : SandwichAssemblyStation
 {
+    public event Action<SandwichAssemblyStation> OnStationCleared;
+
     public Rigidbody Knife;
     public float Speed = 10f;
     public float YOffsetCeiling = 2f;
+    public GameObject[] tomatoSlices;
+    public GameObject Tomato;
 
     private Vector2 accumDelta;
+    private int TomatoCounter = 0;
+    private bool IsKnifePrimed = true;
+
 
     private void Update()
     {
@@ -39,5 +47,39 @@ public class CuttingStation : SandwichAssemblyStation
 
 
         Knife.MovePosition(targetPos);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Rigidbody>() != Knife || !IsKnifePrimed) return;
+
+        NextTomato();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Rigidbody>() == Knife)
+        {
+            IsKnifePrimed = true;
+        }
+    }
+
+    private void NextTomato()
+    {
+        if (TomatoCounter >= tomatoSlices.Length)
+        {
+            OnStationCleared?.Invoke(this);
+            return;
+        }
+
+        tomatoSlices[TomatoCounter].SetActive(true);
+        TomatoCounter++;
+        IsKnifePrimed = false;
+        
+        Renderer rend  = Tomato.GetComponent<Renderer>();
+
+        float newRatio = rend.material.GetFloat("_CutRatio") -0.1f;
+        rend.material.SetFloat("_CutRatio", newRatio);   
     }
 }
