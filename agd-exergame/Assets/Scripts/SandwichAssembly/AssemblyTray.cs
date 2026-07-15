@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AssemblyTray : MonoBehaviour
 {
-    public event Action<Collider> OnZoneTriggered;
+    public event Action<AssemblyTray> OnZoneTriggered;
+    public event Action<AssemblyTray> OnZoneExited;
     public Color color;
     public GameObject AssemblyItem;
 
@@ -23,16 +24,20 @@ public class AssemblyTray : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnZoneTriggered?.Invoke(other);
+        OnZoneTriggered?.Invoke(this);
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        OnZoneExited?.Invoke(this);
+    }
 
     private void ApplyColor() {
         if (rend == null) {
             rend = GetComponent<Renderer>();
         }
 
-        if (rend == null) return;
+        if (rend == null || rend.sharedMaterial == null) return;
 
         if (instanceMaterial == null) {
             instanceMaterial = new Material(rend.sharedMaterial);
@@ -44,7 +49,10 @@ public class AssemblyTray : MonoBehaviour
 
 
     public GameObject GetAssemblyItem() {
-        return Instantiate(AssemblyItem);
+        GameObject tmp = Instantiate(AssemblyItem);
+        //tmp.transform.position = transform.position;
+
+        return tmp;
     }
 
 }

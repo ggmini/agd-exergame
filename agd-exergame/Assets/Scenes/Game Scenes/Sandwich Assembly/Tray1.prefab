@@ -126,4 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   color: {r: 0, g: 0, b: 0, a: 0}
+  AssemblyItem: {fileID: 7815630221534052265, guid: b649ba5a5c207f344aeb73e30e23af34, type: 3}
   instanceMaterial: {fileID: 0}

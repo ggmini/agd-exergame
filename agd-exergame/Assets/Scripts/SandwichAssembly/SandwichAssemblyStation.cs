@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SandwichAssemblyStation : MonoBehaviour
 {
+    public GameObject Table;
     public bool isActiveStation = false;
 
 

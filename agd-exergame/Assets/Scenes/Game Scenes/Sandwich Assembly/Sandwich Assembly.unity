@@ -241,7 +241,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1319892156506132879, guid: 32a9b96a05406304a88ed7c567a5859c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.94
+      value: -17.4
       objectReference: {fileID: 0}
     - target: {fileID: 1319892156506132879, guid: 32a9b96a05406304a88ed7c567a5859c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -278,6 +278,10 @@ PrefabInstance:
     - target: {fileID: 1319892156506132879, guid: 32a9b96a05406304a88ed7c567a5859c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323854458852995702, guid: 32a9b96a05406304a88ed7c567a5859c, type: 3}
+      propertyPath: Speed
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4323854458852995702, guid: 32a9b96a05406304a88ed7c567a5859c, type: 3}
       propertyPath: YOffsetCeiling
@@ -413,7 +417,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.7830189, g: 0.033241354, b: 0.21318805, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7830188, g: 0.033241354, b: 0.21318802, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
@@ -426,6 +430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 989107292511369114, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
+      propertyPath: isActiveStation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 989107292511369114, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
       propertyPath: pathCurve.m_Curve.Array.data[1].time
       value: 0.17311464
@@ -480,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4799697414562954331, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.28363
+      value: -11.74363
       objectReference: {fileID: 0}
     - target: {fileID: 4799697414562954331, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
       propertyPath: m_LocalPosition.y
@@ -675,6 +683,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   animationDuration: 0.2
   xDistanceIncrement: 2
+--- !u!1001 &595322216
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 645625580733526373, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_Name
+      value: FinalCuttingStation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635503750332986930, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: isActiveStation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.56144
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.4255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762391148195665395, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
 --- !u!21 &596111342
 Material:
   serializedVersion: 8
@@ -792,7 +861,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.6132076, g: 0.06074226, b: 0.22243947, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.6132076, g: 0.060742237, b: 0.22243944, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
@@ -824,6 +893,18 @@ PrefabInstance:
     - target: {fileID: 1747214988411182689, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: m_Name
       value: AssembyStation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118537093839975281, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.269
+      objectReference: {fileID: 0}
+    - target: {fileID: 4425109358501649382, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
+      propertyPath: Speed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4425109358501649382, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
+      propertyPath: isActiveStation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5768975475699409303, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: color.b
@@ -883,11 +964,11 @@ PrefabInstance:
       objectReference: {fileID: 596111342}
     - target: {fileID: 8895574989804976887, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.16
+      value: -5.620001
       objectReference: {fileID: 0}
     - target: {fileID: 8895574989804976887, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8895574989804976887, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1282,7 +1363,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.15027128, g: 0.7924528, b: 0.12335351, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.15027124, g: 0.7924528, b: 0.12335349, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
@@ -1404,7 +1485,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.9811321, g: 0.8335509, b: 0.1064436, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9811321, g: 0.8335509, b: 0.10644355, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
@@ -1420,3 +1501,4 @@ SceneRoots:
   - {fileID: 161339967}
   - {fileID: 333388847}
   - {fileID: 1497482244}
+  - {fileID: 595322216}
