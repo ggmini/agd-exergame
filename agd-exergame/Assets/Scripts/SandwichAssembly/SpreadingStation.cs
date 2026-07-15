@@ -9,10 +9,14 @@ public class SpreadingStation : SandwichAssemblyStation
 
     private Vector3 startPos;
 
-    float MaxWidth = 1.6f;
-    float MaxDepth = 1.0f;
+    float MaxWidth = 1.0f;
+    float MaxDepth = 0.3f;
     float curveX = 0f;
+    private int Layers = 0;
+    
     private Vector2 accumDelta;
+    private bool BoxEntered = false;
+
 
 
     protected override void Start() {
@@ -38,6 +42,28 @@ public class SpreadingStation : SandwichAssemblyStation
         Vector3 targetPos = startPos + new Vector3(curveX * MaxWidth, 0f, z * MaxDepth);
 
         ButterKnife.MovePosition(targetPos);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
+
+        BoxEntered = true;
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
+        
+        if (BoxEntered) NextLayer();
+    }
+
+    private void NextLayer()
+    {
+        Layers++;
+        BoxEntered = false;
     }
 
 }
