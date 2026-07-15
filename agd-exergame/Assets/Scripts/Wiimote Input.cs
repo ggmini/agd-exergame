@@ -1,13 +1,16 @@
+using System;
 using System.Text;
 using UnityEngine;
 using WiimoteApi;
 
-public class Wiimote_Input : MonoBehaviour {
+public class WiimoteInput : MonoBehaviour {
 
 	Quaternion initialRotation;
 
-	Wiimote wiimote;
+	Wiimote wiimote = null;
 	Vector3 wmpOffset = Vector3.zero;
+
+	Vector3 correction = Vector3.zero;
 
 	Quaternion rotation;
 	Vector3 acceleration = Vector3.zero;
@@ -17,8 +20,10 @@ public class Wiimote_Input : MonoBehaviour {
 	bool isActive = false;
 	public bool IsActive { get => isActive; }
 
+	[SerializeField]
 	bool isPressedA = false;
     public bool IsPressedA { get => isPressedA; }
+	[SerializeField]
     bool isPressedB = false;
 	public bool IsPressedB { get => isPressedB; }
 
@@ -28,11 +33,8 @@ public class Wiimote_Input : MonoBehaviour {
 
 	void Update() {
 		if (!isActive) {
-			tryGetWiimote();
 			return;
 		}
-
-		isActive = true;
 
 		int ret;
 
@@ -40,23 +42,19 @@ public class Wiimote_Input : MonoBehaviour {
 			ret = wiimote.ReadWiimoteData();
 
 			if (ret > 0 && wiimote.current_ext == ExtensionController.MOTIONPLUS) {
-				var offset = new Vector3(0 /*-wiimote.MotionPlus.YawSpeed*/, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95f; //Divide by 95Hz (average updates per second from wiimote)
+				var offset = new Vector3(-wiimote.MotionPlus.YawSpeed, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95f; //Divide by 95Hz (average updates per second from wiimote)
+				offset -= correction;
 				wmpOffset += offset;
 
-				rotate(offset, Space.Self);
+				rotate(offset);
 
 			} //else Debug.Log("Software development is just being gaslit as your job");
 		} while (ret > 0);
-
-		if (wiimote.Button.a)
-			Debug.Log("A Pressed");
 
 		isPressedA = wiimote.Button.a;
 		isPressedB = wiimote.Button.b;
 
 		/*
-		model.a.enabled = wiimote.Button.a;
-		model.b.enabled = wiimote.Button.b;
 		model.one.enabled = wiimote.Button.one;
 		model.two.enabled = wiimote.Button.two;
 		model.d_up.enabled = wiimote.Button.d_up;
@@ -74,13 +72,6 @@ public class Wiimote_Input : MonoBehaviour {
 		//IR Stuff?
 
 		acceleration = GetAccelVector();
-	}
-
-	void tryGetWiimote() {
-		if (WiimoteManager.HasWiimote()) {
-			wiimote = WiimoteManager.Wiimotes[0];
-			isActive = true;
-		}
 	}
 
 	public void CalibrateAccelerometer() {
@@ -113,16 +104,16 @@ public class Wiimote_Input : MonoBehaviour {
 		return new Vector3(accel_x, accel_y, accel_z).normalized;
 	}
 
-	void rotate(Vector3 eulers, Space relativeTo = Space.Self) {
-		Quaternion quaternion = Quaternion.Euler(eulers.x, eulers.y, eulers.z);
-		if (relativeTo == Space.Self) {
-			transform.localRotation *= quaternion;
-		} else {
-			transform.rotation *= Quaternion.Inverse(transform.rotation) * quaternion * transform.rotation;
-		}
-	}
+    void rotate(Vector3 offset) {
+        Quaternion rotationQ = Quaternion.Euler(offset);
+        rotation *= rotationQ;
+    }
 
-	private void OnApplicationQuit() {
+	public void CalibrateGyro() {
+		correction = new Vector3(-wiimote.MotionPlus.YawSpeed, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95;
+    }
+
+    private void OnApplicationQuit() {
 		if (wiimote != null) {
 			WiimoteManager.Cleanup(wiimote);
 			wiimote = null;
@@ -134,8 +125,14 @@ public class Wiimote_Input : MonoBehaviour {
 
 		GUILayout.BeginVertical(GUILayout.Width(300));
 		GUILayout.Label("Wiimote Found: " + WiimoteManager.HasWiimote());
-		if (GUILayout.Button("Find Wiimote"))
+		if (GUILayout.Button("Find Wiimote")) {
 			WiimoteManager.FindWiimotes();
+			if (WiimoteManager.HasWiimote()) {
+				wiimote = WiimoteManager.Wiimotes[0];
+                wiimote.SendPlayerLED(true, false, false, false);
+				isActive = true;
+            }
+		}
 		if (wiimote != null) {
 			GUILayout.Label("WMP Attached: " + wiimote.wmp_attached);
 			if (GUILayout.Button("Request Identify WMP"))
@@ -147,6 +144,9 @@ public class Wiimote_Input : MonoBehaviour {
 			if ((wiimote.current_ext == ExtensionController.MOTIONPLUS || wiimote.current_ext == ExtensionController.MOTIONPLUS_CLASSIC ||
 					wiimote.current_ext == ExtensionController.MOTIONPLUS_NUNCHUCK) && GUILayout.Button("Deactivate WMP"))
 				wiimote.DeactivateWiiMotionPlus();
+			if ((wiimote.current_ext == ExtensionController.MOTIONPLUS || wiimote.current_ext == ExtensionController.MOTIONPLUS_CLASSIC ||
+					wiimote.current_ext == ExtensionController.MOTIONPLUS_NUNCHUCK) && GUILayout.Button("Calibrate WMP"))
+				CalibrateGyro();
 		}
 		GUILayout.EndVertical();
 	}

@@ -4,7 +4,7 @@ using WiimoteApi;
 public class WiimoteTester : MonoBehaviour {
 
 	[SerializeField]
-	Wiimote_Input input;
+	WiimoteInput input;
 
 	//void Start() {
 	//	input = new Wiimote_Input();
