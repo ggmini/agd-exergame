@@ -9,6 +9,10 @@ public class WiimoteTester : MonoBehaviour {
     [SerializeField]
     bool readAccel;
 
+    [SerializeField]
+	[Range(0f, 5f)]
+	float accelSensitivity = 1f;
+
     Rigidbody rb;
 
     void Start() {
@@ -20,7 +24,7 @@ public class WiimoteTester : MonoBehaviour {
         transform.localRotation = input.Rotation;
         if (readAccel) {
             Vector3 vel = rb.linearVelocity;
-            vel.x = input.GetAccelX();
+            vel.x = input.GetAccelX() * accelSensitivity * accelSensitivity;
 			rb.linearVelocity = vel;
 		}
     }
