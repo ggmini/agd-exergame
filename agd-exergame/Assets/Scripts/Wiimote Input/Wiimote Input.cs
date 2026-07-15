@@ -11,6 +11,7 @@ public class WiimoteInput : MonoBehaviour {
 	Vector3 wmpOffset = Vector3.zero;
 
 	Vector3 correction = Vector3.zero;
+	Vector3 accelCorrection = Vector3.zero;
 
 	Quaternion rotation;
 	Vector3 acceleration = Vector3.zero;
@@ -31,7 +32,7 @@ public class WiimoteInput : MonoBehaviour {
 		initialRotation = transform.localRotation;
 	}
 
-	void Update() {
+	void Update() {		
 		if (!isActive) {
 			return;
 		}
@@ -69,26 +70,19 @@ public class WiimoteInput : MonoBehaviour {
 		if (wiimote.current_ext != ExtensionController.MOTIONPLUS)
 			rotation = initialRotation;
 
-		//IR Stuff?
+        //IR Stuff?
+        acceleration = GetAccelVector() - accelCorrection;
+        Debug.Log(acceleration);
+    }
 
-		acceleration = GetAccelVector();
-	}
+	void activateAccelorometer() {
+        wiimote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL_EXT16);
+        CalibrateAccelerometer();
+    }
 
 	public void CalibrateAccelerometer() {
-		for (int x = 0; x < 3; x++) {
-			AccelCalibrationStep step = (AccelCalibrationStep)x;
-			if (GUILayout.Button(step.ToString(), GUILayout.Width(100)))
-				wiimote.Accel.CalibrateAccel(step);
-		}
-
-		StringBuilder str = new StringBuilder();
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				str.Append(wiimote.Accel.accel_calib[y, x]).Append(" ");
-			}
-			str.Append("\n");
-		}
-		Debug.Log(str.ToString());
+		accelCorrection = GetAccelVector();
+		Debug.Log(accelCorrection);
 	}
 
 	Vector3 GetAccelVector() {
@@ -111,6 +105,7 @@ public class WiimoteInput : MonoBehaviour {
 
 	public void CalibrateGyro() {
 		correction = new Vector3(-wiimote.MotionPlus.YawSpeed, wiimote.MotionPlus.PitchSpeed, wiimote.MotionPlus.RollSpeed) / 95;
+		rotation = initialRotation;
     }
 
     private void OnApplicationQuit() {
@@ -148,6 +143,23 @@ public class WiimoteInput : MonoBehaviour {
 					wiimote.current_ext == ExtensionController.MOTIONPLUS_NUNCHUCK) && GUILayout.Button("Calibrate WMP"))
 				CalibrateGyro();
 		}
-		GUILayout.EndVertical();
+
+		if (GUILayout.Button("B/A/Ext16", GUILayout.Width(300 / 4)))
+			activateAccelorometer();
+
+        GUILayout.Label("Calibrate Accelerometer");
+        GUILayout.BeginHorizontal();
+        for (int x = 0; x < 3; x++) {
+            AccelCalibrationStep step = (AccelCalibrationStep)x;
+            if (GUILayout.Button(step.ToString(), GUILayout.Width(100)))
+                wiimote.Accel.CalibrateAccel(step);
+        }
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Zero Accel"))
+			CalibrateAccelerometer();
+
+
+        GUILayout.EndVertical();
 	}
 }

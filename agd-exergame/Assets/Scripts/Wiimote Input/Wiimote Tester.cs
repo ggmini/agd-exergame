@@ -3,17 +3,23 @@ using WiimoteApi;
 
 public class WiimoteTester : MonoBehaviour {
 
-	[SerializeField]
-	WiimoteInput input;
+    [SerializeField]
+    WiimoteInput input;
 
-	//void Start() {
-	//	input = new Wiimote_Input();
-	//}
+    [SerializeField]
+    bool readAccel;
 
-	void Update() {
-		if (!input.IsActive) return;
-		transform.localRotation = input.Rotation;
+    Rigidbody rb;
 
-	}
+    void Start() {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void Update() {
+        if (!input.IsActive) return;
+        transform.localRotation = input.Rotation;
+        if (readAccel)
+            rb.linearVelocity = input.Acceleration;
+    }
 
 }
