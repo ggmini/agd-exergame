@@ -4,8 +4,6 @@ using UnityEngine.InputSystem;
 
 public class CuttingStation : SandwichAssemblyStation
 {
-    public event Action<SandwichAssemblyStation> OnStationCleared;
-
     public Rigidbody Knife;
     public float Speed = 10f;
     public float YOffsetCeiling = 2f;
@@ -24,11 +22,21 @@ public class CuttingStation : SandwichAssemblyStation
 
     void FixedUpdate() {
         //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
-        Vector2 mouseDelta = accumDelta;
-        accumDelta = Vector2.zero;
-        if (mouseDelta.magnitude == 0) return;
+        if (WebSocketManager.Instance.Msg == null) return;
+
+        Vector3 accel = new Vector3(
+            WebSocketManager.Instance.Msg.accel_x,
+            WebSocketManager.Instance.Msg.accel_y + 9.81f,
+            WebSocketManager.Instance.Msg.accel_z);
+
+
+        //Vector2 mouseDelta = accumDelta;
+        //accumDelta = Vector2.zero;
+        //if (mouseDelta.magnitude == 0) return;
+        if (Mathf.Abs(accel.y) < 0.5f) return;
         
-        Vector3 accelerationDir = new Vector3(0, mouseDelta.y, 0);
+        //Vector3 accelerationDir = new Vector3(0, mouseDelta.y, 0);
+        Vector3 accelerationDir = new Vector3(0, accel.y, 0);
         float moveDistance = (accelerationDir * Speed * Time.fixedDeltaTime).magnitude;
         
         Vector3 targetPos = Knife.transform.position + accelerationDir.normalized * moveDistance;

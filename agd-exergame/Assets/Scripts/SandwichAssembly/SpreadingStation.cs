@@ -5,6 +5,7 @@ public class SpreadingStation : SandwichAssemblyStation
 {
     public Rigidbody ButterKnife;
     public AnimationCurve pathCurve;
+    public GameObject[] ButterLayers;
     public float Speed = 5f;
 
     private Vector3 startPos;
@@ -16,6 +17,8 @@ public class SpreadingStation : SandwichAssemblyStation
     
     private Vector2 accumDelta;
     private bool BoxEntered = false;
+
+    private float lastSavedX;
 
 
 
@@ -32,10 +35,19 @@ public class SpreadingStation : SandwichAssemblyStation
 
     void FixedUpdate()
     {
+        if (WebSocketManager.Instance.Msg == null) return;
+
+        Vector3 accel = new Vector3(
+            WebSocketManager.Instance.Msg.accel_x,
+            WebSocketManager.Instance.Msg.accel_y + 9.81f,
+            WebSocketManager.Instance.Msg.accel_z);
+
+
         //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
-        Vector2 mouseDelta = accumDelta;
-        accumDelta = Vector2.zero;
-        curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
+        //Vector2 mouseDelta = accumDelta;
+        //accumDelta = Vector2.zero;
+        //curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
+        curveX += accel.x * Speed * Time.fixedDeltaTime;
         curveX = Mathf.Clamp(curveX, 0f, 1f);
 
         float z = pathCurve.Evaluate(curveX);
@@ -50,18 +62,29 @@ public class SpreadingStation : SandwichAssemblyStation
         if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
 
         BoxEntered = true;
+        lastSavedX = ButterKnife.position.x;
 
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
-        
-        if (BoxEntered) NextLayer();
+        if (BoxEntered && Mathf.Abs(ButterKnife.position.x - lastSavedX) > 0.2f)
+        {
+            NextLayer();
+            BoxEntered = false;
+        }
     }
 
     private void NextLayer()
     {
+        if (Layers >= 3)
+        {
+            OnStationCleared?.Invoke(this);
+            return;
+        }
+
+        ButterLayers[Layers].SetActive(true);
         Layers++;
         BoxEntered = false;
     }

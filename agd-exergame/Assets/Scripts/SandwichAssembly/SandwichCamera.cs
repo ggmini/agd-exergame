@@ -6,7 +6,8 @@ using System.Collections;
 public class SandwichCamera : MonoBehaviour
 {
     [SerializeField] float animationDuration = 2f;
-    [SerializeField] int xDistanceIncrement = 2;
+    public int xDistanceIncrement = 2;
+    public float InitalWaitTime = 1.0f;
 
     private bool isAnimationRunning = false;
 
@@ -22,7 +23,8 @@ public class SandwichCamera : MonoBehaviour
         }
     }
 
-    IEnumerator MoveCamera(Vector3 direction, int distance) {
+    public IEnumerator MoveCamera(Vector3 direction, int distance) {
+        yield return new WaitForSeconds(InitalWaitTime);
         isAnimationRunning = true;
 
         Vector3 startPos = transform.position;

@@ -13,7 +13,7 @@ public class AssemblyStation : SandwichAssemblyStation
     private Vector3 HeldItemStartingPos;
 
     private int NextLayer = 0;
-    private float LayerHeight = 0.1f;
+    private float LayerHeight = 0.05f;
 
     private Vector2 accumDelta;
     private float t;
@@ -40,9 +40,12 @@ public class AssemblyStation : SandwichAssemblyStation
     {
         accumDelta += Mouse.current.delta.ReadValue();
 
-        if (CurrentHoveredTray == null) return;
+        if (CurrentHoveredTray == null || HeldItem != null) return;
 
-        if (Keyboard.current.altKey.wasPressedThisFrame)
+        //if (Keyboard.current.altKey.wasPressedThisFrame)
+        if (WebSocketManager.Instance.Msg == null) return;
+        
+        if (WebSocketManager.Instance.Msg.button_pressed)
         {
             HeldItem = CurrentHoveredTray.GetAssemblyItem();
             //HeldItem.transform.position = CurrentHoveredTray.;
@@ -54,13 +57,22 @@ public class AssemblyStation : SandwichAssemblyStation
 
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
+        if (WebSocketManager.Instance.Msg == null) return;
+
+        Vector3 accel = new Vector3(
+            WebSocketManager.Instance.Msg.accel_x,
+            WebSocketManager.Instance.Msg.accel_y + 9.81f,
+            WebSocketManager.Instance.Msg.accel_z);
+
         if (HeldItem == null)
         {
-            Vector2 mouseDelta = accumDelta;
-            accumDelta = Vector2.zero;
+            //Vector2 mouseDelta = accumDelta;
+            //accumDelta = Vector2.zero;
 
-            Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            //Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            Vector3 accelerationDir = new Vector3(accel.x, 0, 0);
             Vector3 targetPos = Pointer.position + transform.TransformDirection(accelerationDir * Speed * Time.fixedDeltaTime);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
@@ -69,9 +81,10 @@ public class AssemblyStation : SandwichAssemblyStation
         }
         else
         {
-            Vector2 mouseDelta = accumDelta;
-            accumDelta = Vector2.zero;
-            t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            //Vector2 mouseDelta = accumDelta;
+            //accumDelta = Vector2.zero;
+            //t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            t += accel.y * Speed * Time.fixedDeltaTime;
             t = Mathf.Clamp(t, 0, 1);
 
             Vector3 targetPos = GetNextTargetPosition();
@@ -90,14 +103,18 @@ public class AssemblyStation : SandwichAssemblyStation
         HeldItem = null;
         HeldItemStartingPos = Vector3.zero;
         Pointer.GetComponent<MeshRenderer>().enabled = true;
-    }
 
+        if (NextLayer >= 5)
+        {
+            OnStationCleared?.Invoke(this);
+        }
+    }
 
     Vector3 GetNextTargetPosition()
     {
         Bounds b = Table.GetComponent<Renderer>().bounds;
         Vector3 target = new(b.center.x, b.max.y, b.center.z);
-        target.y += (0.05f + NextLayer * LayerHeight);
+        target.y += (0.01f + NextLayer * LayerHeight);
 
         return target;
     }

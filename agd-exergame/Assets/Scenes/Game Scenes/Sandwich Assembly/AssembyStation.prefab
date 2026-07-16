@@ -161,6 +161,10 @@ PrefabInstance:
       value: 0.7830189
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
+      propertyPath: AssemblyItem
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: 0a6fac77d27b23f45a5bfcc4f2c083e9, type: 3}
+    - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: instanceMaterial
       value: 
       objectReference: {fileID: 0}
@@ -256,7 +260,7 @@ PrefabInstance:
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: AssemblyItem
       value: 
-      objectReference: {fileID: 7815630221534052265, guid: b649ba5a5c207f344aeb73e30e23af34, type: 3}
+      objectReference: {fileID: 919132149155446097, guid: 1ad6db60d025eed42b2435502ec6b07e, type: 3}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: instanceMaterial
       value: 
@@ -351,6 +355,10 @@ PrefabInstance:
       value: 0.9528302
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
+      propertyPath: AssemblyItem
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: c12c7af3e5fc7304f8ec5fa0f5741484, type: 3}
+    - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: instanceMaterial
       value: 
       objectReference: {fileID: 0}
@@ -443,6 +451,10 @@ PrefabInstance:
       propertyPath: color.r
       value: 0.13646518
       objectReference: {fileID: 0}
+    - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
+      propertyPath: AssemblyItem
+      value: 
+      objectReference: {fileID: 7642016096146700300, guid: 7e9e1a0c72ac8354faa50147a5caba35, type: 3}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: instanceMaterial
       value: 
