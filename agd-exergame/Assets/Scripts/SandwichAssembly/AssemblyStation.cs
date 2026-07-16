@@ -40,9 +40,12 @@ public class AssemblyStation : SandwichAssemblyStation
     {
         accumDelta += Mouse.current.delta.ReadValue();
 
-        if (CurrentHoveredTray == null) return;
+        if (CurrentHoveredTray == null || HeldItem != null) return;
 
-        if (Keyboard.current.altKey.wasPressedThisFrame)
+        //if (Keyboard.current.altKey.wasPressedThisFrame)
+        if (WebSocketManager.Instance.Msg == null) return;
+        
+        if (WebSocketManager.Instance.Msg.button_pressed)
         {
             HeldItem = CurrentHoveredTray.GetAssemblyItem();
             //HeldItem.transform.position = CurrentHoveredTray.;
@@ -56,12 +59,20 @@ public class AssemblyStation : SandwichAssemblyStation
 
     void FixedUpdate()
     {
+        if (WebSocketManager.Instance.Msg == null) return;
+
+        Vector3 accel = new Vector3(
+            WebSocketManager.Instance.Msg.accel_x,
+            WebSocketManager.Instance.Msg.accel_y + 9.81f,
+            WebSocketManager.Instance.Msg.accel_z);
+
         if (HeldItem == null)
         {
-            Vector2 mouseDelta = accumDelta;
-            accumDelta = Vector2.zero;
+            //Vector2 mouseDelta = accumDelta;
+            //accumDelta = Vector2.zero;
 
-            Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            //Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            Vector3 accelerationDir = new Vector3(accel.x, 0, 0);
             Vector3 targetPos = Pointer.position + transform.TransformDirection(accelerationDir * Speed * Time.fixedDeltaTime);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
@@ -70,9 +81,10 @@ public class AssemblyStation : SandwichAssemblyStation
         }
         else
         {
-            Vector2 mouseDelta = accumDelta;
-            accumDelta = Vector2.zero;
-            t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            //Vector2 mouseDelta = accumDelta;
+            //accumDelta = Vector2.zero;
+            //t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            t += accel.y * Speed * Time.fixedDeltaTime;
             t = Mathf.Clamp(t, 0, 1);
 
             Vector3 targetPos = GetNextTargetPosition();

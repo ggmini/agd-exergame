@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SandwichAssemblyStation : MonoBehaviour
 {
-    public static Action<SandwichAssemblyStation> OnStationCleared;
+    public Action<SandwichAssemblyStation> OnStationCleared;
 
     public GameObject Table;
     public bool isActiveStation = false;

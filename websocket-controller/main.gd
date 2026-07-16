@@ -11,6 +11,8 @@ var initial_yaw : float = 0.0
 
 var k : float = 0.98
 
+var grab_pressed: bool = false
+
 func _ready():
 	await get_tree().process_frame
 	var magnet: Vector3 = Input.get_magnetometer()
@@ -29,7 +31,8 @@ func _physics_process(delta):
 	var gyroscope: Vector3 = Input.get_gyroscope().rotated(-Vector3.FORWARD, roll)
 	pitch = lerp_angle(pitch_acc, pitch + gyroscope.x * delta, k)
 	yaw = lerp_angle(yaw_magnet, yaw + gyroscope.y * delta, k)
-	roll = lerp_angle(roll_acc, roll + gyroscope.z * delta, k) 
+	roll = lerp_angle(roll_acc, roll + gyroscope.z * delta, k)
+	var accel = Input.get_accelerometer()
 	
 	#node.rotation = Vector3(pitch, yaw - initial_yaw, roll)
 	#node.rotation = Vector3(0, yaw - initial_yaw, roll)
@@ -42,9 +45,13 @@ func _physics_process(delta):
 		"roll": str(roll),
 		"pitch": str(pitch),
 		"yaw": str(yaw),
-		"accel_x": str(0.5),
-		"accel_y": str(0.5),
-		"accel_z": str(0.5),
+		"accel_x": str(accel.x),
+		"accel_y": str(accel.y),
+		"accel_z": str(accel.z),
+		"button_pressed": str(grab_pressed)
 	}
 	web_socket_client.msg = msg
 	
+
+func _on_grab_button_pressed() -> void:
+	grab_pressed = !grab_pressed
