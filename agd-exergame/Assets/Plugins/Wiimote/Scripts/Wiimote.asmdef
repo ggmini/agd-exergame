@@ -14,8 +14,6 @@
         "tvOS",
         "VisionOS",
         "WebGL",
-        "WindowsStandalone32Server",
-        "WindowsStandalone64Server",
         "GameCoreXboxOne",
         "XboxOne",
         "GameCoreScarlett"
