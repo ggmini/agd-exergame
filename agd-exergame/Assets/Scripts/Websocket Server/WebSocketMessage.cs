@@ -9,4 +9,6 @@ public class WebSocketMessage {
     public float accel_x;
     public float accel_y;
     public float accel_z;
+
+    public bool button_pressed;
 }
