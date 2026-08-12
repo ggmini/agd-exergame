@@ -15,7 +15,7 @@ public class GridArrange
         }
 
         int columns = 30;
-        float spacing = 1f; // Distance between objects
+        float spacing = 5f; // Distance between objects
 
         for (int i = 0; i < objects.Length; i++)
         {
