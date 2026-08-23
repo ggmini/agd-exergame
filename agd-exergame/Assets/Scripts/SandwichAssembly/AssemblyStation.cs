@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +13,13 @@ public class AssemblyStation : SandwichAssemblyStation
     [SerializeField] private GameObject HeldItem;
     private Vector3 HeldItemStartingPos;
 
-    private int NextLayer = 0;
-    private float LayerHeight = 0.05f;
+    GameObject[] items = new GameObject[5]; //Store for cleanup (possibly a better solution, link to a parent and destroy it instead)
 
-    private Vector2 accumDelta;
+	private int NextLayer = 0;
+    private float LayerHeight = 0.05f;
+    System.Random rnd = new System.Random();
+
+	private Vector2 accumDelta;
     private float t;
 
     [SerializeField]
@@ -28,14 +32,16 @@ public class AssemblyStation : SandwichAssemblyStation
             tray.OnZoneTriggered += HandleZoneTriggered;
             tray.OnZoneExited += HandleZoneExited;
         }
-    }
+        SelectNextItem();
+	}
 
     void OnDisable()
     {
+        StartCoroutine(CleanUpOffScreen());
         foreach (var tray in Trays)
         {
             tray.OnZoneTriggered -= HandleZoneTriggered;
-            tray.OnZoneExited += HandleZoneExited;
+            tray.OnZoneExited -= HandleZoneExited;
         }
     }
 
@@ -59,8 +65,6 @@ public class AssemblyStation : SandwichAssemblyStation
 
     void FixedUpdate()
     {
-
-
         if (HeldItem == null) {
             Vector3 accelerationDir;
             if (useKM) {
@@ -81,8 +85,8 @@ public class AssemblyStation : SandwichAssemblyStation
             var targetPos = Pointer.position + transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
-
-            Pointer.MovePosition(targetPos);
+            
+            //Pointer.MovePosition(targetPos);
         }
         else
         {
@@ -113,6 +117,7 @@ public class AssemblyStation : SandwichAssemblyStation
 
     void PickUpItem() {
 		HeldItem = CurrentHoveredTray.GetAssemblyItem();
+        items[NextLayer] = HeldItem;
 		//HeldItem.transform.position = CurrentHoveredTray.;
 		HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
 		HeldItemStartingPos = HeldItem.transform.position;
@@ -120,14 +125,36 @@ public class AssemblyStation : SandwichAssemblyStation
 		t = 0f;
 	}
 
-    private void LayerGoalReached()
+    void SelectNextItem() {
+        if (NextLayer == 0                                  // First layer is always bread
+			|| NextLayer == 5 && rnd.NextDouble() < 0.4) {  // High chance to cover sandwich with bread
+			CurrentHoveredTray = Trays[0];
+			return;               
+        }
+        // Default: Select a random item
+        int trayIndex = rnd.Next(1, Trays.Length);
+        CurrentHoveredTray = Trays[trayIndex];
+	}
+
+    IEnumerator CleanUpOffScreen() {
+        yield return new WaitForSeconds(3f);
+		foreach (var item in items) {
+            if (item != null) {
+                Destroy(item);
+            }
+		}
+	}
+
+	private void LayerGoalReached()
     {
         NextLayer++;
         HeldItem = null;
         HeldItemStartingPos = Vector3.zero;
+        SelectNextItem();
         Pointer.GetComponent<MeshRenderer>().enabled = true;
+        Pointer.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
 
-        if (NextLayer >= 5)
+		if (NextLayer >= 5)
         {
             OnStationCleared?.Invoke(this);
         }
