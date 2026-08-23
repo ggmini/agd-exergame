@@ -20,7 +20,8 @@ public class SpreadingStation : SandwichAssemblyStation
 
     private float lastSavedX;
 
-
+    [SerializeField]
+    bool useKM;
 
     protected override void Start() {
         base.Start();
@@ -35,19 +36,22 @@ public class SpreadingStation : SandwichAssemblyStation
 
     void FixedUpdate()
     {
-        if (WebSocketManager.Instance.Msg == null) return;
+        
+        if (useKM) {
+            //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
+            Vector2 mouseDelta = accumDelta;
+            accumDelta = Vector2.zero;
+            curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
+        } else {
 
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
+            if (WebSocketManager.Instance.Msg == null) return;
 
-
-        //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
-        //Vector2 mouseDelta = accumDelta;
-        //accumDelta = Vector2.zero;
-        //curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        curveX += accel.x * Speed * Time.fixedDeltaTime;
+            Vector3 accel = new Vector3(
+                WebSocketManager.Instance.Msg.accel_x,
+                WebSocketManager.Instance.Msg.accel_y + 9.81f,
+                WebSocketManager.Instance.Msg.accel_z);
+            curveX += accel.x * Speed * Time.fixedDeltaTime;
+        }
         curveX = Mathf.Clamp(curveX, 0f, 1f);
 
         float z = pathCurve.Evaluate(curveX);

@@ -14,6 +14,7 @@ public class CuttingStation : SandwichAssemblyStation
     private int TomatoCounter = 0;
     private bool IsKnifePrimed = true;
 
+    bool useKM;
 
     private void Update()
     {
@@ -21,22 +22,24 @@ public class CuttingStation : SandwichAssemblyStation
     }
 
     void FixedUpdate() {
-        //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
-        if (WebSocketManager.Instance.Msg == null) return;
+        Vector3 accelerationDir;
+        if (useKM) {
+            Vector2 mouseDelta = accumDelta;
+            accumDelta = Vector2.zero;
+            if (mouseDelta.magnitude == 0) return;
+            accelerationDir = new Vector3(0, mouseDelta.y, 0);
+        } else {
 
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
+            if (WebSocketManager.Instance.Msg == null) return;
 
+            Vector3 accel = new Vector3(
+                WebSocketManager.Instance.Msg.accel_x,
+                WebSocketManager.Instance.Msg.accel_y + 9.81f,
+                WebSocketManager.Instance.Msg.accel_z);
 
-        //Vector2 mouseDelta = accumDelta;
-        //accumDelta = Vector2.zero;
-        //if (mouseDelta.magnitude == 0) return;
-        if (Mathf.Abs(accel.y) < 0.5f) return;
-        
-        //Vector3 accelerationDir = new Vector3(0, mouseDelta.y, 0);
-        Vector3 accelerationDir = new Vector3(0, accel.y, 0);
+            if (Mathf.Abs(accel.y) < 0.5f) return;
+            accelerationDir = new Vector3(0, accel.y, 0);
+        }
         float moveDistance = (accelerationDir * Speed * Time.fixedDeltaTime).magnitude;
         
         Vector3 targetPos = Knife.transform.position + accelerationDir.normalized * moveDistance;

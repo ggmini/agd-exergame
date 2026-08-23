@@ -18,6 +18,9 @@ public class AssemblyStation : SandwichAssemblyStation
     private Vector2 accumDelta;
     private float t;
 
+    [SerializeField]
+    bool useKM;
+    
     void OnEnable()
     {
         foreach (var tray in Trays)
@@ -66,14 +69,17 @@ public class AssemblyStation : SandwichAssemblyStation
             WebSocketManager.Instance.Msg.accel_y + 9.81f,
             WebSocketManager.Instance.Msg.accel_z);
 
-        if (HeldItem == null)
-        {
-            //Vector2 mouseDelta = accumDelta;
-            //accumDelta = Vector2.zero;
+        if (HeldItem == null) {
+            Vector3 accelerationDir;
+            if (useKM) {
+                var mouseDelta = accumDelta;
+                accumDelta = Vector2.zero;
 
-            //Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
-            Vector3 accelerationDir = new Vector3(accel.x, 0, 0);
-            Vector3 targetPos = Pointer.position + transform.TransformDirection(accelerationDir * Speed * Time.fixedDeltaTime);
+                accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            }
+            else
+                accelerationDir = new Vector3(accel.x, 0, 0);
+            var targetPos = Pointer.position + transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
 
@@ -81,16 +87,18 @@ public class AssemblyStation : SandwichAssemblyStation
         }
         else
         {
-            //Vector2 mouseDelta = accumDelta;
-            //accumDelta = Vector2.zero;
-            //t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            if (useKM) {
+                Vector2 mouseDelta = accumDelta;
+                accumDelta = Vector2.zero;
+                t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            }
             t += accel.y * Speed * Time.fixedDeltaTime;
             t = Mathf.Clamp(t, 0, 1);
 
-            Vector3 targetPos = GetNextTargetPosition();
-            Vector3 middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
+            var targetPos = GetNextTargetPosition();
+            var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
 
-            Vector3 nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
+            var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
             HeldItem.transform.position = nextPos;
 
             if (t >= 1) LayerGoalReached();

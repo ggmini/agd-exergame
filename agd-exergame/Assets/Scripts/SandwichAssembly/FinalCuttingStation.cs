@@ -20,6 +20,9 @@ public class FinalCuttingStation : SandwichAssemblyStation
     private int CurrentExtreme = 0;
     private int DepthCounter = 0;
 
+    [SerializeField]
+    bool useKM;
+
     protected override void Start()
     {
         base.Start();
@@ -35,18 +38,22 @@ public class FinalCuttingStation : SandwichAssemblyStation
     }
 
     void FixedUpdate() {
-        if (WebSocketManager.Instance.Msg == null) return;
+        if (useKM) {
+            Vector2 mouseDelta = accumDelta;
+            accumDelta = Vector2.zero;
 
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
+            t += mouseDelta.x * Speed * Time.fixedDeltaTime;
+        }
+        else {
+            if (WebSocketManager.Instance.Msg == null) return;
 
-        //Vector2 mouseDelta = accumDelta;
-        //accumDelta = Vector2.zero;
+            Vector3 accel = new Vector3(
+                WebSocketManager.Instance.Msg.accel_x,
+                WebSocketManager.Instance.Msg.accel_y + 9.81f,
+                WebSocketManager.Instance.Msg.accel_z);
 
-        //t += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        t += accel.x * Speed * Time.fixedDeltaTime;
+            t += accel.x * Speed * Time.fixedDeltaTime;
+        }
         t = Mathf.Clamp(t, 0, 1);
         runningCounter += (Mathf.Abs(t - t2));
         t2 = t;
