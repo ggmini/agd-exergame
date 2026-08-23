@@ -45,29 +45,21 @@ public class AssemblyStation : SandwichAssemblyStation
 
         if (CurrentHoveredTray == null || HeldItem != null) return;
 
-        //if (Keyboard.current.altKey.wasPressedThisFrame)
+        if (useKM) {
+            if (Keyboard.current.altKey.wasPressedThisFrame)
+                PickUpItem();
+        }
+
         if (WebSocketManager.Instance.Msg == null) return;
         
         if (WebSocketManager.Instance.Msg.button_pressed)
-        {
-            HeldItem = CurrentHoveredTray.GetAssemblyItem();
-            //HeldItem.transform.position = CurrentHoveredTray.;
-            HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
-            HeldItemStartingPos = HeldItem.transform.position;
-            Pointer.GetComponent<MeshRenderer>().enabled = false;
-            t = 0f;
-        }
+            PickUpItem();
 
     }
 
     void FixedUpdate()
     {
-        if (WebSocketManager.Instance.Msg == null) return;
 
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
 
         if (HeldItem == null) {
             Vector3 accelerationDir;
@@ -76,9 +68,16 @@ public class AssemblyStation : SandwichAssemblyStation
                 accumDelta = Vector2.zero;
 
                 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            } else {
+				if (WebSocketManager.Instance.Msg == null) return;
+
+				Vector3 accel = new Vector3(
+					WebSocketManager.Instance.Msg.accel_x,
+					WebSocketManager.Instance.Msg.accel_y + 9.81f,
+					WebSocketManager.Instance.Msg.accel_z);
+
+				accelerationDir = new Vector3(accel.x, 0, 0);
             }
-            else
-                accelerationDir = new Vector3(accel.x, 0, 0);
             var targetPos = Pointer.position + transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
@@ -91,8 +90,15 @@ public class AssemblyStation : SandwichAssemblyStation
                 Vector2 mouseDelta = accumDelta;
                 accumDelta = Vector2.zero;
                 t += mouseDelta.y * Speed * Time.fixedDeltaTime;
-            }
-            t += accel.y * Speed * Time.fixedDeltaTime;
+            }else {
+				if (WebSocketManager.Instance.Msg == null) return;
+
+				Vector3 accel = new Vector3(
+					WebSocketManager.Instance.Msg.accel_x,
+					WebSocketManager.Instance.Msg.accel_y + 9.81f,
+					WebSocketManager.Instance.Msg.accel_z);
+				t += accel.y * Speed * Time.fixedDeltaTime;
+			}
             t = Mathf.Clamp(t, 0, 1);
 
             var targetPos = GetNextTargetPosition();
@@ -104,6 +110,15 @@ public class AssemblyStation : SandwichAssemblyStation
             if (t >= 1) LayerGoalReached();
         }
     }
+
+    void PickUpItem() {
+		HeldItem = CurrentHoveredTray.GetAssemblyItem();
+		//HeldItem.transform.position = CurrentHoveredTray.;
+		HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
+		HeldItemStartingPos = HeldItem.transform.position;
+		Pointer.GetComponent<MeshRenderer>().enabled = false;
+		t = 0f;
+	}
 
     private void LayerGoalReached()
     {

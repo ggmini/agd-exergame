@@ -14,6 +14,7 @@ public class CuttingStation : SandwichAssemblyStation
     private int TomatoCounter = 0;
     private bool IsKnifePrimed = true;
 
+    [SerializeField]
     bool useKM;
 
     private void Update()
