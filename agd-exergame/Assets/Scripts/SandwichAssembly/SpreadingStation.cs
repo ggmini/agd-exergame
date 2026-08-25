@@ -23,12 +23,18 @@ public class SpreadingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    protected override void Start() {
+    PlayerInput playerInput;
+
+	protected override void Start() {
         base.Start();
         startPos = ButterKnife.position;
     }
 
-    private void Update()
+	void OnEnable() {
+		playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
+	}
+
+	private void Update()
     {
         accumDelta += Mouse.current.delta.ReadValue();
     }
@@ -42,16 +48,9 @@ public class SpreadingStation : SandwichAssemblyStation
             Vector2 mouseDelta = accumDelta;
             accumDelta = Vector2.zero;
             curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        } else {
-
-            if (WebSocketManager.Instance.Msg == null) return;
-
-            Vector3 accel = new Vector3(
-                WebSocketManager.Instance.Msg.accel_x,
-                WebSocketManager.Instance.Msg.accel_y + 9.81f,
-                WebSocketManager.Instance.Msg.accel_z);
-            curveX += accel.x * Speed * Time.fixedDeltaTime;
-        }
+        } else 
+            curveX += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
+        
         curveX = Mathf.Clamp(curveX, 0f, 1f);
 
         float z = pathCurve.Evaluate(curveX);

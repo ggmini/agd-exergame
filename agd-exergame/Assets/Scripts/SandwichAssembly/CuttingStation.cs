@@ -17,7 +17,12 @@ public class CuttingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    private void Update()
+    PlayerInput playerInput;
+	private void OnEnable() {
+		playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
+	}
+
+	private void Update()
     {
         accumDelta += Mouse.current.delta.ReadValue();
     }
@@ -31,12 +36,7 @@ public class CuttingStation : SandwichAssemblyStation
             accelerationDir = new Vector3(0, mouseDelta.y, 0);
         } else {
 
-            if (WebSocketManager.Instance.Msg == null) return;
-
-            Vector3 accel = new Vector3(
-                WebSocketManager.Instance.Msg.accel_x,
-                WebSocketManager.Instance.Msg.accel_y + 9.81f,
-                WebSocketManager.Instance.Msg.accel_z);
+            var accel = playerInput.GetAccel();
 
             if (Mathf.Abs(accel.y) < 0.5f) return;
             accelerationDir = new Vector3(0, accel.y, 0);

@@ -24,10 +24,13 @@ public class AssemblyStation : SandwichAssemblyStation
 
     [SerializeField]
     bool useKM;
-    
-    void OnEnable()
+
+    PlayerInput playerInput;
+
+	void OnEnable()
     {
-        foreach (var tray in Trays)
+        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
+		foreach (var tray in Trays)
         {
             tray.OnZoneTriggered += HandleZoneTriggered;
             tray.OnZoneExited += HandleZoneExited;
@@ -47,18 +50,16 @@ public class AssemblyStation : SandwichAssemblyStation
 
     private void Update()
     {
-        accumDelta += Mouse.current.delta.ReadValue();
+		accumDelta += Mouse.current.delta.ReadValue();
 
-        if (CurrentHoveredTray == null || HeldItem != null) return;
+		if (CurrentHoveredTray == null || HeldItem != null) return;
 
         if (useKM) {
             if (Keyboard.current.altKey.wasPressedThisFrame)
                 PickUpItem();
         }
 
-        if (WebSocketManager.Instance.Msg == null) return;
-        
-        if (WebSocketManager.Instance.Msg.button_pressed)
+        if (playerInput.GetButtonPressed())
             PickUpItem();
 
     }
@@ -72,16 +73,8 @@ public class AssemblyStation : SandwichAssemblyStation
                 accumDelta = Vector2.zero;
 
                 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
-            } else {
-				if (WebSocketManager.Instance.Msg == null) return;
-
-				Vector3 accel = new Vector3(
-					WebSocketManager.Instance.Msg.accel_x,
-					WebSocketManager.Instance.Msg.accel_y + 9.81f,
-					WebSocketManager.Instance.Msg.accel_z);
-
-				accelerationDir = new Vector3(accel.x, 0, 0);
-            }
+            } else 
+                accelerationDir = new(playerInput.GetAccelX(), 0, 0);
             var targetPos = Pointer.position + transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
 
             targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
@@ -91,18 +84,11 @@ public class AssemblyStation : SandwichAssemblyStation
         else
         {
             if (useKM) {
-                Vector2 mouseDelta = accumDelta;
+				Vector2 mouseDelta = accumDelta;
                 accumDelta = Vector2.zero;
                 t += mouseDelta.y * Speed * Time.fixedDeltaTime;
-            }else {
-				if (WebSocketManager.Instance.Msg == null) return;
-
-				Vector3 accel = new Vector3(
-					WebSocketManager.Instance.Msg.accel_x,
-					WebSocketManager.Instance.Msg.accel_y + 9.81f,
-					WebSocketManager.Instance.Msg.accel_z);
-				t += accel.y * Speed * Time.fixedDeltaTime;
-			}
+            } else 
+				t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
             t = Mathf.Clamp(t, 0, 1);
 
             var targetPos = GetNextTargetPosition();

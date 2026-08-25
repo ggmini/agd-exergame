@@ -23,7 +23,9 @@ public class FinalCuttingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    protected override void Start()
+    PlayerInput playerInput;
+
+	protected override void Start()
     {
         base.Start();
         topLeft = Knife.transform.position + new Vector3(-0.2f, 0, 0.2f);
@@ -31,8 +33,11 @@ public class FinalCuttingStation : SandwichAssemblyStation
         diagonal = topLeft - bottomRight;
     }
 
+	void OnEnable() {
+		playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
+	}
 
-    private void Update()
+	private void Update()
     {
         accumDelta += Mouse.current.delta.ReadValue();
     }
@@ -43,17 +48,9 @@ public class FinalCuttingStation : SandwichAssemblyStation
             accumDelta = Vector2.zero;
 
             t += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        }
-        else {
-            if (WebSocketManager.Instance.Msg == null) return;
-
-            Vector3 accel = new Vector3(
-                WebSocketManager.Instance.Msg.accel_x,
-                WebSocketManager.Instance.Msg.accel_y + 9.81f,
-                WebSocketManager.Instance.Msg.accel_z);
-
-            t += accel.x * Speed * Time.fixedDeltaTime;
-        }
+        } else 
+            t += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
+        
         t = Mathf.Clamp(t, 0, 1);
         runningCounter += (Mathf.Abs(t - t2));
         t2 = t;
