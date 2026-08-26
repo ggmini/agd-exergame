@@ -17,7 +17,7 @@ public class CuttingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
 	private void OnEnable() {
 		playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
 	}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface PlayerInput
+public interface IPlayerInput
 {
 	#region Accelerometer
 	public Vector3 GetAccel();

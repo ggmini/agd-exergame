@@ -23,7 +23,7 @@ public class FinalCuttingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
 
 	protected override void Start()
     {

@@ -25,7 +25,7 @@ public class AssemblyStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
 
 	void OnEnable()
     {

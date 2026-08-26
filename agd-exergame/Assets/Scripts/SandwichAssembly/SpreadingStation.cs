@@ -23,7 +23,7 @@ public class SpreadingStation : SandwichAssemblyStation
     [SerializeField]
     bool useKM;
 
-    PlayerInput playerInput;
+    IPlayerInput playerInput;
 
 	protected override void Start() {
         base.Start();
