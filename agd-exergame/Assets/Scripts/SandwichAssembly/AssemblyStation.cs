@@ -29,7 +29,7 @@ public class AssemblyStation : SandwichAssemblyStation {
 
     new void OnDisable() {
         base.OnDisable();
-        StartCoroutine(cleanupItems());
+        // StartCoroutine(cleanupItems());
         foreach (var tray in Trays) {
             tray.OnZoneTriggered -= HandleZoneTriggered;
             tray.OnZoneExited -= HandleZoneExited;
@@ -65,7 +65,7 @@ public class AssemblyStation : SandwichAssemblyStation {
 
     void PickUpItem() {
         HeldItem = CurrentHoveredTray.GetAssemblyItem();
-        items[NextLayer] = HeldItem;
+        //items.Add(HeldItem); adding this to the var in base script means its not instantiaed as a child even if i enforce it
         
         HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
         HeldItemStartingPos = HeldItem.transform.position;
