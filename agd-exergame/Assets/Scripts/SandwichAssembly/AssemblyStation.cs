@@ -43,37 +43,23 @@ public class AssemblyStation : SandwichAssemblyStation {
     }
 
     void FixedUpdate() {
-        if(HeldItem == null) {
-            Vector3 accelerationDir;
-            if (useMouse) {
-                var mouseDelta = playerInput.GetAccel();
-                accelerationDir = new Vector3(mouseDelta.x, 0, 0);
-            }
-            else
-                accelerationDir = new(playerInput.GetAccelX(), 0, 0);
-            var targetPos = Pointer.position +
-                            transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
-
-            targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
-
-            //Pointer.MovePosition(targetPos);
-        } else {
-            if (useMouse) {
-                Vector2 mouseDelta = playerInput.GetAccel();
-                t += mouseDelta.y * Speed * Time.fixedDeltaTime;
-            }
-            else
-                t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
-            t = Mathf.Clamp(t, 0, 1);
-
-            var targetPos = GetNextTargetPosition();
-            var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
-
-            var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
-            HeldItem.transform.position = nextPos;
-
-            if (t >= 1) LayerGoalReached();
+        if (HeldItem == null) return;
+        if (useMouse) {
+            Vector2 mouseDelta = playerInput.GetAccel();
+            t += mouseDelta.y * Speed * Time.fixedDeltaTime;
         }
+        else
+            t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+        t = Mathf.Clamp(t, 0, 1);
+
+        var targetPos = GetNextTargetPosition();
+        var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
+
+        var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
+        HeldItem.transform.position = nextPos;
+
+        if (t >= 1) LayerGoalReached();
+
     }
 
     void PickUpItem() {
