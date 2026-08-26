@@ -65,7 +65,7 @@ public class AssemblyStation : SandwichAssemblyStation {
     void PickUpItem() {
         HeldItem = CurrentHoveredTray.GetAssemblyItem();
         items[NextLayer] = HeldItem;
-        //HeldItem.transform.position = CurrentHoveredTray.;
+        
         HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
         HeldItemStartingPos = HeldItem.transform.position;
         Pointer.GetComponent<MeshRenderer>().enabled = false;
@@ -74,13 +74,11 @@ public class AssemblyStation : SandwichAssemblyStation {
 
     void SelectNextItem() {
         if (NextLayer == 0 // First layer is always bread
-            || NextLayer == 5 && rnd.NextDouble() < 0.4) {
-            // High chance to cover sandwich with bread
+            || NextLayer == 5 && rnd.NextDouble() < 0.4) { // High chance to cover sandwich with bread
             CurrentHoveredTray = Trays[0];
             return;
-        }
-        // Default: Select a random item
-        int trayIndex = rnd.Next(1, Trays.Length);
+        } // Default: Select a random item
+        var trayIndex = rnd.Next(1, Trays.Length);
         CurrentHoveredTray = Trays[trayIndex];
     }
 

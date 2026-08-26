@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class WebSocketInput : MonoBehaviour, IPlayerInput {
+	
 	#region Accelerometer
 	//TODO: dynamic gravity compensation based on device orientation (requires gyro)
 	public Vector3 GetAccel() {
