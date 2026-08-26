@@ -12,21 +12,14 @@ public class AssemblyStation : SandwichAssemblyStation {
     [SerializeField] private GameObject HeldItem;
     private Vector3 HeldItemStartingPos;
 
-    GameObject[]
-        items = new GameObject[5]; //Store for cleanup (possibly a better solution, link to a parent and destroy it instead)
-
     private int NextLayer = 0;
     private float LayerHeight = 0.05f;
     System.Random rnd = new System.Random();
-    
+
     private float t;
 
-    [SerializeField] bool useKM;
-
-    IPlayerInput playerInput;
-
-    void OnEnable() {
-        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
+    new void OnEnable() {
+        base.OnEnable();
         foreach (var tray in Trays) {
             tray.OnZoneTriggered += HandleZoneTriggered;
             tray.OnZoneExited += HandleZoneExited;
@@ -50,18 +43,37 @@ public class AssemblyStation : SandwichAssemblyStation {
     }
 
     void FixedUpdate() {
-        if (HeldItem == null) return;
-        
-        t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
-        t = Mathf.Clamp(t, 0, 1);
+        if(HeldItem == null) {
+            Vector3 accelerationDir;
+            if (useMouse) {
+                var mouseDelta = playerInput.GetAccel();
+                accelerationDir = new Vector3(mouseDelta.x, 0, 0);
+            }
+            else
+                accelerationDir = new(playerInput.GetAccelX(), 0, 0);
+            var targetPos = Pointer.position +
+                            transform.TransformDirection(Speed * Time.fixedDeltaTime * accelerationDir);
 
-        var targetPos = GetNextTargetPosition();
-        var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
+            targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
 
-        var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
-        HeldItem.transform.position = nextPos;
+            //Pointer.MovePosition(targetPos);
+        } else {
+            if (useMouse) {
+                Vector2 mouseDelta = playerInput.GetAccel();
+                t += mouseDelta.y * Speed * Time.fixedDeltaTime;
+            }
+            else
+                t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+            t = Mathf.Clamp(t, 0, 1);
 
-        if (t >= 1) LayerGoalReached();
+            var targetPos = GetNextTargetPosition();
+            var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
+
+            var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
+            HeldItem.transform.position = nextPos;
+
+            if (t >= 1) LayerGoalReached();
+        }
     }
 
     void PickUpItem() {
@@ -84,7 +96,7 @@ public class AssemblyStation : SandwichAssemblyStation {
         // Default: Select a random item
         int trayIndex = rnd.Next(1, Trays.Length);
         CurrentHoveredTray = Trays[trayIndex];
-    } 
+    }
 
     private void LayerGoalReached() {
         NextLayer++;

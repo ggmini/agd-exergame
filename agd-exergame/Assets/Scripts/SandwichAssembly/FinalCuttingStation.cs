@@ -15,20 +15,12 @@ public class FinalCuttingStation : SandwichAssemblyStation {
     private float runningCounter = 0;
     private int CurrentExtreme = 0;
     private int DepthCounter = 0;
-
-    [SerializeField] bool useKM;
-
-    IPlayerInput playerInput;
-
+    
     protected override void Start() {
         base.Start();
         topLeft = Knife.transform.position + new Vector3(-0.2f, 0, 0.2f);
         bottomRight = Knife.transform.position + new Vector3(0.2f, 0, -0.2f);
         diagonal = topLeft - bottomRight;
-    }
-
-    void OnEnable() {
-        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
     }
 
     void FixedUpdate() {
@@ -41,7 +33,7 @@ public class FinalCuttingStation : SandwichAssemblyStation {
             CurrentExtreme = (int)t;
             DepthCounter++;
             if (t == 0) {
-                SeparateLayer((DepthCounter) / 2);
+                SeparateLayer(DepthCounter / 2);
             }
             if (DepthCounter >= 8) {
                 SplitSandwich();

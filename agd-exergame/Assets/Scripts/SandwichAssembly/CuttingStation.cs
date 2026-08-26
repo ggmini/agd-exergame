@@ -10,17 +10,9 @@ public class CuttingStation : SandwichAssemblyStation {
     private int TomatoCounter = 0;
     private bool IsKnifePrimed = true;
 
-    [SerializeField] bool useKM;
-
-    IPlayerInput playerInput;
-
-    private void OnEnable() {
-        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
-    }
-
     void FixedUpdate() {
         Vector3 accelerationDir;
-        if (useKM) {
+        if (useMouse) {
             Vector2 mouseDelta = playerInput.GetAccel();
             if (mouseDelta.magnitude == 0) return;
             accelerationDir = new(0, mouseDelta.y, 0);
@@ -62,13 +54,13 @@ public class CuttingStation : SandwichAssemblyStation {
 
     private void NextTomato() {
         if (TomatoCounter >= tomatoSlices.Length) {
-            StartCoroutine(cleanupItems());
+            //StartCoroutine(cleanupItems());
             OnStationCleared?.Invoke(this);
             return;
         }
 
         tomatoSlices[TomatoCounter].SetActive(true);
-        items.Add(tomatoSlices[TomatoCounter]);
+        //items.Add(tomatoSlices[TomatoCounter]);
         TomatoCounter++;
         IsKnifePrimed = false;
 

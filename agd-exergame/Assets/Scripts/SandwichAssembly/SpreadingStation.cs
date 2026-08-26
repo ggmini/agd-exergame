@@ -18,17 +18,9 @@ public class SpreadingStation : SandwichAssemblyStation {
 
     private float lastSavedX;
 
-    [SerializeField] bool useKM;
-
-    IPlayerInput playerInput;
-
     protected override void Start() {
         base.Start();
         startPos = ButterKnife.position;
-    }
-
-    void OnEnable() {
-        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
     }
 
     void FixedUpdate() {

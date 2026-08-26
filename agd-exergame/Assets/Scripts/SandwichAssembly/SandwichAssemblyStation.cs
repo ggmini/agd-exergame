@@ -11,10 +11,17 @@ public class SandwichAssemblyStation : MonoBehaviour {
 
     protected List<GameObject> items;
 
+    protected bool useMouse;
+
+    protected IPlayerInput playerInput;
+
     protected virtual void Start() {
         enabled = isActiveStation;
     }
 
+    protected void OnEnable() {
+        playerInput = useMouse ? gameObject.AddComponent<MouseInput>() :  gameObject.AddComponent<WebSocketInput>();
+    }
 
     public void toggleIsActiveStation() {
         isActiveStation = !isActiveStation;
@@ -26,4 +33,6 @@ public class SandwichAssemblyStation : MonoBehaviour {
         foreach (GameObject item in items)
             Destroy(item);
     }
+
+    public void SetMouse() => useMouse = true;
 }
