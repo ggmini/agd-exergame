@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SpreadingStation : SandwichAssemblyStation
-{
+public class SpreadingStation : SandwichAssemblyStation {
     public Rigidbody ButterKnife;
     public AnimationCurve pathCurve;
     public GameObject[] ButterLayers;
@@ -14,43 +13,26 @@ public class SpreadingStation : SandwichAssemblyStation
     float MaxDepth = 0.3f;
     float curveX = 0f;
     private int Layers = 0;
-    
-    private Vector2 accumDelta;
+
     private bool BoxEntered = false;
 
     private float lastSavedX;
 
-    [SerializeField]
-    bool useKM;
+    [SerializeField] bool useKM;
 
     IPlayerInput playerInput;
 
-	protected override void Start() {
+    protected override void Start() {
         base.Start();
         startPos = ButterKnife.position;
     }
 
-	void OnEnable() {
-		playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
-	}
-
-	private void Update()
-    {
-        accumDelta += Mouse.current.delta.ReadValue();
+    void OnEnable() {
+        playerInput = gameObject.AddComponent<WebSocketInput>(); //TODO: globalish type thing?
     }
 
-
-    void FixedUpdate()
-    {
-        
-        if (useKM) {
-            //Vector3 acceleration = Vector3.zero; // replace with WiiMote Input
-            Vector2 mouseDelta = accumDelta;
-            accumDelta = Vector2.zero;
-            curveX += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        } else 
-            curveX += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
-        
+    void FixedUpdate() {
+        curveX += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
         curveX = Mathf.Clamp(curveX, 0f, 1f);
 
         float z = pathCurve.Evaluate(curveX);
@@ -60,8 +42,7 @@ public class SpreadingStation : SandwichAssemblyStation
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
 
         BoxEntered = true;
@@ -69,20 +50,16 @@ public class SpreadingStation : SandwichAssemblyStation
 
     }
 
-    private void OnTriggerExit(Collider other)
-    {
+    private void OnTriggerExit(Collider other) {
         if (other.gameObject.GetComponent<Rigidbody>() != ButterKnife) return;
-        if (BoxEntered && Mathf.Abs(ButterKnife.position.x - lastSavedX) > 0.2f)
-        {
+        if (BoxEntered && Mathf.Abs(ButterKnife.position.x - lastSavedX) > 0.2f) {
             NextLayer();
             BoxEntered = false;
         }
     }
 
-    private void NextLayer()
-    {
-        if (Layers >= 3)
-        {
+    private void NextLayer() {
+        if (Layers >= 3) {
             OnStationCleared?.Invoke(this);
             return;
         }
