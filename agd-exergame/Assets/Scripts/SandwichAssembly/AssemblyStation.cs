@@ -27,7 +27,8 @@ public class AssemblyStation : SandwichAssemblyStation {
         SelectNextItem();
     }
 
-    void OnDisable() {
+    new void OnDisable() {
+        base.OnDisable();
         StartCoroutine(cleanupItems());
         foreach (var tray in Trays) {
             tray.OnZoneTriggered -= HandleZoneTriggered;
