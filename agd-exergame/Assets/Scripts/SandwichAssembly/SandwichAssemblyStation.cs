@@ -23,6 +23,10 @@ public class SandwichAssemblyStation : MonoBehaviour {
         playerInput = useMouse ? gameObject.AddComponent<MouseInput>() :  gameObject.AddComponent<WebSocketInput>();
     }
 
+    protected void OnDisable() {
+        Destroy(playerInput as UnityEngine.Object);
+    }
+    
     public void toggleIsActiveStation() {
         isActiveStation = !isActiveStation;
         enabled = isActiveStation;
