@@ -1,15 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class FinalCuttingStation : SandwichAssemblyStation
-{
+public class FinalCuttingStation : SandwichAssemblyStation {
     public Rigidbody Knife;
     public float Speed = 10f;
     public GameObject FirstHalf;
     public GameObject SecondHalf;
 
-
-    private Vector2 accumDelta;
     private Vector3 bottomRight;
     private Vector3 topLeft;
     private Vector3 diagonal;
@@ -19,46 +15,27 @@ public class FinalCuttingStation : SandwichAssemblyStation
     private float runningCounter = 0;
     private int CurrentExtreme = 0;
     private int DepthCounter = 0;
-
-    protected override void Start()
-    {
+    
+    protected override void Start() {
         base.Start();
         topLeft = Knife.transform.position + new Vector3(-0.2f, 0, 0.2f);
         bottomRight = Knife.transform.position + new Vector3(0.2f, 0, -0.2f);
         diagonal = topLeft - bottomRight;
     }
 
-
-    private void Update()
-    {
-        accumDelta += Mouse.current.delta.ReadValue();
-    }
-
     void FixedUpdate() {
-        if (WebSocketManager.Instance.Msg == null) return;
-
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
-
-        //Vector2 mouseDelta = accumDelta;
-        //accumDelta = Vector2.zero;
-
-        //t += mouseDelta.x * Speed * Time.fixedDeltaTime;
-        t += accel.x * Speed * Time.fixedDeltaTime;
+        t += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
         t = Mathf.Clamp(t, 0, 1);
+
         runningCounter += (Mathf.Abs(t - t2));
         t2 = t;
-        if ((t == 0 || t == 1) && (int)t != CurrentExtreme)
-        {
+        if ((t == 0 || t == 1) && (int)t != CurrentExtreme) {
             CurrentExtreme = (int)t;
             DepthCounter++;
             if (t == 0) {
-                SeparateLayer((DepthCounter) / 2);
+                SeparateLayer(DepthCounter / 2);
             }
-            if (DepthCounter >= 7)
-            {
+            if (DepthCounter >= 8) {
                 SplitSandwich();
                 return;
             }
@@ -71,15 +48,13 @@ public class FinalCuttingStation : SandwichAssemblyStation
         Knife.MovePosition(targetPos);
     }
 
-    Vector3 GetNextPoint(float t)
-    {
+    Vector3 GetNextPoint(float t) {
         //Debug.Log(DepthCounter + t);
         return bottomRight + diagonal * t + new Vector3(0, -0.03f, 0) * runningCounter;
     }
 
 
-    private void SeparateLayer(int Layer)
-    {
+    private void SeparateLayer(int Layer) {
         int childIdx = 0;
         if (Layer == 1) childIdx = 1;
         else if (Layer == 2) childIdx = 3;
@@ -90,10 +65,7 @@ public class FinalCuttingStation : SandwichAssemblyStation
         SecondHalf.transform.GetChild(childIdx).gameObject.transform.position += new Vector3(0.01f, 0, 0.01f);
     }
 
-    private void SplitSandwich()
-    {
-
-
+    private void SplitSandwich() {
         OnStationCleared?.Invoke(this);
     }
 

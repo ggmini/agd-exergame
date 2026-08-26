@@ -1,9 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AssemblyStation : SandwichAssemblyStation
-{
+public class AssemblyStation : SandwichAssemblyStation {
     public AssemblyTray[] Trays;
     public Rigidbody Pointer;
     public float Speed = 10f;
@@ -14,104 +14,89 @@ public class AssemblyStation : SandwichAssemblyStation
 
     private int NextLayer = 0;
     private float LayerHeight = 0.05f;
+    System.Random rnd = new System.Random();
 
-    private Vector2 accumDelta;
     private float t;
 
-    void OnEnable()
-    {
-        foreach (var tray in Trays)
-        {
+    new void OnEnable() {
+        base.OnEnable();
+        foreach (var tray in Trays) {
             tray.OnZoneTriggered += HandleZoneTriggered;
             tray.OnZoneExited += HandleZoneExited;
         }
+        SelectNextItem();
     }
 
-    void OnDisable()
-    {
-        foreach (var tray in Trays)
-        {
+    new void OnDisable() {
+        base.OnDisable();
+        // StartCoroutine(cleanupItems());
+        foreach (var tray in Trays) {
             tray.OnZoneTriggered -= HandleZoneTriggered;
-            tray.OnZoneExited += HandleZoneExited;
+            tray.OnZoneExited -= HandleZoneExited;
         }
     }
 
-    private void Update()
-    {
-        accumDelta += Mouse.current.delta.ReadValue();
-
+    private void Update() {
         if (CurrentHoveredTray == null || HeldItem != null) return;
 
-        //if (Keyboard.current.altKey.wasPressedThisFrame)
-        if (WebSocketManager.Instance.Msg == null) return;
-        
-        if (WebSocketManager.Instance.Msg.button_pressed)
-        {
-            HeldItem = CurrentHoveredTray.GetAssemblyItem();
-            //HeldItem.transform.position = CurrentHoveredTray.;
-            HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
-            HeldItemStartingPos = HeldItem.transform.position;
-            Pointer.GetComponent<MeshRenderer>().enabled = false;
-            t = 0f;
-        }
-
+        if (playerInput.GetButtonPressed())
+            PickUpItem();
     }
 
-    void FixedUpdate()
-    {
-        if (WebSocketManager.Instance.Msg == null) return;
-
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y + 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
-
-        if (HeldItem == null)
-        {
-            //Vector2 mouseDelta = accumDelta;
-            //accumDelta = Vector2.zero;
-
-            //Vector3 accelerationDir = new Vector3(mouseDelta.x, 0, 0);
-            Vector3 accelerationDir = new Vector3(accel.x, 0, 0);
-            Vector3 targetPos = Pointer.position + transform.TransformDirection(accelerationDir * Speed * Time.fixedDeltaTime);
-
-            targetPos.x = Mathf.Clamp(targetPos.x, transform.position.x - 1, transform.position.x + 1);
-
-            Pointer.MovePosition(targetPos);
+    void FixedUpdate() {
+        if (HeldItem == null) return;
+        if (useMouse) {
+            Vector2 mouseDelta = playerInput.GetAccel();
+            t += mouseDelta.y * Speed * Time.fixedDeltaTime;
         }
         else
-        {
-            //Vector2 mouseDelta = accumDelta;
-            //accumDelta = Vector2.zero;
-            //t += mouseDelta.y * Speed * Time.fixedDeltaTime;
-            t += accel.y * Speed * Time.fixedDeltaTime;
-            t = Mathf.Clamp(t, 0, 1);
+            t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+        t = Mathf.Clamp(t, 0, 1);
 
-            Vector3 targetPos = GetNextTargetPosition();
-            Vector3 middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
+        var targetPos = GetNextTargetPosition();
+        var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
 
-            Vector3 nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
-            HeldItem.transform.position = nextPos;
+        var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
+        HeldItem.transform.position = nextPos;
 
-            if (t >= 1) LayerGoalReached();
-        }
+        if (t >= 1) LayerGoalReached();
+
     }
 
-    private void LayerGoalReached()
-    {
+    void PickUpItem() {
+        HeldItem = CurrentHoveredTray.GetAssemblyItem();
+        //items.Add(HeldItem); adding this to the var in base script means its not instantiaed as a child even if i enforce it
+        
+        HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
+        HeldItemStartingPos = HeldItem.transform.position;
+        Pointer.GetComponent<MeshRenderer>().enabled = false;
+        t = 0f;
+    }
+
+    void SelectNextItem() {
+        if (NextLayer == 0 // First layer is always bread
+            || NextLayer == 5 && rnd.NextDouble() < 0.4) { // High chance to cover sandwich with bread
+            CurrentHoveredTray = Trays[0];
+            return;
+        } // Default: Select a random item
+        var trayIndex = rnd.Next(1, Trays.Length);
+        CurrentHoveredTray = Trays[trayIndex];
+    }
+
+    private void LayerGoalReached() {
         NextLayer++;
         HeldItem = null;
         HeldItemStartingPos = Vector3.zero;
+        SelectNextItem();
         Pointer.GetComponent<MeshRenderer>().enabled = true;
+        Pointer.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
 
-        if (NextLayer >= 5)
-        {
+        if (NextLayer >= 5) {
             OnStationCleared?.Invoke(this);
         }
     }
 
-    Vector3 GetNextTargetPosition()
-    {
+    Vector3 GetNextTargetPosition() {
         Bounds b = Table.GetComponent<Renderer>().bounds;
         Vector3 target = new(b.center.x, b.max.y, b.center.z);
         target.y += (0.01f + NextLayer * LayerHeight);
@@ -120,23 +105,19 @@ public class AssemblyStation : SandwichAssemblyStation
     }
 
 
-    Vector3 QuadraticBezier(Vector3 p0, Vector3 p1, Vector3 p2, float t)
-    {
+    Vector3 QuadraticBezier(Vector3 p0, Vector3 p1, Vector3 p2, float t) {
         float u = 1f - t;
         return u * u * p0 + 2f * u * t * p1 + t * t * p2;
     }
 
 
 
-    private void HandleZoneTriggered(AssemblyTray tray)
-    {
+    private void HandleZoneTriggered(AssemblyTray tray) {
         CurrentHoveredTray = tray;
     }
 
-    private void HandleZoneExited(AssemblyTray tray)
-    {
-        if (tray == CurrentHoveredTray)
-        {
+    private void HandleZoneExited(AssemblyTray tray) {
+        if (tray == CurrentHoveredTray) {
             CurrentHoveredTray = null;
         }
     }

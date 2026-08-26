@@ -8,22 +8,18 @@ public class MainScene : MonoBehaviour
 
     private int CurrentStationIdx;
 
+    [SerializeField] bool useMouse;
+
+    void Awake() {
+        foreach (SandwichAssemblyStation station in Stations)
+            if (useMouse) station.SetMouse();
+    }
+    
     void Start()
     {
         foreach (SandwichAssemblyStation station in Stations) {
             station.OnStationCleared += HandleStationCleared;
         }
-    }
-
-    void Update() {
-        if (WebSocketManager.Instance.Msg == null) return;
-
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y - 9.81f,
-            WebSocketManager.Instance.Msg.accel_z);
-
-        //Debug.Log(accel);
     }
 
     private void HandleStationCleared(SandwichAssemblyStation Station) {
@@ -34,6 +30,5 @@ public class MainScene : MonoBehaviour
 
         Camera.StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         Stations[CurrentStationIdx].toggleIsActiveStation();
-
     }
 }
