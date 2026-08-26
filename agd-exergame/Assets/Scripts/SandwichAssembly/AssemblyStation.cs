@@ -35,7 +35,7 @@ public class AssemblyStation : SandwichAssemblyStation {
     }
 
     void OnDisable() {
-        StartCoroutine(CleanUpOffScreen());
+        StartCoroutine(cleanupItems());
         foreach (var tray in Trays) {
             tray.OnZoneTriggered -= HandleZoneTriggered;
             tray.OnZoneExited -= HandleZoneExited;
@@ -84,16 +84,7 @@ public class AssemblyStation : SandwichAssemblyStation {
         // Default: Select a random item
         int trayIndex = rnd.Next(1, Trays.Length);
         CurrentHoveredTray = Trays[trayIndex];
-    }
-
-    IEnumerator CleanUpOffScreen() {
-        yield return new WaitForSeconds(3f);
-        foreach (var item in items) {
-            if (item != null) {
-                Destroy(item);
-            }
-        }
-    }
+    } 
 
     private void LayerGoalReached() {
         NextLayer++;

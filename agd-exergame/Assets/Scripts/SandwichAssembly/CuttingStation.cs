@@ -62,11 +62,13 @@ public class CuttingStation : SandwichAssemblyStation {
 
     private void NextTomato() {
         if (TomatoCounter >= tomatoSlices.Length) {
+            StartCoroutine(cleanupItems());
             OnStationCleared?.Invoke(this);
             return;
         }
 
         tomatoSlices[TomatoCounter].SetActive(true);
+        items.Add(tomatoSlices[TomatoCounter]);
         TomatoCounter++;
         IsKnifePrimed = false;
 

@@ -47,7 +47,6 @@ public class SpreadingStation : SandwichAssemblyStation {
 
         BoxEntered = true;
         lastSavedX = ButterKnife.position.x;
-
     }
 
     private void OnTriggerExit(Collider other) {
@@ -59,7 +58,7 @@ public class SpreadingStation : SandwichAssemblyStation {
     }
 
     private void NextLayer() {
-        if (Layers >= 3) {
+        if (Layers >= 5) {
             OnStationCleared?.Invoke(this);
             return;
         }

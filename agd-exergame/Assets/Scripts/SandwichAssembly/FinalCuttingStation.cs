@@ -43,7 +43,7 @@ public class FinalCuttingStation : SandwichAssemblyStation {
             if (t == 0) {
                 SeparateLayer((DepthCounter) / 2);
             }
-            if (DepthCounter >= 7) {
+            if (DepthCounter >= 8) {
                 SplitSandwich();
                 return;
             }
