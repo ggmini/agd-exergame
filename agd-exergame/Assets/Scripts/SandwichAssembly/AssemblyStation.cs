@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AssemblyStation : SandwichAssemblyStation {
     public AssemblyTray[] Trays;
@@ -10,7 +7,7 @@ public class AssemblyStation : SandwichAssemblyStation {
 
     [SerializeField] private AssemblyTray CurrentHoveredTray;
     [SerializeField] private GameObject HeldItem;
-    private Vector3 HeldItemStartingPos;
+    Vector3 HeldItemStartingPos;
 
     private int NextLayer = 0;
     private float LayerHeight = 0.05f;
@@ -24,6 +21,7 @@ public class AssemblyStation : SandwichAssemblyStation {
             tray.OnZoneTriggered += HandleZoneTriggered;
             tray.OnZoneExited += HandleZoneExited;
         }
+        HeldItemStartingPos = Trays[0].transform.position;
         SelectNextItem();
     }
 
@@ -44,7 +42,7 @@ public class AssemblyStation : SandwichAssemblyStation {
     }
 
     void FixedUpdate() {
-        if (HeldItem == null) return;
+        // Movement
         if (useMouse) {
             Vector2 mouseDelta = playerInput.GetAccel();
             t += mouseDelta.y * Speed * Time.fixedDeltaTime;
@@ -57,10 +55,15 @@ public class AssemblyStation : SandwichAssemblyStation {
         var middlePos = HeldItemStartingPos + (targetPos - HeldItemStartingPos) / 2.0f + new Vector3(0, 1f, 0);
 
         var nextPos = QuadraticBezier(HeldItemStartingPos, middlePos, targetPos, t);
-        HeldItem.transform.position = nextPos;
-
-        if (t >= 1) LayerGoalReached();
-
+        if (HeldItem != null)
+            HeldItem.transform.position = nextPos;
+        else Pointer.transform.position = nextPos;
+        
+        // Grab/Dop
+        if (t >= 1 && HeldItem != null  && playerInput.GetButtonPressed())
+            LayerGoalReached();
+        else if (t == 0f && HeldItem == null && playerInput.GetButtonPressed())
+            PickUpItem();            
     }
 
     void PickUpItem() {
@@ -81,6 +84,7 @@ public class AssemblyStation : SandwichAssemblyStation {
         } // Default: Select a random item
         var trayIndex = rnd.Next(1, Trays.Length);
         CurrentHoveredTray = Trays[trayIndex];
+        HeldItemStartingPos = Trays[trayIndex].transform.position;
     }
 
     private void LayerGoalReached() {
