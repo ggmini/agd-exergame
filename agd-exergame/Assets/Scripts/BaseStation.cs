@@ -10,7 +10,7 @@ public class BaseStation : MonoBehaviour {
 	protected bool useMouse;
 	protected IPlayerInput playerInput;
 
-	bool isActiveStation = false;
+	protected bool isActiveStation = false;
 
 	protected List<GameObject> spawnedItems = new List<GameObject>();
 

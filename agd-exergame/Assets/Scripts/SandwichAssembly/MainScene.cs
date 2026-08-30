@@ -18,11 +18,11 @@ public class MainScene : MonoBehaviour
     void Start()
     {
         foreach (SandwichAssemblyStation station in Stations) {
-            station.OnStationCleared += HandleStationCleared;
+            station.AddStationClearedListener(HandleStationCleared);
         }
     }
 
-    private void HandleStationCleared(SandwichAssemblyStation Station) {
+    private void HandleStationCleared(BaseStation Station) {
         Stations[CurrentStationIdx].toggleIsActiveStation();
         CurrentStationIdx++;
 
