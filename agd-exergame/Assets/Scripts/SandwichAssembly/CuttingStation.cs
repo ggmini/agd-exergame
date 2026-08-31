@@ -10,7 +10,10 @@ public class CuttingStation : SandwichAssemblyStation {
     private int TomatoCounter = 0;
     private bool IsKnifePrimed = true;
 
-    void FixedUpdate() {
+    [SerializeField]
+    float accelerationModifier = 1f;
+
+	void FixedUpdate() {
         Vector3 accelerationDir;
         if (useMouse) {
             Vector2 mouseDelta = playerInput.GetAccel();
@@ -20,7 +23,7 @@ public class CuttingStation : SandwichAssemblyStation {
             var accel = playerInput.GetAccel();
 
             if (Mathf.Abs(accel.y) < 0.5f) return;
-            accelerationDir = new(0, accel.y, 0);
+            accelerationDir = new(0, accel.y * accelerationModifier, 0);
         }
         float moveDistance = (accelerationDir * Speed * Time.fixedDeltaTime).magnitude;
 
