@@ -60,15 +60,15 @@ public class AssemblyStation : SandwichAssemblyStation {
         else Pointer.transform.position = nextPos;
         
         // Grab/Dop
-        if (t >= 1 && HeldItem != null  && playerInput.GetButtonPressed())
+        if (t >= 1 && HeldItem != null)
             LayerGoalReached();
-        else if (t == 0f && HeldItem == null && playerInput.GetButtonPressed())
+        else if (t == 0f && HeldItem == null && CurrentHoveredTray != null)
             PickUpItem();            
     }
 
     void PickUpItem() {
         HeldItem = CurrentHoveredTray.GetAssemblyItem();
-        //items.Add(HeldItem); adding this to the var in base script means its not instantiaed as a child even if i enforce it
+        //items.Add(HeldItem); adding this to the var in base script means its not instantiated as a child even if i enforce it
         
         HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
         HeldItemStartingPos = HeldItem.transform.position;
