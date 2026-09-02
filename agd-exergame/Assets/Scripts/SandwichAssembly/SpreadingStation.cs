@@ -24,7 +24,7 @@ public class SpreadingStation : SandwichAssemblyStation {
     }
 
     void FixedUpdate() {
-        curveX += playerInput.GetAccelZ() * Speed * Time.fixedDeltaTime;
+        curveX += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
         curveX = Mathf.Clamp(curveX, 0f, 1f);
 
         float z = pathCurve.Evaluate(curveX);
