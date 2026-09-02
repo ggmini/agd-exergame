@@ -21,7 +21,6 @@ public class WebSocketInput : MonoBehaviour, IPlayerInput {
 
 	public float GetAccelZ() {
 		if (WebSocketManager.Instance.Msg == null) return 0;
-		Debug.Log(WebSocketManager.Instance.Msg.accel_z);
 		return WebSocketManager.Instance.Msg.accel_z;
 	}
 	#endregion Accelerometer

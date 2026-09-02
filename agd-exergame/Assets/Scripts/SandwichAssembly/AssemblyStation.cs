@@ -48,7 +48,8 @@ public class AssemblyStation : SandwichAssemblyStation {
             t += mouseDelta.y * Speed * Time.fixedDeltaTime;
         }
         else
-            t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+            t -= playerInput.GetAccelZ() * Speed * Time.fixedDeltaTime;
+        Debug.Log(t);
         t = Mathf.Clamp(t, 0, 1);
 
         var targetPos = GetNextTargetPosition();
