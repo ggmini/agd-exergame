@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class MainScene : MonoBehaviour
@@ -28,7 +29,12 @@ public class MainScene : MonoBehaviour
 
         if (CurrentStationIdx >= Stations.Length) return;
 
-        Camera.StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
-        Stations[CurrentStationIdx].toggleIsActiveStation();
-    }
+        StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
+        StartCoroutine(activateNextStation());
+	}
+
+    IEnumerator activateNextStation() {
+        yield return new WaitForSeconds(2);
+		Stations[CurrentStationIdx].toggleIsActiveStation();
+	}
 }
