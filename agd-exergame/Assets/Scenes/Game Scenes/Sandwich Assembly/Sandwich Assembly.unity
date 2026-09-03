@@ -314,7 +314,7 @@ MonoBehaviour:
   - {fileID: 643080987}
   - {fileID: 1168185458}
   Camera: {fileID: 445974138}
-  useMouse: 1
+  useMouse: 0
 --- !u!21 &293950266
 Material:
   serializedVersion: 8
@@ -447,7 +447,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 989107292511369114, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
       propertyPath: Speed
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 989107292511369114, guid: 9418139be3426ea4c91c3dc3786f3626, type: 3}
       propertyPath: m_Enabled
@@ -791,7 +791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4635503750332986930, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
       propertyPath: Speed
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4635503750332986930, guid: 255fdb735aa3cc9408af12cd01b143a1, type: 3}
       propertyPath: m_Enabled
@@ -1208,7 +1208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4425109358501649382, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: Speed
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4425109358501649382, guid: 47da53a08e13a0641a3c204230ba32d5, type: 3}
       propertyPath: m_Enabled

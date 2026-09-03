@@ -13,7 +13,7 @@ public class AssemblyStation : SandwichAssemblyStation {
     private float LayerHeight = 0.05f;
     System.Random rnd = new System.Random();
 
-    private float t;
+    private float t = 0.5f;
 
     new void OnEnable() {
         base.OnEnable();
@@ -48,7 +48,8 @@ public class AssemblyStation : SandwichAssemblyStation {
             t += mouseDelta.y * Speed * Time.fixedDeltaTime;
         }
         else
-            t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+            t -= playerInput.GetAccelZ() * Speed * Time.fixedDeltaTime;
+
         t = Mathf.Clamp(t, 0, 1);
 
         var targetPos = GetNextTargetPosition();
@@ -73,7 +74,6 @@ public class AssemblyStation : SandwichAssemblyStation {
         HeldItem.transform.position = CurrentHoveredTray.transform.position + new Vector3(0, 0.1f, 0);
         HeldItemStartingPos = HeldItem.transform.position;
         Pointer.GetComponent<MeshRenderer>().enabled = false;
-        t = 0f;
     }
 
     void SelectNextItem() {

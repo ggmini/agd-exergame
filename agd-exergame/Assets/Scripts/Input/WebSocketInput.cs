@@ -18,6 +18,11 @@ public class WebSocketInput : MonoBehaviour, IPlayerInput {
 		if (WebSocketManager.Instance.Msg == null) return 0;
 		return WebSocketManager.Instance.Msg.accel_y + 9.81f;
 	}
+
+	public float GetAccelZ() {
+		if (WebSocketManager.Instance.Msg == null) return 0;
+		return WebSocketManager.Instance.Msg.accel_z;
+	}
 	#endregion Accelerometer
 
 	#region Gyroscope
