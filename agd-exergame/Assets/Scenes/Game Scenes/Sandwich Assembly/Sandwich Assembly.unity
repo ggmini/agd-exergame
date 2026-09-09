@@ -637,22 +637,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PattyStation
       objectReference: {fileID: 0}
-    - target: {fileID: 5780331072572161698, guid: e6f6ebc0802e40040b88f1569e38c81d, type: 3}
-      propertyPath: m_Constraints
-      value: 58
-      objectReference: {fileID: 0}
-    - target: {fileID: 5780331072572161698, guid: e6f6ebc0802e40040b88f1569e38c81d, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6852376431880550008, guid: e6f6ebc0802e40040b88f1569e38c81d, type: 3}
-      propertyPath: cooldown
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6852376431880550008, guid: e6f6ebc0802e40040b88f1569e38c81d, type: 3}
-      propertyPath: flipUpAnimDuration
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7762391148195665395, guid: e6f6ebc0802e40040b88f1569e38c81d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40

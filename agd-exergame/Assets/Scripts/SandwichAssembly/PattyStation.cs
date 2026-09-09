@@ -9,8 +9,8 @@ public class PattyStation : SandwichAssemblyStation {
 	[SerializeField]
 	float impulseTarget = 1f;
 
-	float required;
-	float completed;
+	float required = 3;
+	float completed = 0;
 
 	bool scanInputs;
 
@@ -122,6 +122,12 @@ public class PattyStation : SandwichAssemblyStation {
 	}
 
 	void SpawnPatty() {
+		if (completed >= required) {
+			StartCoroutine(cleanupItems());
+			OnStationCleared?.Invoke(this);
+			return;
+		}
+
 		Instantiate(pattyPrefab, transform.position + pattySpawnLocation, Quaternion.identity);
 	}
 
