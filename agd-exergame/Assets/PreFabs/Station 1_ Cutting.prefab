@@ -231,7 +231,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9097528603397018621}
   - component: {fileID: 7050570642726743732}
-  - component: {fileID: 2769449055884296373}
   - component: {fileID: 1999407372507839588}
   m_Layer: 0
   m_Name: Camera
@@ -306,14 +305,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2769449055884296373
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3830015122817950209}
-  m_Enabled: 1
 --- !u!114 &1999407372507839588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +362,7 @@ GameObject:
   - component: {fileID: 5491433382231599332}
   - component: {fileID: 5240397389484403968}
   - component: {fileID: 6135045283519740070}
+  - component: {fileID: 755693273925227708}
   m_Layer: 0
   m_Name: cooking-knife
   m_TagString: Untagged
@@ -476,7 +468,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!64 &6135045283519740070
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -494,11 +486,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1111251246099391961, guid: e8ba7f15f84c0e5409a98e8ff0264d51, type: 3}
+--- !u!65 &755693273925227708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432587548122217563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7162499, y: 0.04000004, z: 0.13267036}
+  m_Center: {x: 0.0000000011920929, y: 0.02, z: 6.3948843e-16}
 --- !u!1 &6817549104373705786
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,10 +784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f773b7163d39f4eac08ed824f0d00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
-  Table: {fileID: 7088856006340804746}
   Knife: {fileID: 5240397389484403968}
-  Speed: 3
-  YOffsetCeiling: 0.1
+  Speed: 0.05
+  YOffsetCeiling: 0.5
   tomatoSlices:
   - {fileID: 6148663806523947991}
   - {fileID: 8685076498613262776}
@@ -1373,6 +1385,10 @@ PrefabInstance:
       value: tomato-slice
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -1576,6 +1592,10 @@ PrefabInstance:
       value: tomato-slice (11)
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -1649,6 +1669,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1906,6 +1930,10 @@ PrefabInstance:
       value: tomato-slice (6)
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -1979,6 +2007,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2115,11 +2147,6 @@ PrefabInstance:
 --- !u!4 &3492938709040781209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2356194484037064184, guid: 2d2b0b271a00f854cbec2d2c73fad440, type: 3}
-  m_PrefabInstance: {fileID: 1210214141736108641}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7088856006340804746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8262741523138036459, guid: 2d2b0b271a00f854cbec2d2c73fad440, type: 3}
   m_PrefabInstance: {fileID: 1210214141736108641}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1474514766833145370
@@ -2436,6 +2463,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2906,6 +2937,10 @@ PrefabInstance:
       value: tomato-slice (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -3053,6 +3088,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3762,6 +3801,10 @@ PrefabInstance:
       value: tomato-slice (10)
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -3954,6 +3997,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4211,6 +4258,10 @@ PrefabInstance:
       value: tomato-slice (2)
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 126
       objectReference: {fileID: 0}
@@ -4284,6 +4335,10 @@ PrefabInstance:
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_Name
       value: tomato-slice (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5978612402544056532, guid: 119ebcc662dd87945a27e10fa3a19301, type: 3}
       propertyPath: m_StaticEditorFlags

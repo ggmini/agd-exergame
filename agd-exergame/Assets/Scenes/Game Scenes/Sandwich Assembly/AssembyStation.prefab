@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4445012408617881756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.66, y: 0.521, z: -1.518}
+  m_LocalPosition: {x: -0.66, y: 0.269, z: -1.518}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,11 +150,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.b
-      value: 0.18787423
+      value: 0.21318805
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.g
-      value: 0
+      value: 0.033241354
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.r
@@ -247,15 +247,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.b
-      value: 0.28893355
+      value: 0.22243947
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.g
-      value: 0.06666668
+      value: 0.06074226
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.r
-      value: 0.83137256
+      value: 0.6132076
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: AssemblyItem
@@ -344,15 +344,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.b
-      value: 0
+      value: 0.1064436
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.g
-      value: 0.7905237
+      value: 0.8335509
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.r
-      value: 0.9528302
+      value: 0.9811321
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: AssemblyItem
@@ -441,7 +441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.b
-      value: 0.10840159
+      value: 0.12335351
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.g
@@ -449,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: color.r
-      value: 0.13646518
+      value: 0.15027128
       objectReference: {fileID: 0}
     - target: {fileID: 1576300932459414125, guid: 55f4067ecba34ae4b95f75545e92ee89, type: 3}
       propertyPath: AssemblyItem
@@ -538,7 +538,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -546,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -615,20 +615,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747214988411182689}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0d447037e9c6d047be961627f622d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssemblyStation
   Table: {fileID: 3482116566040885824}
-  isActiveStation: 1
   Trays:
   - {fileID: 5768975475699409303}
   - {fileID: 6016735189204628551}
   - {fileID: 6036676371451075157}
   - {fileID: 396478217939865251}
   Pointer: {fileID: 1948969040974688546}
-  Speed: 0.5
+  Speed: 0.25
   CurrentHoveredTray: {fileID: 0}
   HeldItem: {fileID: 0}
 --- !u!1 &3482116566040885824 stripped
