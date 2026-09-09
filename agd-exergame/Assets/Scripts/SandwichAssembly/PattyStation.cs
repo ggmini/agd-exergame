@@ -13,6 +13,8 @@ public class PattyStation : SandwichAssemblyStation {
 	float completed = 0;
 
 	bool scanInputs;
+	int frame = 0;
+	float curMax = 0;
 
 	[SerializeField]
 	GameObject pattyPrefab;
@@ -47,14 +49,20 @@ public class PattyStation : SandwichAssemblyStation {
 			return;
 
 		var accel = playerInput.GetAccelY();
-		if (accel < minimumAccel) return; // Ignore small movements
-
-		if (accel > minimumAccel && accel < impulseTarget) { // Not enough power
-			StartCoroutine(FailFlip());
-		} else { // Accel will be over the impulse target, so we can flip the patty
-			StartCoroutine(FlipPatty());
+		Debug.Log($"Accel: {accel}");
+		if (accel > minimumAccel) {
+			if (accel > curMax)
+				curMax = accel;
 		}
-
+		if (frame >= 15) {
+			if (curMax > minimumAccel && curMax < impulseTarget) // Not enough power
+				StartCoroutine(FailFlip());
+			else if (curMax >= impulseTarget) // Accel will be over the impulse target, so we can flip the patty
+				StartCoroutine(FlipPatty());
+			// Reset the frame counter and current max
+			frame = 0;
+			curMax = 0;
+		} else frame++;
 	}
 
 	void MoveAndRotFlipper(Vector3 position, Quaternion rotation) {
