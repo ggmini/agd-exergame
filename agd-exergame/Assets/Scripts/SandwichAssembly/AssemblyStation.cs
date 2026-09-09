@@ -1,7 +1,9 @@
 using UnityEngine;
 
 public class AssemblyStation : SandwichAssemblyStation {
-    public AssemblyTray[] Trays;
+	public GameObject Table;
+
+	public AssemblyTray[] Trays;
     public Rigidbody Pointer;
     public float Speed = 10f;
 
