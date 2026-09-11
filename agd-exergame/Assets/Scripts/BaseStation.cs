@@ -8,6 +8,7 @@ public class BaseStation : MonoBehaviour {
 	protected Action<BaseStation> OnStationCleared;
 
 	protected bool useMouse;
+	protected String deviceID;
 	protected IPlayerInput playerInput;
 
 	protected bool isActiveStation = false;

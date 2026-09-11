@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,19 +21,19 @@ public class MouseInput : MonoBehaviour, IPlayerInput
     
     #region Accelorometer
 
-    public Vector3 GetAccel() {
+    public Vector3 GetAccel(String deviceID) {
         var ret = accumDelta;
         accumDelta = Vector2.zero;
         return ret;
     }
 
-    public float GetAccelX() {
+    public float GetAccelX(String deviceID) {
         var ret = accumDelta.x;
         accumDelta = Vector2.zero;
         return ret;
     }
 
-    public float GetAccelY() {
+    public float GetAccelY(String deviceID) {
         var ret = accumDelta.y;
         accumDelta = Vector2.zero;
         return ret;
@@ -41,21 +42,21 @@ public class MouseInput : MonoBehaviour, IPlayerInput
 
 	#region Gyroscope
 	//TODO: implement mouse gyro emulation
-	public Vector3 GetGyro() {
+	public Vector3 GetGyro(String deviceID) {
         return gyro;
 	}
-    public float GetPitch() {
+    public float GetPitch(String deviceID) {
         return gyro.x;
 	}
-    public float GetYaw() {
+    public float GetYaw(String deviceID) {
 		return gyro.y;
 	}
-    public float GetRoll() {
+    public float GetRoll(String deviceID) {
 		return gyro.z;
 	}
 	#endregion
 
-	public bool GetButtonPressed() {
+	public bool GetButtonPressed(String deviceID) {
         return Mouse.current.leftButton.wasPressedThisFrame;
     }
 }

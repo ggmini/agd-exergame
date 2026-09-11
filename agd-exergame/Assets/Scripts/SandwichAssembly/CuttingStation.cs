@@ -16,11 +16,11 @@ public class CuttingStation : SandwichAssemblyStation {
 	void FixedUpdate() {
         Vector3 accelerationDir;
         if (useMouse) {
-            Vector2 mouseDelta = playerInput.GetAccel();
+            Vector2 mouseDelta = playerInput.GetAccel(deviceID);
             if (mouseDelta.magnitude == 0) return;
             accelerationDir = new(0, mouseDelta.y, 0);
         } else {
-            var accel = playerInput.GetAccel();
+            var accel = playerInput.GetAccel(deviceID);
 
             if (Mathf.Abs(accel.y) < 0.5f) return;
             accelerationDir = new(0, accel.y * accelerationModifier, 0);

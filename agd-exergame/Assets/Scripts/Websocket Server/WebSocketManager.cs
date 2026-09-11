@@ -15,8 +15,9 @@ public class WebSocketManager : MonoBehaviour {
 
     private static WebSocketManager instance;
 
-    private WebSocketMessage msg;
-    public WebSocketMessage Msg { get { return msg; } }
+
+    private Dictionary<String, WebSocketMessage> msg;
+    public Dictionary<String, WebSocketMessage> Msg { get { return msg; } }
 
     WebSocketServer wssv;
 
@@ -90,7 +91,13 @@ public class WebSocketManager : MonoBehaviour {
     }
 
     public void OnMessage(String sender, String message) {
-        msg = JsonUtility.FromJson<WebSocketMessage>(message);
+        WebSocketMessage tmp = JsonUtility.FromJson<WebSocketMessage>(message);
+        if (msg.ContainsKey(sender)) {
+            msg[sender] = tmp;
+        } else
+        {
+            Debug.Log("Received message from unknown sender");
+        }
     }
 
     public void OnOpen(String sender) {
