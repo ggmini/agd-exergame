@@ -6,6 +6,9 @@ using WebSocketSharp.Server;
 
 public class WebSocketManager : MonoBehaviour {
 
+    public event Action<String> OnSocketHandlerOpen;
+    public event Action<String> OnSocketHandlerClose;
+
     [SerializeField]
     string ip = "-1";
     int port = 9080;
@@ -86,8 +89,16 @@ public class WebSocketManager : MonoBehaviour {
         Console.ReadKey(true);
     }
 
-    public void OnMessage(string message) {
+    public void OnMessage(String sender, String message) {
         msg = JsonUtility.FromJson<WebSocketMessage>(message);
+    }
+
+    public void OnOpen(String sender) {
+        OnSocketHandlerOpen?.Invoke(sender);
+    }
+
+    public void OnClose(String sender) {
+        OnSocketHandlerClose?.Invoke(sender);
     }
 
     private void OnApplicationQuit() {

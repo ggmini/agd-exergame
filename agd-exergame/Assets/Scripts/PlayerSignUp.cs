@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class PlayerSignUp : MonoBehaviour
@@ -5,19 +7,36 @@ public class PlayerSignUp : MonoBehaviour
     const int MAX_PLAYERS = 4;
     private int PlayerCount = 0;
 
+    private float Timer = 0;
+
+    [SerializeField] private float ConfirmationDuration = 5f;
+
+    private bool isReadyPressed = false;
+
     private string[] ConnectedDevices = { "", "", "", "" };
+
+    [SerializeField] GameObject[] Images = { };
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        WebSocketManager.Instance.OnSocketHandlerOpen += OnDeviceConnected;
+        WebSocketManager.Instance.OnSocketHandlerClose += OnDeviceDisconnected;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (isReadyPressed) {
+            Timer += Time.deltaTime;
+            if (Timer >= ConfirmationDuration) {
+                StartGame();
+            }
+        }
+        else {
+            if (Timer > 0) Timer = 0;
+        }
     }
 
     private void OnDeviceConnected(string deviceID)
@@ -68,6 +87,31 @@ public class PlayerSignUp : MonoBehaviour
 
     private void UpdateCanvas()
     {
-        
+        for (int i = 0; i < Images.Length; i++) {
+            bool connected = !ConnectedDevices[i].Equals("");
+
+            GameObject obj = Images[i];
+            SetText(obj, i, connected);
+            SetImage(obj, connected);
+        }
     }
+
+    private void SetText(GameObject obj, int idx, bool connected) {
+        TextMeshPro text = obj.GetComponentInChildren<TextMeshPro>();
+        if (connected) {
+            text.text = "Player " + idx.ToString() + " connected!";
+        } else {
+            text.text = "Connect Device to Join";
+        }
+    }
+
+    private void SetImage(GameObject obj, bool connected) {
+        UnityEngine.UI.Image img = obj.GetComponentInChildren<UnityEngine.UI.Image>();
+        //TODO: set to check image or sth.
+    }
+
+    private void StartGame() {
+
+    }
+
 }
