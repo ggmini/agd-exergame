@@ -74,4 +74,18 @@ public class CuttingStation : SandwichAssemblyStation {
 
         IsKnifePrimed = false;
     }
+
+	public override void Reset() {
+		base.Reset();
+        foreach (var asset in sliceableAssets) {
+            asset.Reset();
+            asset.gameObject.SetActive(false);
+        }
+        sliceableAssets[0].gameObject.SetActive(true);
+        activeAssetIndex = 0;
+        foreach (var decoy in decoys) {
+            decoy.SetActive(true);
+		}
+	}
+
 }

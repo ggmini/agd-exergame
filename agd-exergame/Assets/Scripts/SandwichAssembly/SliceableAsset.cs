@@ -29,4 +29,12 @@ public class SliceableAsset : MonoBehaviour {
         return false;
     }
 
+	public void Reset() {
+		material.SetFloat("_CutRatio", minCutRatio);
+	    foreach (var slice in slices) {
+            slice.SetActive(false);
+        }
+        step = 0;
+	}
+
 }

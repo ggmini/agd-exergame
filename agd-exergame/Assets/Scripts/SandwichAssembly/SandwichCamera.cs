@@ -11,9 +11,14 @@ public class SandwichCamera : MonoBehaviour
 
     private bool isAnimationRunning = false;
 
+    Vector3 startLocation;
 
-    // Update is called once per frame
-    void Update()
+    void Start() {
+        startLocation = transform.position;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         if (isAnimationRunning) return;
 
@@ -44,5 +49,9 @@ public class SandwichCamera : MonoBehaviour
         transform.position = endPos;
         isAnimationRunning = false;
     }
+
+	public void Reset() {
+		transform.position = startLocation;
+	}
 
 }

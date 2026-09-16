@@ -10,4 +10,8 @@ public class SandwichAssemblyStation : BaseStation {
     protected virtual void Start() {
         enabled = isActiveStation;
     }
+
+    public virtual void Reset() {
+        enabled = isActiveStation;
+	}
 }

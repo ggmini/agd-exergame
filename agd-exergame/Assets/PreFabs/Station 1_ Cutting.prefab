@@ -221,134 +221,6 @@ Transform:
   - {fileID: 7411502342267385983}
   m_Father: {fileID: 6396015617338743857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3830015122817950209
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9097528603397018621}
-  - component: {fileID: 7050570642726743732}
-  - component: {fileID: 1999407372507839588}
-  m_Layer: 0
-  m_Name: Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9097528603397018621
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3830015122817950209}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.29820788, y: -0, z: -0, w: 0.954501}
-  m_LocalPosition: {x: -0.09441757, y: 1.5, z: -1.83}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6396015617338743857}
-  m_LocalEulerAnglesHint: {x: 34.7, y: 0, z: 0}
---- !u!20 &7050570642726743732
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3830015122817950209}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
-  field of view: 35
-  orthographic: 0
-  orthographic size: 3.18
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!114 &1999407372507839588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3830015122817950209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!1 &4432587548122217563
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +639,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9097528603397018621}
   - {fileID: 4984297101016748115}
   - {fileID: 6875882046624375764}
   m_Father: {fileID: 0}
@@ -793,10 +664,10 @@ MonoBehaviour:
   - {fileID: 8723771678229493625}
   - {fileID: 5267606401426843104}
   sliceableAssets:
-  - {fileID: 4694721071139273931}
-  - {fileID: 5190093534592955789}
-  - {fileID: 4528749910489961336}
-  - {fileID: 7276454679769146229}
+  - {fileID: 647002951519682619}
+  - {fileID: 7980534095198248771}
+  - {fileID: 5361496677009603005}
+  - {fileID: 3159776145585488086}
 --- !u!65 &937615179942481757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2326,6 +2197,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4528749910489961336}
+    - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5361496677009603005}
   m_SourcePrefab: {fileID: 100100000, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
 --- !u!1 &1536953519029004626 stripped
 GameObject:
@@ -2333,6 +2207,25 @@ GameObject:
   m_PrefabInstance: {fileID: 1829057263145917141}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4528749910489961336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536953519029004626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcb8bfecc7b74840b588105f9544182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SliceableAsset
+  slices:
+  - {fileID: 6870788460578673638}
+  - {fileID: 3698618693763130360}
+  - {fileID: 2056646487060702699}
+  - {fileID: 6811870562048973711}
+  maxCutRatio: -0.09
+  minCutRatio: 0.09
+--- !u!114 &5361496677009603005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2645,6 +2538,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5190093534592955789}
+    - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7980534095198248771}
   m_SourcePrefab: {fileID: 100100000, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
 --- !u!1 &1383562526927492608 stripped
 GameObject:
@@ -2652,6 +2548,25 @@ GameObject:
   m_PrefabInstance: {fileID: 2235228246887474567}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5190093534592955789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383562526927492608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcb8bfecc7b74840b588105f9544182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SliceableAsset
+  slices:
+  - {fileID: 2541401663495864407}
+  - {fileID: 8994938324935093514}
+  - {fileID: 4820802208068492296}
+  - {fileID: 4776476600305382973}
+  maxCutRatio: -0.09
+  minCutRatio: 0.09
+--- !u!114 &7980534095198248771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3390,6 +3305,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6731979030707745786, guid: 3e4b0353e34371044afc0d8aaf1ada47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7276454679769146229}
+    - targetCorrespondingSourceObject: {fileID: 6731979030707745786, guid: 3e4b0353e34371044afc0d8aaf1ada47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3159776145585488086}
   m_SourcePrefab: {fileID: 100100000, guid: 3e4b0353e34371044afc0d8aaf1ada47, type: 3}
 --- !u!4 &5936034678043350956 stripped
 Transform:
@@ -3446,6 +3364,29 @@ MonoBehaviour:
   - {fileID: 8710572545862803799}
   maxCutRatio: -0.11
   minCutRatio: 0.5
+--- !u!114 &3159776145585488086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584081683682865473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcb8bfecc7b74840b588105f9544182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SliceableAsset
+  slices:
+  - {fileID: 5543207469319741334}
+  - {fileID: 3339946080613125227}
+  - {fileID: 9026803049858664586}
+  - {fileID: 3600886000665150762}
+  - {fileID: 9218270431044397029}
+  - {fileID: 5674064743631031661}
+  - {fileID: 1858128311087553694}
+  - {fileID: 8710572545862803799}
+  maxCutRatio: 0.5
+  minCutRatio: -0.11
 --- !u!1001 &3827409906022077573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4670,6 +4611,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4694721071139273931}
+    - targetCorrespondingSourceObject: {fileID: 879968802822665095, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 647002951519682619}
   m_SourcePrefab: {fileID: 100100000, guid: 14003b49f902e2d4e89cc5a2b2616dc8, type: 3}
 --- !u!4 &3445966487290509482 stripped
 Transform:
@@ -4682,6 +4626,25 @@ GameObject:
   m_PrefabInstance: {fileID: 8626491067927377566}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4694721071139273931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8899452737604781337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcb8bfecc7b74840b588105f9544182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SliceableAsset
+  slices:
+  - {fileID: 6148663806523947991}
+  - {fileID: 8685076498613262776}
+  - {fileID: 4131127518360803139}
+  - {fileID: 5537092216182854809}
+  maxCutRatio: -0.09
+  minCutRatio: 0.09
+--- !u!114 &647002951519682619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
