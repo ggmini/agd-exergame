@@ -16,8 +16,9 @@ public class SliceableAsset : MonoBehaviour {
 
     float minMaxCutRatioDiff => maxCutRatio - minCutRatio;
 
-	void Start() {
-        material = GetComponent<Renderer>().material;
+	void OnEnable() {
+		material = GetComponent<Renderer>().material;
+		material.SetFloat("_CutRatio", minCutRatio);
 	}
 
 	public bool NextStep() {
