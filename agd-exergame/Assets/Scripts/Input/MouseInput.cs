@@ -38,6 +38,10 @@ public class MouseInput : MonoBehaviour, IPlayerInput
         accumDelta = Vector2.zero;
         return ret;
     }
+
+    public float GetAccelZ() {
+        return GetAccelX();
+    }
 	#endregion Accelorometer
 
 	#region Gyroscope

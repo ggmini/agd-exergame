@@ -198,7 +198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -269,22 +269,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645625580733526373}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1efac62d6c715c74cac137df02a7b564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalCuttingStation
-  Table: {fileID: 2348650692813837636}
-  isActiveStation: 0
   Knife: {fileID: 8983920417574111257}
-  Speed: 0.1
+  Speed: 0.5
   FirstHalf: {fileID: 4518278261557634444}
   SecondHalf: {fileID: 8310649676928956954}
---- !u!1 &2348650692813837636 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8763208418667433116, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
-  m_PrefabInstance: {fileID: 6414602496610032088}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7762391148195665395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}

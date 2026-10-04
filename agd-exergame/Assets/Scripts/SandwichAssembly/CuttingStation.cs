@@ -1,17 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CuttingStation : SandwichAssemblyStation {
     public Rigidbody Knife;
     public float Speed = 10f;
     public float YOffsetCeiling = 2f;
-    public GameObject[] tomatoSlices;
-    public GameObject Tomato;
 
-    private int TomatoCounter = 0;
     private bool IsKnifePrimed = true;
 
     [SerializeField]
     float accelerationModifier = 1f;
+
+    [SerializeField]
+	List<GameObject> decoys;
+    [SerializeField]
+    List<SliceableAsset> sliceableAssets;
+    int activeAssetIndex = 0;
 
 	void FixedUpdate() {
         Vector3 accelerationDir;
@@ -56,20 +60,32 @@ public class CuttingStation : SandwichAssemblyStation {
     }
 
     private void NextTomato() {
-        if (TomatoCounter >= tomatoSlices.Length) {
-            //StartCoroutine(cleanupItems());
-            OnStationCleared?.Invoke(this);
-            return;
-        }
+        if (sliceableAssets[activeAssetIndex].NextStep()) {
+            if (activeAssetIndex == sliceableAssets.Count - 1) {
+                //StartCoroutine(cleanupItems());
+                OnStationCleared?.Invoke(this);
+                return;
+			} else {
+                sliceableAssets[activeAssetIndex].gameObject.SetActive(false);
+                sliceableAssets[++activeAssetIndex].gameObject.SetActive(true);
+                decoys[activeAssetIndex - 1].SetActive(false);
+			}
+		}
 
-        tomatoSlices[TomatoCounter].SetActive(true);
-        //items.Add(tomatoSlices[TomatoCounter]);
-        TomatoCounter++;
         IsKnifePrimed = false;
-
-        Renderer rend = Tomato.GetComponent<Renderer>();
-
-        float newRatio = rend.material.GetFloat("_CutRatio") - 0.1f;
-        rend.material.SetFloat("_CutRatio", newRatio);
     }
+
+	public override void Reset() {
+		base.Reset();
+        foreach (var asset in sliceableAssets) {
+            asset.Reset();
+            asset.gameObject.SetActive(false);
+        }
+        sliceableAssets[0].gameObject.SetActive(true);
+        activeAssetIndex = 0;
+        foreach (var decoy in decoys) {
+            decoy.SetActive(true);
+		}
+	}
+
 }

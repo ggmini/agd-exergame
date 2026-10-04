@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -330,11 +330,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3655994236409515051, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
   m_PrefabInstance: {fileID: 2372695030282313124}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6444838188009476408 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8763208418667433116, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
-  m_PrefabInstance: {fileID: 2372695030282313124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8150678015426131225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5904368608896657597, guid: f3a1c3873e5248e428b83bc50396f8fb, type: 3}
@@ -352,16 +347,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f773b7163d39f4eac08ed824f0d00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
-  Table: {fileID: 6444838188009476408}
-  isActiveStation: 1
   Knife: {fileID: 6660117154334040296}
-  Speed: 3
-  YOffsetCeiling: 0.1
+  Speed: 0.05
+  YOffsetCeiling: 0.5
   tomatoSlices:
   - {fileID: 1439613954565263765}
   - {fileID: 8879184270115099571}
   - {fileID: 1423492893606427990}
   Tomato: {fileID: 7992451400329533083}
+  accelerationModifier: 1
 --- !u!65 &4800068733364520788
 BoxCollider:
   m_ObjectHideFlags: 0

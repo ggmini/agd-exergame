@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class SandwichAssemblyStation : BaseStation {
 
-    public GameObject Table;
-
     protected List<GameObject> items;
 
     protected virtual void Start() {
         enabled = isActiveStation;
     }
+
+    public virtual void Reset() {
+        enabled = isActiveStation;
+	}
 }
