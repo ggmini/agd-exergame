@@ -18,6 +18,7 @@ public class WebSocketMessageHandler : WebSocketBehavior {
     }
 
     protected override void OnClose(CloseEventArgs e) {
+        Debug.Log($"Device disconnected: {ID}");
         Debug.Log(e.Reason);
         WebSocketManager.Instance.OnClose(ID);
     }

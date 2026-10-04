@@ -7,12 +7,12 @@ public class Cube : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        if (WebSocketManager.Instance.Msg == null)
-            return;
+    //void Update() {
+    //    if (WebSocketManager.Instance.Msg == null)
+    //        return;
         
-        float roll = WebSocketManager.Instance.Msg.roll;
+    //    float roll = WebSocketManager.Instance.Msg.roll;
         
-        transform.eulerAngles = new Vector3(0.0f, 0.0f, roll * Mathf.Rad2Deg);
-    }
+    //    transform.eulerAngles = new Vector3(0.0f, 0.0f, roll * Mathf.Rad2Deg);
+    //}
 }

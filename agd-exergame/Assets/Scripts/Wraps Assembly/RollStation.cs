@@ -13,7 +13,7 @@ public class RollStation : BaseStation
 	void FixedUpdate() {
 		rollPrev = roll;
 
-		float rollQuat = playerInput.GetRoll();
+		float rollQuat = playerInput.GetRoll(deviceID);
 
 		// Convert the roll quaternion to degrees
 		if (useMouse) roll = rollQuat;

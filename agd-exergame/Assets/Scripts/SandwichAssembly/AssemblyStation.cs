@@ -37,18 +37,18 @@ public class AssemblyStation : SandwichAssemblyStation {
     private void Update() {
         if (CurrentHoveredTray == null || HeldItem != null) return;
 
-        if (playerInput.GetButtonPressed())
+        if (playerInput.GetButtonPressed(deviceID))
             PickUpItem();
     }
 
     void FixedUpdate() {
         // Movement
         if (useMouse) {
-            Vector2 mouseDelta = playerInput.GetAccel();
+            Vector2 mouseDelta = playerInput.GetAccel(deviceID);
             t += mouseDelta.y * Speed * Time.fixedDeltaTime;
         }
         else
-            t += playerInput.GetAccelY() * Speed * Time.fixedDeltaTime;
+            t += playerInput.GetAccelY(deviceID) * Speed * Time.fixedDeltaTime;
         t = Mathf.Clamp(t, 0, 1);
 
         var targetPos = GetNextTargetPosition();

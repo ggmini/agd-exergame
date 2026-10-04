@@ -9,14 +9,14 @@ public class SafeGameWheel : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
-        if (WebSocketManager.Instance.Msg == null) return;
+    //void Update() {
+    //    if (WebSocketManager.Instance.Msg == null) return;
 
-        Vector3 accel = new Vector3(
-            WebSocketManager.Instance.Msg.accel_x,
-            WebSocketManager.Instance.Msg.accel_y,
-            WebSocketManager.Instance.Msg.accel_z);
+    //    Vector3 accel = new Vector3(
+    //        WebSocketManager.Instance.Msg.accel_x,
+    //        WebSocketManager.Instance.Msg.accel_y,
+    //        WebSocketManager.Instance.Msg.accel_z);
         
-        Debug.Log(accel);
-    }
+    //    Debug.Log(accel);
+    //}
 }

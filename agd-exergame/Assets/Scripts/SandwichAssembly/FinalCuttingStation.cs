@@ -24,7 +24,7 @@ public class FinalCuttingStation : SandwichAssemblyStation {
     }
 
     void FixedUpdate() {
-        t += playerInput.GetAccelX() * Speed * Time.fixedDeltaTime;
+        t += playerInput.GetAccelX(deviceID) * Speed * Time.fixedDeltaTime;
         t = Mathf.Clamp(t, 0, 1);
 
         runningCounter += (Mathf.Abs(t - t2));

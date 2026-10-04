@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using TMPro;
 using UnityEngine;
 
@@ -18,6 +19,11 @@ public class PlayerSignUp : MonoBehaviour
     [SerializeField] GameObject[] Images = { };
 
 
+    private static readonly ConcurrentQueue<Action> queue = new();
+    //public static void Enqueue(Action action) => queue.Enqueue(action);
+    private void Enqueue(Action action) => queue.Enqueue(action);
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +34,10 @@ public class PlayerSignUp : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        while (queue.TryDequeue(out var action)) {
+            action();
+        }
+
         if (isReadyPressed) {
             Timer += Time.deltaTime;
             if (Timer >= ConfirmationDuration) {
@@ -64,7 +74,7 @@ public class PlayerSignUp : MonoBehaviour
 
     private void OnDeviceDisconnected(string deviceID)
     {
-        if (PlayerCount == 0)
+        if (PlayerCount <= 0)
         {
             Debug.Log("Tried disconnecting Device, but there are no connected devices");
             return;
@@ -91,13 +101,17 @@ public class PlayerSignUp : MonoBehaviour
             bool connected = !ConnectedDevices[i].Equals("");
 
             GameObject obj = Images[i];
-            SetText(obj, i, connected);
-            SetImage(obj, connected);
+
+            Enqueue(() => SetText(obj, i, connected));
+            Enqueue(() => SetImage(obj, connected));
+
+            //SetText(obj, i, connected);
+            //SetImage(obj, connected);
         }
     }
 
     private void SetText(GameObject obj, int idx, bool connected) {
-        TextMeshPro text = obj.GetComponentInChildren<TextMeshPro>();
+        TextMeshProUGUI text = obj.GetComponentInChildren<TextMeshProUGUI>();
         if (connected) {
             text.text = "Player " + idx.ToString() + " connected!";
         } else {

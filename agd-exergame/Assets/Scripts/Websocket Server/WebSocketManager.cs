@@ -16,7 +16,7 @@ public class WebSocketManager : MonoBehaviour {
     private static WebSocketManager instance;
 
 
-    private Dictionary<String, WebSocketMessage> msg;
+    private Dictionary<String, WebSocketMessage> msg = new Dictionary<string, WebSocketMessage>();
     public Dictionary<String, WebSocketMessage> Msg { get { return msg; } }
 
     WebSocketServer wssv;
@@ -93,6 +93,7 @@ public class WebSocketManager : MonoBehaviour {
     public void OnMessage(String sender, String message) {
         WebSocketMessage tmp = JsonUtility.FromJson<WebSocketMessage>(message);
         if (msg.ContainsKey(sender)) {
+            //Debug.Log($"Sender {sender} sent message {tmp}");
             msg[sender] = tmp;
         } else
         {
@@ -101,10 +102,12 @@ public class WebSocketManager : MonoBehaviour {
     }
 
     public void OnOpen(String sender) {
+        msg.Add(sender, new WebSocketMessage());
         OnSocketHandlerOpen?.Invoke(sender);
     }
 
     public void OnClose(String sender) {
+        msg.Remove(sender);
         OnSocketHandlerClose?.Invoke(sender);
     }
 
