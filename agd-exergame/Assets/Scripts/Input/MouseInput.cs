@@ -39,8 +39,8 @@ public class MouseInput : MonoBehaviour, IPlayerInput
         return ret;
     }
 
-    public float GetAccelZ() {
-        return GetAccelX();
+    public float GetAccelZ(String deviceID) {
+        return GetAccelX(deviceID);
     }
 	#endregion Accelorometer
 

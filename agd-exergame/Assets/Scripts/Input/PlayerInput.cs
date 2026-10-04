@@ -7,6 +7,7 @@ public interface IPlayerInput
 	public Vector3 GetAccel(String deviceID);
 	public float GetAccelX(String deviceID);
 	public float GetAccelY(String deviceID);
+	public float GetAccelZ(String deviceID);
 	#endregion Accelerometer
 
 	#region Gyroscope

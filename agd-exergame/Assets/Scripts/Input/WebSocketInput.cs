@@ -20,9 +20,9 @@ public class WebSocketInput : MonoBehaviour, IPlayerInput {
 		return WebSocketManager.Instance.Msg[deviceID].accel_y + 9.81f;
 	}
 
-	public float GetAccelZ() {
+	public float GetAccelZ(String deviceID) {
 		if (WebSocketManager.Instance.Msg == null) return 0;
-		return WebSocketManager.Instance.Msg.accel_z;
+		return WebSocketManager.Instance.Msg[deviceID].accel_z;
 	}
 	#endregion Accelerometer
 

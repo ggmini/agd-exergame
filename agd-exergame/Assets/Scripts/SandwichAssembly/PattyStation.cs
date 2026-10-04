@@ -48,7 +48,7 @@ public class PattyStation : SandwichAssemblyStation {
 		if (!scanInputs) 
 			return;
 
-		var accel = playerInput.GetAccelY();
+		var accel = playerInput.GetAccelY(deviceID);
 		Debug.Log($"Accel: {accel}");
 		if (accel > minimumAccel) {
 			if (accel > curMax)
