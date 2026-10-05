@@ -2,6 +2,8 @@ using System;
 using System.Collections.Concurrent;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerSignUp : MonoBehaviour
 {
@@ -12,13 +14,13 @@ public class PlayerSignUp : MonoBehaviour
 
     [SerializeField] private float ConfirmationDuration = 5f;
 
-    private bool isReadyPressed = false;
-
     private string[] ConnectedDevices = { "", "", "", "" };
 
     [SerializeField] GameObject[] Images = { };
 
-
+    public event Action<int, String> OnDeviceAssigned;
+    public event Action<int> OnDeviceDeassigned;
+    public event Action GameStarted;
     private static readonly ConcurrentQueue<Action> queue = new();
     //public static void Enqueue(Action action) => queue.Enqueue(action);
     private void Enqueue(Action action) => queue.Enqueue(action);
@@ -38,14 +40,18 @@ public class PlayerSignUp : MonoBehaviour
             action();
         }
 
-        if (isReadyPressed) {
+        if (isReadyPressed()) {
             Timer += Time.deltaTime;
             if (Timer >= ConfirmationDuration) {
+                Debug.Log("Timer exceeded");
                 StartGame();
             }
         }
         else {
-            if (Timer > 0) Timer = 0;
+            if (Timer > 0) {
+                Debug.Log("Timer reset");
+                Timer = 0;
+            }
         }
     }
 
@@ -63,6 +69,8 @@ public class PlayerSignUp : MonoBehaviour
             if (ConnectedDevices[i].Equals(""))
             {
                 ConnectedDevices[i] = deviceID;
+                //OnDeviceAssigned?.Invoke(i, deviceID);
+                Enqueue(() => OnDeviceAssigned?.Invoke(i, deviceID));
                 break;
             }
         }
@@ -86,6 +94,8 @@ public class PlayerSignUp : MonoBehaviour
             if (ConnectedDevices[i].Equals(deviceID))
             {
                 ConnectedDevices[i] = "";
+                //OnDeviceDeassigned?.Invoke(i);
+                Enqueue(() => OnDeviceDeassigned?.Invoke(i));
                 break;
             }
         }
@@ -125,7 +135,14 @@ public class PlayerSignUp : MonoBehaviour
     }
 
     private void StartGame() {
-
+        GetComponent<Canvas>().enabled = false;
+        GameStarted?.Invoke();
     }
+
+
+    private bool isReadyPressed() {
+        return Keyboard.current.xKey.isPressed;
+    }
+
 
 }

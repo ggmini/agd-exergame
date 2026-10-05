@@ -16,7 +16,7 @@ public class WebSocketManager : MonoBehaviour {
     private static WebSocketManager instance;
 
 
-    private Dictionary<String, WebSocketMessage> msg = new Dictionary<string, WebSocketMessage>();
+    private Dictionary<String, WebSocketMessage> msg = new Dictionary<String, WebSocketMessage>();
     public Dictionary<String, WebSocketMessage> Msg { get { return msg; } }
 
     WebSocketServer wssv;
