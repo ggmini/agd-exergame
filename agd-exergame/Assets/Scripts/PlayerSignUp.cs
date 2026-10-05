@@ -12,6 +12,8 @@ public class PlayerSignUp : MonoBehaviour
 
     private float Timer = 0;
 
+    private bool gameStarted = false;
+
     [SerializeField] private float ConfirmationDuration = 5f;
 
     private string[] ConnectedDevices = { "", "", "", "" };
@@ -26,9 +28,17 @@ public class PlayerSignUp : MonoBehaviour
     private void Enqueue(Action action) => queue.Enqueue(action);
 
 
+    public void Reset()
+    {
+        gameStarted = false;
+        gameObject.SetActive(true);
+    }
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        oldConnectionsCheck();
         WebSocketManager.Instance.OnSocketHandlerOpen += OnDeviceConnected;
         WebSocketManager.Instance.OnSocketHandlerClose += OnDeviceDisconnected;
     }
@@ -108,11 +118,12 @@ public class PlayerSignUp : MonoBehaviour
     private void UpdateCanvas()
     {
         for (int i = 0; i < Images.Length; i++) {
+            int j = i;
             bool connected = !ConnectedDevices[i].Equals("");
 
             GameObject obj = Images[i];
 
-            Enqueue(() => SetText(obj, i, connected));
+            Enqueue(() => SetText(obj, j, connected));
             Enqueue(() => SetImage(obj, connected));
 
             //SetText(obj, i, connected);
@@ -121,6 +132,7 @@ public class PlayerSignUp : MonoBehaviour
     }
 
     private void SetText(GameObject obj, int idx, bool connected) {
+        //Debug.Log($"Called with idx {idx}");
         TextMeshProUGUI text = obj.GetComponentInChildren<TextMeshProUGUI>();
         if (connected) {
             text.text = "Player " + idx.ToString() + " connected!";
@@ -135,6 +147,10 @@ public class PlayerSignUp : MonoBehaviour
     }
 
     private void StartGame() {
+        if (gameStarted) return;
+
+        Debug.Log("passed check");
+        gameStarted = true;
         GetComponent<Canvas>().enabled = false;
         GameStarted?.Invoke();
     }
@@ -142,6 +158,16 @@ public class PlayerSignUp : MonoBehaviour
 
     private bool isReadyPressed() {
         return Keyboard.current.xKey.isPressed;
+    }
+
+
+    private void oldConnectionsCheck()
+    {
+        if (WebSocketManager.Instance.Msg.Count <= 0) return;
+
+        foreach (String id in WebSocketManager.Instance.Msg.Keys){
+            OnDeviceConnected(id);
+        }
     }
 
 

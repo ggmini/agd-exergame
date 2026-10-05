@@ -212,6 +212,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7722967703042338197}
     m_Modifications:
+    - target: {fileID: 2541401663495864407, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3159776145585488086, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
       propertyPath: maxCutRatio
       value: -0.11

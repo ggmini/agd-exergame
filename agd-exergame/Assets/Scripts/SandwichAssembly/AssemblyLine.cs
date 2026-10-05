@@ -1,6 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class AssemblyLine : MonoBehaviour
 {
@@ -12,15 +13,15 @@ public class AssemblyLine : MonoBehaviour
 
     private string deviceID;
 
-    [SerializeField] PauseMenu pauseMenu;
-    [SerializeField] PostGameMenu endScreen;
-
     [SerializeField] bool useMouse;
-    bool gameDone;
+    private bool lineDone;
     private bool _activated = false;
     public bool activated {
         get { return _activated; }
     }
+
+    public event Action<String> OnAssemblyLineFinished;
+
 
     void Awake() {
         foreach (SandwichAssemblyStation station in Stations)
@@ -33,18 +34,13 @@ public class AssemblyLine : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            TogglePause();
-    }
-
     private void HandleStationCleared(BaseStation Station) {
         Stations[CurrentStationIdx].toggleIsActiveStation();
         CurrentStationIdx++;
 
         if (CurrentStationIdx >= Stations.Length) {
-            OpenEndScreen();
-            gameDone = true;
+            FinishAssemblyLine();
+            lineDone = true;
             return;
         }
 
@@ -75,25 +71,22 @@ public class AssemblyLine : MonoBehaviour
         }
     }
 
-
-    public void TogglePause() {
-        //Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        //pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+    private void FinishAssemblyLine()
+    {
+        //TODO: add picture or sth.
+        OnAssemblyLineFinished?.Invoke(deviceID);
     }
 
-    void OpenEndScreen() {
-        //endScreen.gameObject.SetActive(true);
-    }
 
-    public void Reset() {
-        if (!gameDone) Stations[CurrentStationIdx].toggleIsActiveStation();
+    public void Reset()
+    {
+        if (!lineDone) Stations[CurrentStationIdx].toggleIsActiveStation();
         CurrentStationIdx = 0;
         Stations[CurrentStationIdx].toggleIsActiveStation();
         Camera.Reset();
-        foreach (SandwichAssemblyStation station in Stations) {
+        foreach (SandwichAssemblyStation station in Stations)
+        {
             station.Reset();
         }
-        if (pauseMenu.gameObject.activeSelf) TogglePause();
-        else if (endScreen.gameObject.activeSelf) endScreen.gameObject.SetActive(false);
     }
 }

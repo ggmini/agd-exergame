@@ -1,37 +1,56 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class MainScene : MonoBehaviour {
-	public AssemblyLine[] AssemblyLines;
-    //public SandwichCamera Camera;
-
-    //private int CurrentStationIdx;
-
+    public AssemblyLine[] AssemblyLines;
     [SerializeField] PlayerSignUp playerSignUp;
-	[SerializeField] PauseMenu pauseMenu;
-	[SerializeField] PostGameMenu endScreen;
+    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] PostGameMenu endScreen;
 
-	//[SerializeField] bool useMouse;
-	bool gameDone;
+    //[SerializeField] bool useMouse;
+    private bool gameDone;
+    private bool gameStarted = false;
+    private int activeAssemblyLines = 0;
+    private int finishedLines = 0;
+
+    private List<string> finishedAssemblyLines = new List<string>();
 
 
     private void Start() {
         playerSignUp.OnDeviceAssigned += OnDeviceAssigned;
         playerSignUp.OnDeviceDeassigned += OnDeviceDeassigned;
         playerSignUp.GameStarted += StartGame;
+
+        foreach (AssemblyLine line in AssemblyLines) {
+            line.OnAssemblyLineFinished += OnAssemblyLineFinished;
+        }
     }
 
+
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Debug.Log("pressed escape");
+            TogglePause();
+        }
+    }
 
     private void OnDeviceAssigned(int idx, string id) {
         AssemblyLine obj = AssemblyLines[idx];
         obj.ActivateAssemblyLine(id);
+        activeAssemblyLines++;
     }
 
 
     private void OnDeviceDeassigned(int idx) {
         AssemblyLine obj = AssemblyLines[idx];
         obj.DeactivateAssemblyLine();
+        activeAssemblyLines--;
     }
 
 
@@ -40,8 +59,62 @@ public class MainScene : MonoBehaviour {
             if (line.activated) {
                 line.gameObject.SetActive(true);
             }
+            gameStarted = true;
         }
     }
+
+    public void TogglePause()
+    {
+        Debug.Log("toggle pause called");
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+    }
+
+    private void OnAssemblyLineFinished(string id)
+    {
+        if (finishedAssemblyLines.Contains(id))
+        {
+            Debug.Log("already finished assembly line tried to double dip");
+        }
+        finishedAssemblyLines.Add(id);
+        finishedLines++;
+        if (finishedLines >= activeAssemblyLines)
+        {
+            Debug.Log("all assembly lines finished");
+            gameDone = true;
+            OpenEndScreen();
+        }
+    }
+
+    void OpenEndScreen()
+    {
+        endScreen.gameObject.SetActive(true);
+    }
+
+    public void Reset()
+    {
+        Debug.Log("called reset");
+        Time.timeScale = 1;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+        //gameStarted = false;
+        //gameDone = false;
+        //finishedLines = 0;
+        //finishedAssemblyLines.Clear();
+
+        //// tell playersignup to reset
+        //playerSignUp.Reset();
+
+        //// tell assemblylines to reset
+        //foreach (AssemblyLine line in AssemblyLines) {
+        //    line.Reset();
+        //}
+
+        //// if pause- or end screen is active, deactivate
+        //if (pauseMenu.gameObject.activeSelf) TogglePause();
+        //else if (endScreen.gameObject.activeSelf) endScreen.gameObject.SetActive(false);
+    }
+
 
 
     //void Awake() {
