@@ -51,6 +51,9 @@ public class MainScene : MonoBehaviour {
         AssemblyLine obj = AssemblyLines[idx];
         obj.DeactivateAssemblyLine();
         activeAssemblyLines--;
+        if (gameStarted && activeAssemblyLines <= 0) {
+            Reset();
+        }
     }
 
 

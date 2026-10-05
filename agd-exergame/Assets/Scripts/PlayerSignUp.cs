@@ -52,7 +52,7 @@ public class PlayerSignUp : MonoBehaviour
 
         if (isReadyPressed()) {
             Timer += Time.deltaTime;
-            if (Timer >= ConfirmationDuration) {
+            if (Timer >= ConfirmationDuration && !gameStarted) {
                 Debug.Log("Timer exceeded");
                 StartGame();
             }
