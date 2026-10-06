@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7857faea77ad25d45b0ff2150f280735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WebSocketServer::WebSocketManager
-  ip: -1
+  ip: 192.168.0.26
 --- !u!4 &191534874
 Transform:
   m_ObjectHideFlags: 0

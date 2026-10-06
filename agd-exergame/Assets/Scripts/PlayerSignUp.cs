@@ -156,8 +156,14 @@ public class PlayerSignUp : MonoBehaviour
     }
 
 
+    // NOTE: unti,ely device disconnect might be a problem
     private bool isReadyPressed() {
-        return Keyboard.current.xKey.isPressed;
+        bool isReadyPressed = false;
+        foreach (String id in WebSocketManager.Instance.Msg.Keys) {
+            if (WebSocketManager.Instance.Msg[id].start_pressed) isReadyPressed = true;
+        }
+
+        return isReadyPressed;
     }
 
 

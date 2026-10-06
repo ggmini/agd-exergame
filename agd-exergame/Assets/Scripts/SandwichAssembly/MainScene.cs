@@ -13,6 +13,7 @@ public class MainScene : MonoBehaviour {
 
     //[SerializeField] bool useMouse;
     private bool gameDone;
+    private bool gamePaused = false;
     private bool gameStarted = false;
     private int activeAssemblyLines = 0;
     private int finishedLines = 0;
@@ -33,9 +34,9 @@ public class MainScene : MonoBehaviour {
 
     private void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (isPauseTogglePressed())
         {
-            Debug.Log("pressed escape");
+            Debug.Log("pressed pause");
             TogglePause();
         }
     }
@@ -69,6 +70,7 @@ public class MainScene : MonoBehaviour {
     public void TogglePause()
     {
         Debug.Log("toggle pause called");
+        gamePaused = !gamePaused;
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
     }
@@ -100,79 +102,20 @@ public class MainScene : MonoBehaviour {
         Time.timeScale = 1;
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-        //gameStarted = false;
-        //gameDone = false;
-        //finishedLines = 0;
-        //finishedAssemblyLines.Clear();
-
-        //// tell playersignup to reset
-        //playerSignUp.Reset();
-
-        //// tell assemblylines to reset
-        //foreach (AssemblyLine line in AssemblyLines) {
-        //    line.Reset();
-        //}
-
-        //// if pause- or end screen is active, deactivate
-        //if (pauseMenu.gameObject.activeSelf) TogglePause();
-        //else if (endScreen.gameObject.activeSelf) endScreen.gameObject.SetActive(false);
     }
 
+    // NOTE: this might not work bc of timescale
+    private bool isPauseTogglePressed() {
+        bool isTogglePressed = false;
+        foreach (string id in WebSocketManager.Instance.Msg.Keys) {
+            if (gamePaused) {
+                if (WebSocketManager.Instance.Msg[id].start_pressed) isTogglePressed = true;
+            }
+            else {
+                if (WebSocketManager.Instance.Msg[id].pause_pressed) isTogglePressed = true;
+            }
+        }
 
-
-    //void Awake() {
-    //	foreach (SandwichAssemblyStation station in Stations)
-    //		if (useMouse) station.SetMouse();
-    //}
-
-    //void Start() {
-    //	foreach (SandwichAssemblyStation station in Stations) {
-    //		station.AddStationClearedListener(HandleStationCleared);
-    //	}
-    //}
-
-    //private void FixedUpdate() {
-    //	if (Keyboard.current.escapeKey.wasPressedThisFrame)
-    //		TogglePause();
-    //}
-
-    //private void HandleStationCleared(BaseStation Station) {
-    //	Stations[CurrentStationIdx].toggleIsActiveStation();
-    //	CurrentStationIdx++;
-
-    //	if (CurrentStationIdx >= Stations.Length) {
-    //		OpenEndScreen();
-    //		gameDone = true;
-    //		return;
-    //	}
-
-    //	StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
-    //	StartCoroutine(activateNextStation());
-    //}
-
-    //IEnumerator activateNextStation() {
-    //	yield return new WaitForSeconds(2);
-    //	Stations[CurrentStationIdx].toggleIsActiveStation();
-    //}
-
-    //public void TogglePause() {
-    //	Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-    //	pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
-    //}
-
-    //void OpenEndScreen() {
-    //	endScreen.gameObject.SetActive(true);
-    //}
-
-    //public void Reset() {
-    //	if (!gameDone) Stations[CurrentStationIdx].toggleIsActiveStation();
-    //	CurrentStationIdx = 0;
-    //	Stations[CurrentStationIdx].toggleIsActiveStation();
-    //	Camera.Reset();
-    //	foreach (SandwichAssemblyStation station in Stations) {
-    //		station.Reset();
-    //	}
-    //	if (pauseMenu.gameObject.activeSelf) TogglePause();
-    //	else if(endScreen.gameObject.activeSelf) endScreen.gameObject.SetActive(false);
-    //}
+        return isTogglePressed;
+    }
 }

@@ -11,4 +11,6 @@ public class WebSocketMessage {
     public float accel_z;
 
     public bool button_pressed;
+    public bool start_pressed;
+    public bool pause_pressed;
 }
