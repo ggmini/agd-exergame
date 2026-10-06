@@ -3,17 +3,23 @@
 [ext_resource type="Script" uid="uid://c4ag0mmyswm7b" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://bu6ry0256iy2" path="res://web_socket_client.gd" id="1_ig7tw"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+bg_color = Color(0.7919434, 0.9295368, 0.78409225, 1)
+
 [node name="Main" type="Node3D" unique_id=507771889 node_paths=PackedStringArray("web_socket_client")]
 script = ExtResource("1_0xm2m")
 web_socket_client = NodePath("WebSocketClient")
 
-[node name="WebSocketClient" type="Node" parent="." unique_id=1188439433 node_paths=PackedStringArray("text_edit")]
+[node name="WebSocketClient" type="Node" parent="." unique_id=1188439433 node_paths=PackedStringArray("line_edit", "scan_button", "connection", "gamepad")]
 script = ExtResource("1_ig7tw")
-text_edit = NodePath("../CanvasLayer/Control/HBoxContainer/TextEdit")
+line_edit = NodePath("../CanvasLayer/Connection/VBoxContainer/HBoxContainer/LineEdit")
+scan_button = NodePath("../CanvasLayer/Connection/VBoxContainer/ScanButton")
+connection = NodePath("../CanvasLayer/Connection")
+gamepad = NodePath("../CanvasLayer/Gamepad")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1422886898]
 
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=1800040772]
+[node name="Connection" type="Control" parent="CanvasLayer" unique_id=1800040772]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,31 +27,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=192951597]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Connection" unique_id=1789013428]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.11688369
+anchor_left = 0.2
 anchor_top = 0.1
-anchor_right = 0.88311636
-anchor_bottom = 0.23348767
-grow_horizontal = 2
+anchor_right = 0.85555553
+anchor_bottom = 0.3
 metadata/_edit_use_anchors_ = true
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/HBoxContainer" unique_id=67960190]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Connection/VBoxContainer" unique_id=192951597]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Connection/VBoxContainer/HBoxContainer" unique_id=1625218216]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Enter IP-Address"
+select_all_on_focus = true
+virtual_keyboard_type = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1362429369]
+[node name="ConnectButton" type="Button" parent="CanvasLayer/Connection/VBoxContainer/HBoxContainer" unique_id=1362429369]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 text = "Connect"
 
-[node name="GrabButton" type="Button" parent="CanvasLayer/Control" unique_id=735759052]
+[node name="ScanButton" type="Button" parent="CanvasLayer/Connection/VBoxContainer" unique_id=194182683]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 48
+text = "Scan"
+
+[node name="GrabButton" type="Button" parent="CanvasLayer/Connection" unique_id=735759052]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -60,5 +78,64 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "Grab"
 
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/Button" to="WebSocketClient" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/GrabButton" to="." method="_on_grab_button_pressed"]
+[node name="Gamepad" type="Control" parent="CanvasLayer" unique_id=806949186]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Gamepad" unique_id=518862952]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Gamepad" unique_id=784779755]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.35
+anchor_right = 0.7
+anchor_bottom = 0.65
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Gamepad/HBoxContainer" unique_id=1471454854]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+text = "Start"
+
+[node name="PauseButton" type="Button" parent="CanvasLayer/Gamepad/HBoxContainer" unique_id=946934471]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+text = "Pause"
+
+[node name="DisconnectButton" type="Button" parent="CanvasLayer/Gamepad" unique_id=1848560773]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7416667
+anchor_top = 0.9234375
+anchor_right = 0.9583333
+anchor_bottom = 0.9765625
+grow_horizontal = 0
+grow_vertical = 0
+text = "Disconnect"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CanvasLayer/Connection/VBoxContainer/HBoxContainer/ConnectButton" to="WebSocketClient" method="_on_connect_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Connection/VBoxContainer/ScanButton" to="WebSocketClient" method="_on_scan_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Connection/GrabButton" to="." method="_on_grab_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/Gamepad/HBoxContainer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/Gamepad/HBoxContainer/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/Gamepad/HBoxContainer/PauseButton" to="." method="_on_pause_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/Gamepad/HBoxContainer/PauseButton" to="." method="_on_pause_button_button_up"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/DisconnectButton" to="WebSocketClient" method="_on_disconnect_button_pressed"]

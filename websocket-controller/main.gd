@@ -12,6 +12,8 @@ var initial_yaw : float = 0.0
 var k : float = 0.98
 
 var grab_pressed: bool = false
+var start_pressed: bool = false
+var pause_pressed: bool = false
 
 func _ready():
 	await get_tree().process_frame
@@ -48,10 +50,28 @@ func _physics_process(delta):
 		"accel_x": str(accel.x),
 		"accel_y": str(accel.y),
 		"accel_z": str(accel.z),
-		"button_pressed": str(grab_pressed)
+		"button_pressed": str(grab_pressed),
+		"start_pressed": str(start_pressed),
+		"pause_pressed": str(pause_pressed),
 	}
 	web_socket_client.msg = msg
 	
 
 func _on_grab_button_pressed() -> void:
 	grab_pressed = !grab_pressed
+
+
+func _on_start_button_button_down() -> void:
+	start_pressed = true
+
+
+func _on_start_button_button_up() -> void:
+	start_pressed = false
+
+
+func _on_pause_button_button_down() -> void:
+	pause_pressed = true
+
+
+func _on_pause_button_button_up() -> void:
+	pause_pressed = false
