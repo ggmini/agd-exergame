@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu/Main Menu.unity
     guid: 621d1a106ff826447bace42b6d5373ed
   - enabled: 1
-    path: Assets/Scenes/Game Scenes/Sandwich Assembly/Sandwich Assembly.unity
-    guid: a2f6527327008f54ab8efefb10731c9d
+    path: Assets/Scenes/Game Scenes/Sandwich Assembly/Sandwich Assembly SplitScreen.unity
+    guid: 9f393f2664048e14c81219c0f298f063
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

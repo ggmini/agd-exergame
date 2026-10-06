@@ -57,8 +57,6 @@ MonoBehaviour:
   - {fileID: 147557847594117642}
   - {fileID: 1375541907467343563}
   Camera: {fileID: 8464599602421903922}
-  pauseMenu: {fileID: 0}
-  endScreen: {fileID: 0}
   useMouse: 0
 --- !u!1 &6353667110180162363
 GameObject:
