@@ -128,4 +128,10 @@ public class AssemblyStation : SandwichAssemblyStation {
         }
     }
 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.orangeRed;
+        Gizmos.DrawCube(GetNextTargetPosition(), Vector3.one / 10);
+    }
 }
