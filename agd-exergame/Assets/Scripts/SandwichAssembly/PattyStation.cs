@@ -139,4 +139,14 @@ public class PattyStation : SandwichAssemblyStation {
 		Instantiate(pattyPrefab, transform.position + pattySpawnLocation, Quaternion.identity);
 	}
 
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.orangeRed;
+		Gizmos.DrawCube(transform.position + pattySpawnLocation,Vector3.one/10);
+	}
+
+
+
+
 }
