@@ -7477,8 +7477,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3837841478266732133}
-  - component: {fileID: 2035414366926144224}
   - component: {fileID: 341833075228787642}
+  - component: {fileID: 1875609578667680591}
   m_Layer: 0
   m_Name: Station 4_ Assembly Station
   m_TagString: Untagged
@@ -7503,78 +7503,6 @@ Transform:
   - {fileID: 1182448650421661029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2035414366926144224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7488191183741833109}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87974f4b6e606be4ca26da9bb5a6de1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpreadingStation
-  deviceID: 
-  ButterKnife: {fileID: 0}
-  pathCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 6.740067
-      outSlope: 6.740067
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.044053722
-    - serializedVersion: 3
-      time: 0.17311464
-      value: 0.69950986
-      inSlope: 1.900588
-      outSlope: 1.900588
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.19927597
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4959518
-      value: 0.98118806
-      inSlope: -0.012038539
-      outSlope: -0.012038539
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.3958808
-      outWeight: 0.39467585
-    - serializedVersion: 3
-      time: 0.76152456
-      value: 0.81378216
-      inSlope: -1.7082076
-      outSlope: -1.7082076
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.1318034
-    - serializedVersion: 3
-      time: 0.9992614
-      value: 0.011903926
-      inSlope: -6.234138
-      outSlope: -6.234138
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.05247496
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  ButterLayers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Speed: 0.25
 --- !u!65 &341833075228787642
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7596,6 +7524,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.41, y: 0.12, z: 0.66}
   m_Center: {x: 0, y: 0.41, z: -0.27}
+--- !u!114 &1875609578667680591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488191183741833109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d447037e9c6d047be961627f622d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AssemblyStation
+  deviceID: 
+  Table: {fileID: 5539378301000110663}
+  Trays:
+  - {fileID: 46983686195598070}
+  - {fileID: 5445912241384887842}
+  - {fileID: 9097438259689945421}
+  - {fileID: 2536512709854252331}
+  Pointer: {fileID: 1567618325102453916}
+  Speed: 0.25
+  CurrentHoveredTray: {fileID: 0}
+  HeldItem: {fileID: 0}
 --- !u!1 &7517007073352052732
 GameObject:
   m_ObjectHideFlags: 0

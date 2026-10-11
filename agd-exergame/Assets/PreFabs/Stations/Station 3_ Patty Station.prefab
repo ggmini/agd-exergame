@@ -700,8 +700,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7591539566127486805}
-  - component: {fileID: 3616402631250222140}
   - component: {fileID: 7321248498277097441}
+  - component: {fileID: 1859397893125546112}
   m_Layer: 0
   m_Name: Station 3_ Patty Station
   m_TagString: Untagged
@@ -726,78 +726,6 @@ Transform:
   - {fileID: 8945244528326264414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3616402631250222140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564101072729759308}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87974f4b6e606be4ca26da9bb5a6de1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpreadingStation
-  deviceID: 
-  ButterKnife: {fileID: 0}
-  pathCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 6.740067
-      outSlope: 6.740067
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.044053722
-    - serializedVersion: 3
-      time: 0.17311464
-      value: 0.69950986
-      inSlope: 1.900588
-      outSlope: 1.900588
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.19927597
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4959518
-      value: 0.98118806
-      inSlope: -0.012038539
-      outSlope: -0.012038539
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.3958808
-      outWeight: 0.39467585
-    - serializedVersion: 3
-      time: 0.76152456
-      value: 0.81378216
-      inSlope: -1.7082076
-      outSlope: -1.7082076
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.1318034
-    - serializedVersion: 3
-      time: 0.9992614
-      value: 0.011903926
-      inSlope: -6.234138
-      outSlope: -6.234138
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.05247496
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  ButterLayers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Speed: 0.25
 --- !u!65 &7321248498277097441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -819,6 +747,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.41, y: 0.12, z: 0.66}
   m_Center: {x: 0, y: 0.41, z: -0.27}
+--- !u!114 &1859397893125546112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564101072729759308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da8d1aeb6af12a4e9b28eed43f3341a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PattyStation
+  deviceID: 
+  minimumAccel: 0.5
+  impulseTarget: 1
+  pattyPrefab: {fileID: 7413703241844737911, guid: 73b2807397df5104e90573bdfc265b1c, type: 3}
+  flipper: {fileID: 1042106107379409464}
+  pattySpawnLocation: {x: -0.05, y: 0.5, z: 0}
+  flipUpAnimDuration: 5
+  flipDownAnimDuration: 30
+  flipAnimHeight: 0.2
+  flipRotateAmount: 45
+  failUpAnimDuration: 15
+  failAnimHeight: 0.05
+  failRotateAmount: 15
 --- !u!1 &1730627051072279419
 GameObject:
   m_ObjectHideFlags: 0
