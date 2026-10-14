@@ -35,16 +35,20 @@ public class AssemblyLine : MonoBehaviour
     }
 
     private void HandleStationCleared(BaseStation Station) {
+        Stations[CurrentStationIdx].Camera.SetActive(false);
         Stations[CurrentStationIdx].toggleIsActiveStation();
+        
         CurrentStationIdx++;
-
         if (CurrentStationIdx >= Stations.Length) {
             FinishAssemblyLine();
             lineDone = true;
             return;
+        
         }
+        Stations[CurrentStationIdx].Camera.SetActive(true);
 
-        StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
+
+        //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         StartCoroutine(activateNextStation());
     }
 
@@ -54,6 +58,7 @@ public class AssemblyLine : MonoBehaviour
     }
 
     public void ActivateAssemblyLine(string id) {
+        Stations[CurrentStationIdx].Camera.SetActive(true);
         deviceID = id;
         _activated = true;
         foreach (SandwichAssemblyStation station in Stations) {

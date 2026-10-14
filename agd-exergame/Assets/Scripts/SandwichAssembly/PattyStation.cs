@@ -49,7 +49,7 @@ public class PattyStation : SandwichAssemblyStation {
 			return;
 
 		var accel = playerInput.GetAccelY(deviceID);
-		Debug.Log($"Accel: {accel}");
+		//Debug.Log($"Accel: {accel}");
 		if (accel > minimumAccel) {
 			if (accel > curMax)
 				curMax = accel;
@@ -131,6 +131,7 @@ public class PattyStation : SandwichAssemblyStation {
 
 	void SpawnPatty() {
 		if (completed >= required) {
+			Debug.Log("station should be cleared");
 			StartCoroutine(cleanupItems());
 			OnStationCleared?.Invoke(this);
 			return;
@@ -138,5 +139,15 @@ public class PattyStation : SandwichAssemblyStation {
 
 		Instantiate(pattyPrefab, transform.position + pattySpawnLocation, Quaternion.identity);
 	}
+
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.orangeRed;
+		Gizmos.DrawCube(transform.position + pattySpawnLocation,Vector3.one/10);
+	}
+
+
+
 
 }

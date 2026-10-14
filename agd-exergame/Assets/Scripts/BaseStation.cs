@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class BaseStation : MonoBehaviour {
@@ -16,6 +17,10 @@ public class BaseStation : MonoBehaviour {
 	protected bool isActiveStation = false;
 
 	protected List<GameObject> spawnedItems = new List<GameObject>();
+
+	[SerializeField] GameObject cam;
+	public GameObject Camera { get { return cam; } }
+
 
 	protected void OnEnable() {
 		playerInput = useMouse ? gameObject.AddComponent<MouseInput>() :  gameObject.AddComponent<WebSocketInput>();
