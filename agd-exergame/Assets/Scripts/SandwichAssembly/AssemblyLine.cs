@@ -49,12 +49,15 @@ public class AssemblyLine : MonoBehaviour
             return;
         
         }
+        Debug.Log("aaaaaaaaaaaa");
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
+            Debug.Log("bbbbbbbbbbbbbb");
             Stations[CurrentStationIdx].Camera.SetActive(true);
+            Debug.Log("ahsdajkhsbd");
             LeanTween.alpha(blackscreen.rectTransform, 0f, 1f);
         });
-
+        Debug.Log("dddddddddddddddd");
 
         //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         StartCoroutine(activateNextStation());
