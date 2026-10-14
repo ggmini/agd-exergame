@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7857faea77ad25d45b0ff2150f280735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WebSocketServer::WebSocketManager
-  ip: -1
+  ip: 10.224.28.57
 --- !u!4 &191534874
 Transform:
   m_ObjectHideFlags: 0
@@ -3986,7 +3986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7c139a12e73184680921ad315cf828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerSignUp: {fileID: 0}
+  playerSignUp: {fileID: 716902292}
   PlaceHolderSprite: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
   DisconnectSprite: {fileID: 21300000, guid: b3abce7efa3854a4cb1dd6b47f553027, type: 3}
   Images:
