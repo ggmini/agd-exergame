@@ -17,7 +17,8 @@ public class PlayerSignUp : MonoBehaviour
     [SerializeField] private float ConfirmationDuration = 5f;
 
     private string[] ConnectedDevices = { "", "", "", "" };
-    [SerializeField]public Image blackscreen;
+    [SerializeField] Image blackscreen;
+    [SerializeField] GameObject panel;
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
 
@@ -47,19 +48,24 @@ public class PlayerSignUp : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        while (queue.TryDequeue(out var action)) {
+        while (queue.TryDequeue(out var action))
+        {
             action();
         }
 
-        if (isReadyPressed()) {
+        if (isReadyPressed())
+        {
             Timer += Time.deltaTime;
-            if (Timer >= ConfirmationDuration && !gameStarted) {
+            if (Timer >= ConfirmationDuration && !gameStarted)
+            {
                 Debug.Log("Timer exceeded");
                 StartGame();
             }
         }
-        else {
-            if (Timer > 0) {
+        else
+        {
+            if (Timer > 0)
+            {
                 Debug.Log("Timer reset");
                 Timer = 0;
             }
@@ -75,7 +81,7 @@ public class PlayerSignUp : MonoBehaviour
         }
 
         // Register device under first free slot
-        for (int i=0; i<ConnectedDevices.Length; i++)
+        for (int i = 0; i < ConnectedDevices.Length; i++)
         {
             if (ConnectedDevices[i].Equals(""))
             {
@@ -118,7 +124,8 @@ public class PlayerSignUp : MonoBehaviour
 
     private void UpdateCanvas()
     {
-        for (int i = 0; i < PlayerConnectPanels.Length; i++) {
+        for (int i = 0; i < PlayerConnectPanels.Length; i++)
+        {
             //Debug.Log(PlayerConnectPanels[i]);
             int j = i;
             bool connected = !ConnectedDevices[i].Equals("");
@@ -133,29 +140,38 @@ public class PlayerSignUp : MonoBehaviour
         }
     }
 
-    private void SetText(PlayerConnectPanel panel, int idx, bool connected) {
+    private void SetText(PlayerConnectPanel panel, int idx, bool connected)
+    {
         //Debug.Log($"Called with idx {idx}");
         string text = panel.connectionText.text;
-        if (connected) {
+        if (connected)
+        {
             text = "Spieler " + (idx + 1).ToString() + " verbunden!";
-        } else {
+        }
+        else
+        {
             text = "Spieler nicht verbunden";
         }
     }
 
-    private void SetImage(PlayerConnectPanel panel, bool connected) {
-        panel.connectionText.color = new Color(0.4f, 0.91372f, 0.40392f, 1);
+    private void SetImage(PlayerConnectPanel panel, bool connected)
+    {
+        if (connected)
+            panel.decorImage.color = new Color(0.4f, 0.91372f, 0.40392f, 1);
+        else
+            panel.decorImage.color = new Color(1f, 1f, 1f, 1);
         //TODO: set to check image or sth.
     }
 
-    private void StartGame() {
+    private void StartGame()
+    {
         if (gameStarted) return;
 
         Debug.Log("passed check");
         gameStarted = true;
         //blackscreen animation
-        LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() => 
-        { GetComponent<Canvas>().enabled = false; }).setOnComplete(() => 
+        LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
+        { panel.SetActive(false); }).setOnComplete(() =>
         { LeanTween.alpha(blackscreen.rectTransform, 0f, 3f); });
 
         GameStarted?.Invoke();
@@ -163,9 +179,11 @@ public class PlayerSignUp : MonoBehaviour
 
 
     // NOTE: unti,ely device disconnect might be a problem
-    private bool isReadyPressed() {
+    private bool isReadyPressed()
+    {
         bool isReadyPressed = false;
-        foreach (String id in WebSocketManager.Instance.Msg.Keys) {
+        foreach (String id in WebSocketManager.Instance.Msg.Keys)
+        {
             if (WebSocketManager.Instance.Msg[id].start_pressed) isReadyPressed = true;
         }
 
@@ -177,7 +195,8 @@ public class PlayerSignUp : MonoBehaviour
     {
         if (WebSocketManager.Instance.Msg.Count <= 0) return;
 
-        foreach (String id in WebSocketManager.Instance.Msg.Keys){
+        foreach (String id in WebSocketManager.Instance.Msg.Keys)
+        {
             OnDeviceConnected(id);
         }
     }
