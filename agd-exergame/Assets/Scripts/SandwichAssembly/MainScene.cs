@@ -17,6 +17,8 @@ public class MainScene : MonoBehaviour {
     private bool gameStarted = false;
     private int activeAssemblyLines = 0;
     private int finishedLines = 0;
+    private bool winnerExists = false;
+    private string winner = "";
 
     private List<string> finishedAssemblyLines = new List<string>();
 
@@ -82,6 +84,12 @@ public class MainScene : MonoBehaviour {
             Debug.Log("already finished assembly line tried to double dip");
         }
         finishedAssemblyLines.Add(id);
+        if (!winnerExists)
+        {
+            winnerExists = true;
+            winner = id;
+        }
+
         finishedLines++;
         if (finishedLines >= activeAssemblyLines)
         {
@@ -93,7 +101,23 @@ public class MainScene : MonoBehaviour {
 
     void OpenEndScreen()
     {
+        int winningIdx = 1;
         endScreen.gameObject.SetActive(true);
+
+        int counter = 0;
+        foreach (AssemblyLine line in AssemblyLines)
+        {
+            if (line.DeviceID == winner)
+            {
+                winningIdx = counter;
+                break;
+            }
+            counter++;
+        }
+
+
+        endScreen.winningText.text = $"Player {winningIdx + 1} wins!";
+
     }
 
     public void Reset()

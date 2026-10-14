@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 84747243}
   - component: {fileID: 84747242}
   m_Layer: 0
-  m_Name: SplitScreenCamera
+  m_Name: SplitScreenCamera1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1452,6 +1452,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssemblyLine2
       objectReference: {fileID: 0}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1782241772}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3370079051344340928, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
       propertyPath: OutputChannel
       value: 4
@@ -1508,6 +1516,10 @@ PrefabInstance:
       propertyPath: OutputChannel
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8421957239077288627, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: blackscreen
+      value: 
+      objectReference: {fileID: 716902295}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1776,6 +1788,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbb9237a8061754b8232c25b1556aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &716902293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2185574515899367047, guid: d72312ace3744844197886f9704c23cc, type: 3}
+  m_PrefabInstance: {fileID: 716902291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &716902294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3041975238469860938, guid: d72312ace3744844197886f9704c23cc, type: 3}
+  m_PrefabInstance: {fileID: 716902291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &716902295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5150197856280609045, guid: d72312ace3744844197886f9704c23cc, type: 3}
+  m_PrefabInstance: {fileID: 716902291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &716902296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4220832712443078341, guid: d72312ace3744844197886f9704c23cc, type: 3}
+  m_PrefabInstance: {fileID: 716902291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &809526732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,6 +1989,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssemblyLine4
       objectReference: {fileID: 0}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1091720199}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3370079051344340928, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
       propertyPath: OutputChannel
       value: 16
@@ -1989,6 +2053,10 @@ PrefabInstance:
       propertyPath: OutputChannel
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 8421957239077288627, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: blackscreen
+      value: 
+      objectReference: {fileID: 716902293}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2151,6 +2219,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AssemblyLine3
       objectReference: {fileID: 0}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1650785926}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3370079051344340928, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
       propertyPath: OutputChannel
       value: 8
@@ -2207,6 +2283,10 @@ PrefabInstance:
       propertyPath: OutputChannel
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8421957239077288627, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: blackscreen
+      value: 
+      objectReference: {fileID: 716902294}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2806,6 +2886,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 84747244}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950320463905616983, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3370079051344340928, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
       propertyPath: OutputChannel
       value: 2
@@ -2926,6 +3018,10 @@ PrefabInstance:
       propertyPath: OutputChannel
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8421957239077288627, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
+      propertyPath: blackscreen
+      value: 
+      objectReference: {fileID: 716902296}
     - target: {fileID: 8803097739326388887, guid: e008b750af95c114f8b05711155ecdf0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3286,6 +3382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PostGameMenu
   main: {fileID: 236919860}
+  winningText: {fileID: 337784563}
 --- !u!1 &1650785923
 GameObject:
   m_ObjectHideFlags: 0

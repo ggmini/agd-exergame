@@ -13,10 +13,12 @@ public class AssemblyLine : MonoBehaviour
     private int CurrentStationIdx;
 
     private string deviceID;
+    public string DeviceID {  get { return deviceID; } }
 
     [SerializeField] Image blackscreen;
     [SerializeField] bool useMouse;
     private bool lineDone;
+    public bool FirstToFinish = true;
     private bool _activated = false;
     public bool activated {
         get { return _activated; }
@@ -47,12 +49,15 @@ public class AssemblyLine : MonoBehaviour
             return;
         
         }
+        Debug.Log("aaaaaaaaaaaa");
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
+            Debug.Log("bbbbbbbbbbbbbb");
             Stations[CurrentStationIdx].Camera.SetActive(true);
+            Debug.Log("ahsdajkhsbd");
             LeanTween.alpha(blackscreen.rectTransform, 0f, 1f);
         });
-
+        Debug.Log("dddddddddddddddd");
 
         //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         StartCoroutine(activateNextStation());

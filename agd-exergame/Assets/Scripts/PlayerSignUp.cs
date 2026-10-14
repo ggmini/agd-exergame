@@ -18,6 +18,7 @@ public class PlayerSignUp : MonoBehaviour
 
     private string[] ConnectedDevices = { "", "", "", "" };
     [SerializeField] Image blackscreen;
+    [SerializeField] GameObject blackscreensInGame;
     [SerializeField] GameObject connectScreen;
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
@@ -174,6 +175,7 @@ public class PlayerSignUp : MonoBehaviour
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
             connectScreen.SetActive(false);
+            blackscreensInGame.SetActive(true);
             LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
         });
 
