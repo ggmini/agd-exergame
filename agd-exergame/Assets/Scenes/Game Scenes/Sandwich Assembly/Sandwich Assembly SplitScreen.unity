@@ -1111,6 +1111,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8827484475480968020, guid: 611485655238adc499ffe750ae44562f, type: 3}
+      propertyPath: main
+      value: 
+      objectReference: {fileID: 236919860}
     - target: {fileID: 9072927313292838325, guid: 611485655238adc499ffe750ae44562f, type: 3}
       propertyPath: m_Name
       value: EndScreen
