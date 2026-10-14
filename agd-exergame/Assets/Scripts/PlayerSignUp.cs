@@ -18,7 +18,7 @@ public class PlayerSignUp : MonoBehaviour
 
     private string[] ConnectedDevices = { "", "", "", "" };
     [SerializeField] Image blackscreen;
-    [SerializeField] GameObject panel;
+    [SerializeField] GameObject connectScreen;
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
 
@@ -143,14 +143,13 @@ public class PlayerSignUp : MonoBehaviour
     private void SetText(PlayerConnectPanel panel, int idx, bool connected)
     {
         //Debug.Log($"Called with idx {idx}");
-        string text = panel.connectionText.text;
         if (connected)
         {
-            text = "Spieler " + (idx + 1).ToString() + " verbunden!";
+            panel.connectionText.text = "Spieler " + (idx + 1).ToString() + " verbunden!";
         }
         else
         {
-            text = "Spieler nicht verbunden";
+            panel.connectionText.text = "Spieler nicht verbunden";
         }
     }
 
@@ -171,7 +170,7 @@ public class PlayerSignUp : MonoBehaviour
         gameStarted = true;
         //blackscreen animation
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
-        { panel.SetActive(false); }).setOnComplete(() =>
+        { connectScreen.SetActive(false); }).setOnComplete(() =>
         { LeanTween.alpha(blackscreen.rectTransform, 0f, 3f); });
 
         GameStarted?.Invoke();

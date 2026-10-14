@@ -493,7 +493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   ConfirmationDuration: 5
   blackscreen: {fileID: 3476871879111402495}
-  panel: {fileID: 2925035833802758807}
+  connectScreen: {fileID: 2925035833802758807}
   PlayerConnectPanels:
   - {fileID: 316729988255541074}
   - {fileID: 2051838721226895795}
