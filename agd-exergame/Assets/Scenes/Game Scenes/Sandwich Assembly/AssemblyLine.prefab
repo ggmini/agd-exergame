@@ -283,6 +283,18 @@ PrefabInstance:
       propertyPath: minCutRatio
       value: -0.92
       objectReference: {fileID: 0}
+    - target: {fileID: 5936034678043350956, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.222
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936034678043350956, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.291
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936034678043350956, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.377
+      objectReference: {fileID: 0}
     - target: {fileID: 6396015617338743857, guid: 6bac81ae1a8ac684fa6cd74ee24ac636, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.99076
