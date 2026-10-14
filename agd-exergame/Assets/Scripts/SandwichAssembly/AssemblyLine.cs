@@ -50,7 +50,7 @@ public class AssemblyLine : MonoBehaviour
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
             Stations[CurrentStationIdx].Camera.SetActive(true);
-            LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
+            LeanTween.alpha(blackscreen.rectTransform, 0f, 1f);
         });
 
 
