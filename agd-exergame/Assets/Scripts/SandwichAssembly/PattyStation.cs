@@ -26,17 +26,17 @@ public class PattyStation : SandwichAssemblyStation {
 	Rigidbody flipperRB;
 
 	[SerializeField]
-	float flipUpAnimDuration = 20f;
+	float flipUpAnimDuration;
 	[SerializeField]
-	float flipDownAnimDuration = 60f;
+	float flipDownAnimDuration = 30f;
 	[SerializeField]
-	float flipAnimHeight = 1f;
+	float flipAnimHeight = .2f;
 	[SerializeField]
-	float flipRotateAmount = 10f;
+	float flipRotateAmount = 20f;
 	[SerializeField]
-	float failUpAnimDuration = 30f;
+	float failUpAnimDuration = 15f;
 	[SerializeField]
-	float failAnimHeight = 0.5f;
+	float failAnimHeight = 0.05f;
 	[SerializeField]
 	float failRotateAmount = 0f;
 
@@ -78,9 +78,9 @@ public class PattyStation : SandwichAssemblyStation {
 		Debug.Log("Flipping patty");
 		scanInputs = false;
 
-		var targetPos = new Vector3(startPosition.x - 0.1f, startPosition.y + flipAnimHeight, startPosition.z);
+		var targetPos = new Vector3(startPosition.x + 0.1f, startPosition.y + flipAnimHeight, startPosition.z);
 		var originRot = flipper.transform.rotation;
-		var targetRot = Quaternion.Euler(0, 0, flipRotateAmount) * originRot;
+		var targetRot = Quaternion.Euler(0, 0, -flipRotateAmount) * originRot;
 
 
 		for (int frame = 0; frame < flipUpAnimDuration; frame++) {
@@ -113,7 +113,7 @@ public class PattyStation : SandwichAssemblyStation {
 
 		var targetPos = new Vector3(startPosition.x, startPosition.y + failAnimHeight, startPosition.z);
 		var originRot = flipper.transform.rotation;
-		var targetRot = Quaternion.Euler(0, 0, failRotateAmount) * originRot;
+		var targetRot = Quaternion.Euler(0, 0, -failRotateAmount) * originRot;
 
 		for (int frame = 0; frame < failUpAnimDuration; frame++) {
 			float t = (float)frame / failUpAnimDuration;
