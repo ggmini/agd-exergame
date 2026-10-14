@@ -170,8 +170,10 @@ public class PlayerSignUp : MonoBehaviour
         gameStarted = true;
         //blackscreen animation
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
-        { connectScreen.SetActive(false); }).setOnComplete(() =>
-        { LeanTween.alpha(blackscreen.rectTransform, 0f, 3f); });
+        {
+            connectScreen.SetActive(false);
+            LeanTween.alpha(blackscreen.rectTransform, 0f, 3f);
+        });
 
         GameStarted?.Invoke();
     }
