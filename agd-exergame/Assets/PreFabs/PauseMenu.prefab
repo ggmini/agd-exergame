@@ -835,7 +835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Febucci.TextAnimator.TMP.Runtime::Febucci.UI.TextAnimator_TMP
   typewriterStartsAutomatically: 0
   animationLoop: 0
-  timeScale: 0
+  timeScale: 1
   _text: Spiel Pausiert !
   useDynamicScaling: 1
   referenceFontSize: 10
