@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayerSignUp : MonoBehaviour
 {
@@ -17,8 +17,9 @@ public class PlayerSignUp : MonoBehaviour
     [SerializeField] private float ConfirmationDuration = 5f;
 
     private string[] ConnectedDevices = { "", "", "", "" };
+    [SerializeField]public Image blackscreen;
 
-    [SerializeField] GameObject[] Images = { };
+    [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
 
     public event Action<int, String> OnDeviceAssigned;
     public event Action<int> OnDeviceDeassigned;
@@ -117,32 +118,29 @@ public class PlayerSignUp : MonoBehaviour
 
     private void UpdateCanvas()
     {
-        for (int i = 0; i < Images.Length; i++) {
+        for (int i = 0; i < PlayerConnectPanels.Length; i++) {
             int j = i;
             bool connected = !ConnectedDevices[i].Equals("");
 
-            GameObject obj = Images[i];
-
-            Enqueue(() => SetText(obj, j, connected));
-            Enqueue(() => SetImage(obj, connected));
+            Enqueue(() => SetText(PlayerConnectPanels[i], j, connected));
+            Enqueue(() => SetImage(PlayerConnectPanels[i], connected));
 
             //SetText(obj, i, connected);
             //SetImage(obj, connected);
         }
     }
 
-    private void SetText(GameObject obj, int idx, bool connected) {
+    private void SetText(PlayerConnectPanel panel, int idx, bool connected) {
         //Debug.Log($"Called with idx {idx}");
-        TextMeshProUGUI text = obj.GetComponentInChildren<TextMeshProUGUI>();
         if (connected) {
-            text.text = "Player " + idx.ToString() + " connected!";
+            panel.connectionText.text = "Spieler " + (idx + 1).ToString() + " verbunden!";
         } else {
-            text.text = "Connect Device to Join";
+            panel.connectionText.text = "Connect Device to Join";
         }
     }
 
-    private void SetImage(GameObject obj, bool connected) {
-        UnityEngine.UI.Image img = obj.GetComponentInChildren<UnityEngine.UI.Image>();
+    private void SetImage(PlayerConnectPanel panel, bool connected) {
+        panel.connectionText.color = new Color(102, 233, 103, 255);
         //TODO: set to check image or sth.
     }
 
@@ -151,7 +149,11 @@ public class PlayerSignUp : MonoBehaviour
 
         Debug.Log("passed check");
         gameStarted = true;
-        GetComponent<Canvas>().enabled = false;
+        //blackscreen animation
+        LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() => 
+        { LeanTween.alpha(blackscreen.rectTransform, 0f, 2f).setOnComplete(() => 
+        { GetComponent<Canvas>().enabled = false; }); });
+
         GameStarted?.Invoke();
     }
 
