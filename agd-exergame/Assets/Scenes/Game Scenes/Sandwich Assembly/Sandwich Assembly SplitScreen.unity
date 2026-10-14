@@ -1672,6 +1672,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3238364298131983836, guid: d72312ace3744844197886f9704c23cc, type: 3}
+      propertyPath: SplitScreenCameras.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3238364298131983836, guid: d72312ace3744844197886f9704c23cc, type: 3}
+      propertyPath: 'SplitScreenCameras.Array.data[0]'
+      value: 
+      objectReference: {fileID: 84747244}
+    - target: {fileID: 3238364298131983836, guid: d72312ace3744844197886f9704c23cc, type: 3}
+      propertyPath: 'SplitScreenCameras.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1782241772}
+    - target: {fileID: 3238364298131983836, guid: d72312ace3744844197886f9704c23cc, type: 3}
+      propertyPath: 'SplitScreenCameras.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1650785926}
+    - target: {fileID: 3238364298131983836, guid: d72312ace3744844197886f9704c23cc, type: 3}
+      propertyPath: 'SplitScreenCameras.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1091720199}
     - target: {fileID: 5265630334592581935, guid: d72312ace3744844197886f9704c23cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

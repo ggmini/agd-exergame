@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,6 +23,7 @@ public class PlayerSignUp : MonoBehaviour
     [SerializeField] GameObject connectScreen;
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
+    [SerializeField] Camera[] SplitScreenCameras = {};
 
     public event Action<int, String> OnDeviceAssigned;
     public event Action<int> OnDeviceDeassigned;
@@ -179,7 +181,32 @@ public class PlayerSignUp : MonoBehaviour
             LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
         });
 
+        SetCameraRects();
+
         GameStarted?.Invoke();
+    }
+
+    private void SetCameraRects()
+    {
+        //PlayerCount;
+        if (PlayerCount == 1)
+        {
+            SplitScreenCameras[0].rect = new Rect(0f, 0f, 1f, 1f);
+            SplitScreenCameras[1].rect = new Rect(0f, 0f, 0f, 0f);
+            SplitScreenCameras[2].rect = new Rect(0f, 0f, 0f, 0f);
+            SplitScreenCameras[3].rect = new Rect(0f, 0f, 0f, 0f);
+        }
+        else if (PlayerCount == 2)
+        {
+            SplitScreenCameras[0].rect = new Rect(0f, 0.5f, 1f, 0.5f);
+            SplitScreenCameras[1].rect = new Rect(0f, 0f, 1f, 0.5f);
+            SplitScreenCameras[2].rect = new Rect(0f, 0f, 0f, 0f);
+            SplitScreenCameras[3].rect = new Rect(0f, 0f, 0f, 0f);
+        }
+        else if (PlayerCount == 3)
+        {
+
+        }
     }
 
 
