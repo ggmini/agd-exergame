@@ -1,11 +1,10 @@
 using System.Collections;
-using Unity.VectorGraphics;
 using UnityEngine;
 
 public class PattyStation : SandwichAssemblyStation {
 
 	[SerializeField]
-	float minimumAccel = 0.5f;
+	float minimumAccel = 0.6f;
 	[SerializeField]
 	float impulseTarget = 1f;
 
@@ -23,25 +22,30 @@ public class PattyStation : SandwichAssemblyStation {
 	[SerializeField]
 	Vector3 pattySpawnLocation;
 
+	Vector3 startPosition;
+	Rigidbody flipperRB;
+
 	[SerializeField]
-	float flipUpAnimDuration = 30f;
+	float flipUpAnimDuration = 20f;
 	[SerializeField]
 	float flipDownAnimDuration = 60f;
 	[SerializeField]
 	float flipAnimHeight = 1f;
 	[SerializeField]
-	float flipRotateAmount = 15f;
+	float flipRotateAmount = 10f;
 	[SerializeField]
 	float failUpAnimDuration = 30f;
 	[SerializeField]
 	float failAnimHeight = 0.5f;
 	[SerializeField]
-	float failRotateAmount = 10f;
+	float failRotateAmount = 0f;
 
 	new void OnEnable() {
 		base.OnEnable();
+		startPosition = flipper.transform.position;
 		SpawnPatty();
 		scanInputs = true;
+		flipperRB = flipper.GetComponent<Rigidbody>();
 	}
 
 	void FixedUpdate() {
@@ -74,8 +78,7 @@ public class PattyStation : SandwichAssemblyStation {
 		Debug.Log("Flipping patty");
 		scanInputs = false;
 
-		var originPos = flipper.transform.position;
-		var targetPos = new Vector3(originPos.x, originPos.y + flipAnimHeight, originPos.z);
+		var targetPos = new Vector3(startPosition.x - 0.1f, startPosition.y + flipAnimHeight, startPosition.z);
 		var originRot = flipper.transform.rotation;
 		var targetRot = Quaternion.Euler(0, 0, flipRotateAmount) * originRot;
 
@@ -83,19 +86,23 @@ public class PattyStation : SandwichAssemblyStation {
 		for (int frame = 0; frame < flipUpAnimDuration; frame++) {
 			float t = (float) frame / flipUpAnimDuration;
 			MoveAndRotFlipper(
-				Vector3.Lerp(originPos, targetPos, t),
-				Quaternion.Slerp(originRot, targetRot, t));
+				Vector3.Lerp(startPosition, targetPos, t),
+				Quaternion.Lerp(originRot, targetRot, t));
 			yield return new WaitForFixedUpdate();
 		}
 		yield return new WaitForSeconds(0.5f);
 		for (int frame = 0; frame < flipDownAnimDuration; frame++) {
 			float t = (float)frame / flipDownAnimDuration;
 			MoveAndRotFlipper(
-				Vector3.Lerp(targetPos, originPos, t),
-				Quaternion.Slerp(targetRot, originRot, t));
+				Vector3.Lerp(targetPos, startPosition, t),
+				Quaternion.Lerp(targetRot, originRot, t));
 			yield return new WaitForFixedUpdate();
 		}
 		completed++;
+		flipperRB.linearVelocity = Vector3.zero;
+		flipperRB.angularVelocity = Vector3.zero;
+		flipperRB.MovePosition(startPosition);
+		flipperRB.MoveRotation(originRot);
 		SpawnPatty();
 		scanInputs = true;
 	}
@@ -104,15 +111,14 @@ public class PattyStation : SandwichAssemblyStation {
 		Debug.Log("Failed flip");
 		scanInputs = false;
 
-		var originPos = flipper.transform.position;
-		var targetPos= new Vector3(originPos.x, originPos.y + failAnimHeight, originPos.z);
+		var targetPos = new Vector3(startPosition.x, startPosition.y + failAnimHeight, startPosition.z);
 		var originRot = flipper.transform.rotation;
 		var targetRot = Quaternion.Euler(0, 0, failRotateAmount) * originRot;
 
 		for (int frame = 0; frame < failUpAnimDuration; frame++) {
 			float t = (float)frame / failUpAnimDuration;
 			MoveAndRotFlipper(
-				Vector3.Lerp(originPos, targetPos, t),
+				Vector3.Lerp(startPosition, targetPos, t),
 				Quaternion.Slerp(originRot, targetRot, t));
 			yield return new WaitForFixedUpdate();
 		}
@@ -120,13 +126,15 @@ public class PattyStation : SandwichAssemblyStation {
 		for (int frame = 0; frame < flipDownAnimDuration; frame++) {
 			float t = (float)frame / flipDownAnimDuration;
 			MoveAndRotFlipper(
-				Vector3.Lerp(targetPos, originPos, t),
+				Vector3.Lerp(targetPos, startPosition, t),
 				Quaternion.Slerp(targetRot, originRot, t));
 			yield return new WaitForFixedUpdate();
 		}
 		scanInputs = true;
-
-
+		flipperRB.linearVelocity = Vector3.zero;
+		flipperRB.angularVelocity = Vector3.zero;
+		flipperRB.MovePosition(startPosition);
+		flipperRB.MoveRotation(originRot);
 	}
 
 	void SpawnPatty() {
