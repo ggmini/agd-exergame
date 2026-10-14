@@ -122,6 +122,7 @@ public class PlayerSignUp : MonoBehaviour
             //Debug.Log(PlayerConnectPanels[i]);
             int j = i;
             bool connected = !ConnectedDevices[i].Equals("");
+
             PlayerConnectPanel panel = PlayerConnectPanels[i];
 
             Enqueue(() => SetText(panel, j, connected));
@@ -134,15 +135,16 @@ public class PlayerSignUp : MonoBehaviour
 
     private void SetText(PlayerConnectPanel panel, int idx, bool connected) {
         //Debug.Log($"Called with idx {idx}");
+        string text = panel.connectionText.text;
         if (connected) {
-            panel.connectionText.text = "Spieler " + (idx + 1).ToString() + " verbunden!";
+            text = "Spieler " + (idx + 1).ToString() + " verbunden!";
         } else {
-            panel.connectionText.text = "Connect Device to Join";
+            text = "Spieler nicht verbunden";
         }
     }
 
     private void SetImage(PlayerConnectPanel panel, bool connected) {
-        panel.connectionText.color = new Color(102, 233, 103, 255);
+        panel.connectionText.color = new Color(0.4f, 0.91372f, 0.40392f, 1);
         //TODO: set to check image or sth.
     }
 
