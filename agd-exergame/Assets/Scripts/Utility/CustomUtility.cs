@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Unity.Android.Gradle;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
-using UnityEngine.UI;
 
 public static class CustomUtility
 {
