@@ -3242,6 +3242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PostGameMenu
   main: {fileID: 236919860}
+  winningText: {fileID: 337784563}
 --- !u!1 &1650785923
 GameObject:
   m_ObjectHideFlags: 0

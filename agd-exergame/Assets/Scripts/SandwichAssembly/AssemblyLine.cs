@@ -13,10 +13,12 @@ public class AssemblyLine : MonoBehaviour
     private int CurrentStationIdx;
 
     private string deviceID;
+    public string DeviceID {  get { return deviceID; } }
 
     [SerializeField] Image blackscreen;
     [SerializeField] bool useMouse;
     private bool lineDone;
+    public bool FirstToFinish = true;
     private bool _activated = false;
     public bool activated {
         get { return _activated; }
