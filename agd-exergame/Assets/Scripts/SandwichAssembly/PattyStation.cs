@@ -131,6 +131,7 @@ public class PattyStation : SandwichAssemblyStation {
 
 	void SpawnPatty() {
 		if (completed >= required) {
+			Debug.Log("station should be cleared");
 			StartCoroutine(cleanupItems());
 			OnStationCleared?.Invoke(this);
 			return;

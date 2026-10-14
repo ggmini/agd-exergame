@@ -2834,7 +2834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3703045468654120493
 Transform:
   m_ObjectHideFlags: 0
@@ -4929,6 +4929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssemblyStation
   deviceID: 
+  cam: {fileID: 0}
   Table: {fileID: 5539378301000110663}
   Trays:
   - {fileID: 46983686195598070}
@@ -7537,6 +7538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AssemblyStation
   deviceID: 
+  cam: {fileID: 2096567186239039676}
   Table: {fileID: 5539378301000110663}
   Trays:
   - {fileID: 46983686195598070}

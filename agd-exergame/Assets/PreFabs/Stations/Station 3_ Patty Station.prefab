@@ -279,12 +279,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042106107379409464}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.13195223, w: 0.9912561}
-  m_LocalPosition: {x: -0.303, y: 0.311, z: 0}
+  m_LocalRotation: {x: 0.091862164, y: -0.6900901, z: -0.09472451, w: 0.7115928}
+  m_LocalPosition: {x: 0.6207057, y: 0.156, z: 0.57013977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8611756706555815296}
+  m_Father: {fileID: 8945244528326264414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15.165}
 --- !u!33 &3615831426596154201
 MeshFilter:
@@ -408,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1975649589218981275
 Transform:
   m_ObjectHideFlags: 0
@@ -700,7 +700,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7591539566127486805}
-  - component: {fileID: 7321248498277097441}
   - component: {fileID: 1859397893125546112}
   m_Layer: 0
   m_Name: Station 3_ Patty Station
@@ -726,27 +725,6 @@ Transform:
   - {fileID: 8945244528326264414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7321248498277097441
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564101072729759308}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.41, y: 0.12, z: 0.66}
-  m_Center: {x: 0, y: 0.41, z: -0.27}
 --- !u!114 &1859397893125546112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,11 +738,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PattyStation
   deviceID: 
+  cam: {fileID: 1072090327668567628}
   minimumAccel: 0.5
   impulseTarget: 1
   pattyPrefab: {fileID: 7413703241844737911, guid: 73b2807397df5104e90573bdfc265b1c, type: 3}
   flipper: {fileID: 1042106107379409464}
-  pattySpawnLocation: {x: -0.05, y: 0.5, z: 0}
+  pattySpawnLocation: {x: 0.3, y: 0.43, z: 0.56}
   flipUpAnimDuration: 5
   flipDownAnimDuration: 30
   flipAnimHeight: 0.2
@@ -1611,12 +1590,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2537192314329919476}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.6961774, z: -0, w: 0.71786976}
+  m_LocalPosition: {x: 0.63000023, y: -0.15499999, z: 0.873}
   m_LocalScale: {x: 2, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8611756706555815296}
+  m_Father: {fileID: 8945244528326264414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7137550493952474113
 MeshFilter:
@@ -2151,8 +2130,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2934178595282845970}
+  - {fileID: 634857352688537129}
   - {fileID: 1975649589218981275}
-  - {fileID: 8611756706555815296}
   m_Father: {fileID: 7591539566127486805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3253476483204572312
@@ -3216,65 +3196,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4781688759305888489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8611756706555815296}
-  - component: {fileID: 7483334534302360484}
-  m_Layer: 0
-  m_Name: PattyStation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8611756706555815296
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781688759305888489}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.6961774, z: -0, w: 0.71786976}
-  m_LocalPosition: {x: 0.63, y: -0.15499999, z: 0.8729991}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2934178595282845970}
-  - {fileID: 634857352688537129}
-  m_Father: {fileID: 8945244528326264414}
-  m_LocalEulerAnglesHint: {x: 0, y: -88.242, z: 0}
---- !u!114 &7483334534302360484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781688759305888489}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da8d1aeb6af12a4e9b28eed43f3341a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PattyStation
-  deviceID: 
-  minimumAccel: 0.5
-  impulseTarget: 1
-  pattyPrefab: {fileID: 7413703241844737911, guid: 73b2807397df5104e90573bdfc265b1c, type: 3}
-  flipper: {fileID: 1042106107379409464}
-  pattySpawnLocation: {x: -0.05, y: 0.5, z: 0}
-  flipUpAnimDuration: 5
-  flipDownAnimDuration: 30
-  flipAnimHeight: 0.2
-  flipRotateAmount: 45
-  failUpAnimDuration: 15
-  failAnimHeight: 0.05
-  failRotateAmount: 15
 --- !u!1 &4967909085844375799
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3654081432051320976
 Transform:
   m_ObjectHideFlags: 0
@@ -618,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
   deviceID: 
+  cam: {fileID: 254252760274317980}
   Knife: {fileID: 5240397389484403968}
   Speed: 0.05
   YOffsetCeiling: 0.5
