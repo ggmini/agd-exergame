@@ -145,11 +145,13 @@ public class PlayerSignUp : MonoBehaviour
         //Debug.Log($"Called with idx {idx}");
         if (connected)
         {
-            panel.connectionText.text = "Spieler " + (idx + 1).ToString() + " verbunden!";
+            panel.connectionText.text = "Spieler " + (idx + 1).ToString() + " verbunden";
+            panel.connectionText.color = new Color(0.4509804f, 0.427451f, 0.4196078f, 1);
         }
         else
         {
             panel.connectionText.text = "Spieler nicht verbunden";
+            panel.connectionText.color = new Color(0.654902f, 0.6392157f, 0.627451f, 1);
         }
     }
 
@@ -172,7 +174,7 @@ public class PlayerSignUp : MonoBehaviour
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
             connectScreen.SetActive(false);
-            LeanTween.alpha(blackscreen.rectTransform, 0f, 3f);
+            LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
         });
 
         GameStarted?.Invoke();

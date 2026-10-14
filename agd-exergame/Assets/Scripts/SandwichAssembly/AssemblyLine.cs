@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class AssemblyLine : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class AssemblyLine : MonoBehaviour
 
     private string deviceID;
 
+    [SerializeField] Image blackscreen;
     [SerializeField] bool useMouse;
     private bool lineDone;
     private bool _activated = false;
@@ -45,7 +47,11 @@ public class AssemblyLine : MonoBehaviour
             return;
         
         }
-        Stations[CurrentStationIdx].Camera.SetActive(true);
+        LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
+        {
+            Stations[CurrentStationIdx].Camera.SetActive(true);
+            LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
+        });
 
 
         //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
