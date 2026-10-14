@@ -119,11 +119,13 @@ public class PlayerSignUp : MonoBehaviour
     private void UpdateCanvas()
     {
         for (int i = 0; i < PlayerConnectPanels.Length; i++) {
+            //Debug.Log(PlayerConnectPanels[i]);
             int j = i;
             bool connected = !ConnectedDevices[i].Equals("");
+            PlayerConnectPanel panel = PlayerConnectPanels[i];
 
-            Enqueue(() => SetText(PlayerConnectPanels[i], j, connected));
-            Enqueue(() => SetImage(PlayerConnectPanels[i], connected));
+            Enqueue(() => SetText(panel, j, connected));
+            Enqueue(() => SetImage(panel, connected));
 
             //SetText(obj, i, connected);
             //SetImage(obj, connected);
