@@ -24,6 +24,7 @@ public class PlayerSignUp : MonoBehaviour
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
     [SerializeField] Camera[] SplitScreenCameras = {};
+    [SerializeField] TextMeshProUGUI ipText;
 
     public event Action<int, String> OnDeviceAssigned;
     public event Action<int> OnDeviceDeassigned;
@@ -46,6 +47,7 @@ public class PlayerSignUp : MonoBehaviour
         oldConnectionsCheck();
         WebSocketManager.Instance.OnSocketHandlerOpen += OnDeviceConnected;
         WebSocketManager.Instance.OnSocketHandlerClose += OnDeviceDisconnected;
+        ipText.text = WebSocketManager.Instance.Ip;
     }
 
     // Update is called once per frame
