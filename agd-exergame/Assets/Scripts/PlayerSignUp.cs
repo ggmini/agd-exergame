@@ -6,12 +6,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
+
 public class PlayerSignUp : MonoBehaviour
 {
     const int MAX_PLAYERS = 4;
     private int PlayerCount = 0;
 
-    private float Timer = 0;
+    private float timer = 0;
 
     private bool gameStarted = false;
 
@@ -23,7 +25,7 @@ public class PlayerSignUp : MonoBehaviour
     [SerializeField] GameObject connectScreen;
 
     [SerializeField] PlayerConnectPanel[] PlayerConnectPanels = { };
-    [SerializeField] Camera[] SplitScreenCameras = {};
+    [SerializeField] Camera[] SplitScreenCameras = { };
     [SerializeField] TextMeshProUGUI ipText;
 
     public event Action<int, String> OnDeviceAssigned;
@@ -47,7 +49,7 @@ public class PlayerSignUp : MonoBehaviour
         oldConnectionsCheck();
         WebSocketManager.Instance.OnSocketHandlerOpen += OnDeviceConnected;
         WebSocketManager.Instance.OnSocketHandlerClose += OnDeviceDisconnected;
-        ipText.text = WebSocketManager.Instance.Ip;
+        ipText.text = "Code eingeben: " + WebSocketManager.Instance.Ip.ToString();
     }
 
     // Update is called once per frame
@@ -60,8 +62,8 @@ public class PlayerSignUp : MonoBehaviour
 
         if (isReadyPressed())
         {
-            Timer += Time.deltaTime;
-            if (Timer >= ConfirmationDuration && !gameStarted)
+            timer += Time.deltaTime;
+            if (timer >= ConfirmationDuration && !gameStarted)
             {
                 Debug.Log("Timer exceeded");
                 StartGame();
@@ -69,10 +71,10 @@ public class PlayerSignUp : MonoBehaviour
         }
         else
         {
-            if (Timer > 0)
+            if (timer > 0)
             {
                 Debug.Log("Timer reset");
-                Timer = 0;
+                timer = 0;
             }
         }
     }
@@ -98,6 +100,7 @@ public class PlayerSignUp : MonoBehaviour
         }
 
         PlayerCount++;
+
         UpdateCanvas();
 
     }
@@ -129,6 +132,9 @@ public class PlayerSignUp : MonoBehaviour
 
     private void UpdateCanvas()
     {
+        if (CR.r != null)
+            CR.r.playerCount = PlayerCount;
+
         for (int i = 0; i < PlayerConnectPanels.Length; i++)
         {
             //Debug.Log(PlayerConnectPanels[i]);
@@ -179,7 +185,10 @@ public class PlayerSignUp : MonoBehaviour
         LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
         {
             connectScreen.SetActive(false);
-            blackscreensInGame.SetActive(true);
+            if (CR.r.playerCount > 2)
+            {
+                blackscreensInGame.SetActive(true);
+            }
             LeanTween.alpha(blackscreen.rectTransform, 0f, 2f);
         });
 
@@ -194,9 +203,9 @@ public class PlayerSignUp : MonoBehaviour
         if (PlayerCount == 1)
         {
             SplitScreenCameras[0].rect = new Rect(0f, 0f, 1f, 1f);
-            SplitScreenCameras[1].rect = new Rect(0f, 0f, 0f, 0f);
-            SplitScreenCameras[2].rect = new Rect(0f, 0f, 0f, 0f);
-            SplitScreenCameras[3].rect = new Rect(0f, 0f, 0f, 0f);
+            SplitScreenCameras[1].gameObject.SetActive(false);
+            SplitScreenCameras[2].gameObject.SetActive(false);
+            SplitScreenCameras[3].gameObject.SetActive(false);
         }
         else if (PlayerCount == 2)
         {

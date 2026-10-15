@@ -13,76 +13,98 @@ public class AssemblyLine : MonoBehaviour
     private int CurrentStationIdx;
 
     private string deviceID;
-    public string DeviceID {  get { return deviceID; } }
+    public string DeviceID { get { return deviceID; } }
 
     [SerializeField] Image blackscreen;
+    [SerializeField] Image blackscreenSingleplayer;
     [SerializeField] bool useMouse;
     private bool lineDone;
     public bool FirstToFinish = true;
     private bool _activated = false;
-    public bool activated {
+    public bool activated
+    {
         get { return _activated; }
     }
 
     public event Action<String> OnAssemblyLineFinished;
 
 
-    void Awake() {
+    void Awake()
+    {
         foreach (SandwichAssemblyStation station in Stations)
             if (useMouse) station.SetMouse();
     }
 
-    void Start() {
-        foreach (SandwichAssemblyStation station in Stations) {
+    void Start()
+    {
+        foreach (SandwichAssemblyStation station in Stations)
+        {
             station.AddStationClearedListener(HandleStationCleared);
         }
     }
 
-    private void HandleStationCleared(BaseStation Station) {
+    private void HandleStationCleared(BaseStation Station)
+    {
         Stations[CurrentStationIdx].Camera.SetActive(false);
         Stations[CurrentStationIdx].toggleIsActiveStation();
-        
+
         CurrentStationIdx++;
-        if (CurrentStationIdx >= Stations.Length) {
+        if (CurrentStationIdx >= Stations.Length)
+        {
             FinishAssemblyLine();
             lineDone = true;
             return;
-        
+
         }
-        Debug.Log("aaaaaaaaaaaa");
-        LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
+
+
+        if (CR.r.playerCount >= 3)
         {
-            Debug.Log("bbbbbbbbbbbbbb");
-            Stations[CurrentStationIdx].Camera.SetActive(true);
-            Debug.Log("ahsdajkhsbd");
-            LeanTween.alpha(blackscreen.rectTransform, 0f, 1f);
-        });
-        Debug.Log("dddddddddddddddd");
+
+            LeanTween.alpha(blackscreen.rectTransform, 1f, 1f).setOnComplete(() =>
+            {
+                Stations[CurrentStationIdx].Camera.SetActive(true);
+                LeanTween.alpha(blackscreen.rectTransform, 0f, 1f);
+            });
+        }
+        else if (CR.r.playerCount == 1)
+        {
+            LeanTween.alpha(blackscreenSingleplayer.rectTransform, 1f, 1f).setOnComplete(() =>
+            {
+                Stations[CurrentStationIdx].Camera.SetActive(true);
+                LeanTween.alpha(blackscreenSingleplayer.rectTransform, 0f, 1f);
+            });
+        }
 
         //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         StartCoroutine(activateNextStation());
     }
 
-    IEnumerator activateNextStation() {
+    IEnumerator activateNextStation()
+    {
         yield return new WaitForSeconds(2);
         Stations[CurrentStationIdx].toggleIsActiveStation();
     }
 
-    public void ActivateAssemblyLine(string id) {
+    public void ActivateAssemblyLine(string id)
+    {
         Stations[CurrentStationIdx].Camera.SetActive(true);
         deviceID = id;
         _activated = true;
-        foreach (SandwichAssemblyStation station in Stations) {
+        foreach (SandwichAssemblyStation station in Stations)
+        {
             station.deviceID = deviceID;
         }
         //gameObject.SetActive(true);
     }
 
-    public void DeactivateAssemblyLine() {
+    public void DeactivateAssemblyLine()
+    {
         gameObject.SetActive(false);
         deviceID = null;
         _activated = false;
-        foreach (SandwichAssemblyStation station in Stations) {
+        foreach (SandwichAssemblyStation station in Stations)
+        {
             station.deviceID = null;
         }
     }
