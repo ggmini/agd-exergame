@@ -40,9 +40,20 @@ A websocket library for C#. Required for the connection between the game and the
 Unity-Wiimote:
 A library to read inputs from Wiimotes. Scrapped feature. Installed in [plugins folder](agd-exergame/Assets/Plugins/Wiimote/). [Original Repository](https://github.com/Flafla2/Unity-Wiimote) by Flafla2, [updated repository](https://github.com/danger9819/Unity-Wiimote) by danger9819. Some slight changes/fixes were made in our project. 
 
+#### Known Bugs/Issues
+
+- Sometimes the game locks up on the final minigame (final cutting station).
+- The tracking for minigame 4 (assambly station) is not great.
+- When starting the game it sometimes fails to recognize the 5s start button holding. Either let go of the start button and try holding it for 5 seconds again or restart the game.
+
 ### Mobile Controller
 
 The mobile controller app built in Godot is located in [websocket-controller](websocket-controller).
+
+#### Known Bugs
+
+- A "grab" button is visible on the connection screen. It currently serves no function.
+- The app will not recognize if the websocket connection has been closed (i.e. because Great Cooking was closed). A manual disconnect is required to reconnect.
 
 ### Arduino Controller
 
