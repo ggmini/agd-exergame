@@ -43,7 +43,7 @@ A library to read inputs from Wiimotes. Scrapped feature. Installed in [plugins 
 #### Known Bugs/Issues
 
 - Sometimes the game locks up on the final minigame (final cutting station).
-- The tracking for minigame 4 (assambly station) is not great.
+- The tracking/sensitivity for the minigames has not been fine-tuned yet. Especially station 4 (assambly station) is not great.
 - When starting the game it sometimes fails to recognize the 5s start button holding. Either let go of the start button and try holding it for 5 seconds again or restart the game.
 
 ### Mobile Controller
