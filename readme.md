@@ -45,6 +45,8 @@ A library to read inputs from Wiimotes. Scrapped feature. Installed in [plugins 
 - Sometimes the game locks up on the final minigame (final cutting station).
 - The tracking/sensitivity for the minigames has not been fine-tuned yet. Especially station 4 (assambly station) is not great.
 - When starting the game it sometimes fails to recognize the 5s start button holding. Either let go of the start button and try holding it for 5 seconds again or restart the game.
+- The camera fov is incorrect for 2 players.
+- The black screen fade to next station doesn't work for 2 players.
 
 ### Mobile Controller
 
@@ -54,7 +56,3 @@ The mobile controller app built in Godot is located in [websocket-controller](we
 
 - A "grab" button is visible on the connection screen. It currently serves no function.
 - The app will not recognize if the websocket connection has been closed (i.e. because Great Cooking was closed). A manual disconnect is required to reconnect.
-
-### Arduino Controller
-
-TBA
