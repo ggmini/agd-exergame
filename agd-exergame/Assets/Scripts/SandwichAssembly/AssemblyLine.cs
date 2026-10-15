@@ -75,6 +75,10 @@ public class AssemblyLine : MonoBehaviour
                 LeanTween.alpha(blackscreenSingleplayer.rectTransform, 0f, 1f);
             });
         }
+        else if (CR.r.playerCount == 2)
+        {
+            Stations[CurrentStationIdx].Camera.SetActive(true);
+        }
 
         //StartCoroutine(Camera.MoveCamera(Vector3.right, Camera.xDistanceIncrement));
         StartCoroutine(activateNextStation());

@@ -1,7 +1,5 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
-using Image = UnityEngine.UI.Image;
 
 public class InactivePlayerCanvas : MonoBehaviour
 {
