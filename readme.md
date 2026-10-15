@@ -56,3 +56,4 @@ The mobile controller app built in Godot is located in [websocket-controller](we
 
 - A "grab" button is visible on the connection screen. It currently serves no function.
 - The app will not recognize if the websocket connection has been closed (i.e. because Great Cooking was closed). A manual disconnect is required to reconnect.
+- The app does not check if it was able to connect to the entered adress and will always proceed to the connected screen.
