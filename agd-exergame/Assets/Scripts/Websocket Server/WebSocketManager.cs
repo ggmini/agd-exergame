@@ -11,6 +11,7 @@ public class WebSocketManager : MonoBehaviour {
 
     [SerializeField]
     string ip = "-1";
+    public string Ip { get { return ip; } }
     int port = 9080;
 
     private static WebSocketManager instance;

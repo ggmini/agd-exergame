@@ -116,7 +116,7 @@ public class MainScene : MonoBehaviour {
         }
 
 
-        endScreen.winningText.text = $"Player {winningIdx + 1} wins!";
+        endScreen.winningText.text = $"Spieler {winningIdx + 1}";
 
     }
 
